@@ -1,5 +1,6 @@
 /logs/
 /target/
+bundle.js
 
 **/*.min.js
 !apidoc/template/**/*.min.js
