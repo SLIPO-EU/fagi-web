@@ -5,6 +5,7 @@
   "author": "nkaragiannakis@imis.athena-innovation.gr",
   "license": "Apache-2.0",
   "dependencies": {
+    "create-react-class": "^15.6.3",
     "css-loader": "^0.28.10",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

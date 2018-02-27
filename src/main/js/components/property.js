@@ -1,6 +1,18 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+var properties = require('../constants/properties');
+
+var options =  properties.map(function(property) {
+  return (
+   <option key={property.key} value ={property.value}>{property.label}</option>
+  );
+});
+
+var propertySelect = (< select title = "Choose property" >
+ {options}
+< /select>);
+  
 class Property extends React.Component {
 
   constructor(props) {
@@ -11,11 +23,7 @@ class Property extends React.Component {
 
     return (
       < div > 
-        < select title = "Choose property" >
-          <option value ="property 1">property 1</option>
-          <option value ="property 2">property 2</option>
-          <option value ="property 3">property 3</option>
-       < /select>
+        {propertySelect}
       < /div>
     );
   }

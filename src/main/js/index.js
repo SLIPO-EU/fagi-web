@@ -28,12 +28,22 @@ class App extends React.Component {
         < div className="RuleBox" > 
           < div align="center"> FAGI< /div > 
         < /div >
-        < div className="RuleBox" > 
-          < Property/ > 
-        < /div >
-        < div className="RuleBox" > 
-          < Property/ > 
-        < /div >
+        <div className="PropertyBox">
+           < div className="PropertyBox_content" > 
+             <label>Fusion property A:&nbsp;&nbsp;</label>
+           < /div >
+           < div className="PropertyBox_content" > 
+             < Property/ > 
+           < /div >
+        </div>
+        <div className="PropertyBox">
+          < div className="PropertyBox_content" > 
+            <label>Fusion property B:&nbsp;&nbsp;</label>
+          < /div >
+          < div className="PropertyBox_content" > 
+            < Property/ > 
+          < /div >
+        </div>
         < div > 
           < RuleBuilder/ > 
         < /div>
