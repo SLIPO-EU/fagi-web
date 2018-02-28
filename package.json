@@ -7,11 +7,19 @@
   "dependencies": {
     "create-react-class": "^15.6.3",
     "css-loader": "^0.28.10",
+    "history": "^4.7.2",
+    "redux": "^3.7.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",   
+    "react-router-dom": "^4.2.2",
+	"react-router-redux": "^5.0.0-alpha.8",
+	"react-intl": "^2.4.0",
+	"redux-thunk": "^2.2.0",	
     "react-querybuilder": "git+https://github.com/sapientglobalmarkets/react-querybuilder.git#master",
     "style-loader": "^0.20.2",
-    "webpack": "^3.11.0"
+    "webpack": "^3.11.0",
+    "lodash": "^4.17.4"
   },
   "scripts": {
     "start": "webpack --watch -d"

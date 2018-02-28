@@ -1,4 +1,4 @@
-var Combinators = 
+const Combinators = 
 [
     {name: 'and', label: 'AND'},
     {name: 'or', label: 'OR'},

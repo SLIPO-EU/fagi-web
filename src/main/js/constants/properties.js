@@ -1,4 +1,4 @@
-var Properties = [
+const Properties = [
   
   {
     key:"name",

@@ -1,4 +1,3 @@
-'use strict';
 
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -7,19 +6,18 @@ import QueryBuilder from 'react-querybuilder';
 
 import RuleBuilder from './components/rule-builder';
 import Property from './components/property';
-
+import { Provider } from 'react-redux';
+import { createStore } from 'redux' 
 require('./RuleBox.scss');
-               
+
+import fusionPropertyReducer from './reducers/fusionProperty';
+
+let store = createStore(fusionPropertyReducer);
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {
-
   }
 
   render() {
@@ -28,21 +26,8 @@ class App extends React.Component {
         < div className="RuleBox" > 
           < div align="center"> FAGI< /div > 
         < /div >
-        <div className="PropertyBox">
-           < div className="PropertyBox_content" > 
-             <label>Fusion property A:&nbsp;&nbsp;</label>
-           < /div >
-           < div className="PropertyBox_content" > 
-             < Property/ > 
-           < /div >
-        </div>
-        <div className="PropertyBox">
-          < div className="PropertyBox_content" > 
-            <label>Fusion property B:&nbsp;&nbsp;</label>
-          < /div >
-          < div className="PropertyBox_content" > 
-            < Property/ > 
-          < /div >
+        <div >
+          < Property/ > 
         </div>
         < div > 
           < RuleBuilder/ > 
@@ -53,6 +38,8 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-  < App / > ,
-  document.getElementById('react')
+   <Provider store={store}>
+       <App />
+   </Provider>,
+  document.getElementById('root')
 )

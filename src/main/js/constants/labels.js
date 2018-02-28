@@ -1,5 +1,4 @@
-var Labels = {
-  
+const Labels = {
     fields: {
         title: "Choose Function"
     },

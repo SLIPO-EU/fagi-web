@@ -1,4 +1,4 @@
-var Functions = [
+const Functions = [
 
   {
     name:"isDateKnownFormat",

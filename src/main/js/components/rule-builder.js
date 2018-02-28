@@ -7,7 +7,6 @@ var functions = require('../constants/functions');
 var labels = require('../constants/labels');
 var combinators = require('../constants/combinators');
 var properties = require('../constants/properties');
-var properties = require('../constants/properties');
 
 var options =  properties.map(function(property) {
   return (
@@ -34,36 +33,56 @@ function logQuery(query) {
 }
 
 function customOperatorSelector() {
+  
   let propertyInput = class PropertyA extends React.Component {
-      constructor(props) {
-          super(props);
-      }
+    
+    constructor(props) {
+        super(props);
+    }
 
-      render() {
-        console.log(this);
+    selectActionRulePropertyA(e){
+      console.log(e);
+    }
+    
+    selectActionRulePropertyB(e){
+      console.log(e);
+    }
+    
+    render() {
+        
+      console.log(this);
 
-        return (
-          <div className="PropertyBox">
-            <div className="PropertyBox_content">
-              <label forhtml="propertyA">Property for dataset A:&nbsp;</label>
-                {propertySelect}             
-            </div>
-            <div className="PropertyBox_content">
-              <label>Property for dataset B:&nbsp;</label>
-                {propertySelect}             
-            </div>
-            <div className="PropertyBox_content">
-              <label>Threshold:&nbsp;</label>
-            </div>
-            <div className="PropertyBox_content">
-              <input type="text"
-                    value={this.props.value}
-                    onChange={e => this.props.handleOnChange(e.target.value)}/>            
-            </div>
+      return (
+        <div className="PropertyBox">
+          <div className="PropertyBox_content">
+            <label forhtml="propertyA">Property for dataset A:&nbsp;</label>
+            < select 
+              onChange={e => this.selectActionRulePropertyA(e.target.value)} 
+              title = "Choose property" >
+              {options}
+            < /select>
           </div>
-        );
-      }
+          <div className="PropertyBox_content">
+            <label>Property for dataset B:&nbsp;</label>
+            < select 
+              onChange={e => this.selectActionRulePropertyA(e.target.value)} 
+              title = "Choose property" >
+              {options}
+            < /select>
+          </div>
+          <div className="PropertyBox_content">
+            <label>Threshold:&nbsp;</label>
+          </div>
+          <div className="PropertyBox_content">
+            <input type="text"
+                  value={this.props.value}
+                  onChange={e => click(e.target.value, this)}/>
+          </div>
+        </div>
+      );
+    }
   };
+  
   return propertyInput;
 }
 
@@ -87,15 +106,14 @@ class RuleBuilder extends React.Component {
   }
   
   componentWillMount() {
+
+  }
   
-    this.setState({fusionProps: null});
-    console.log(this);
-  }  
+  componentDidMount() {
+
+  }
   
   render() {
-
-    console.log(this);
-
     return (
       < div className="query-builder"> 
         < QueryBuilder
