@@ -4,6 +4,7 @@ const ReactDOM = require('react-dom');
 
 import QueryBuilder from 'react-querybuilder';
 
+import ActionRuleBuilder from './components/actionRule-builder';
 import RuleBuilder from './components/rule-builder';
 import Property from './components/property';
 import { Provider } from 'react-redux';
@@ -27,11 +28,8 @@ class App extends React.Component {
           < div align="center"> FAGI< /div > 
         < /div >
         <div >
-          < Property/ > 
-        </div>
-        < div > 
           < RuleBuilder/ > 
-        < /div>
+        </div>
       < /div >
     )
   }

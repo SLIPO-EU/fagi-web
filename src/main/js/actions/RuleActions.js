@@ -1,6 +1,6 @@
 var types = require('../constants/RuleActionTypes');
 
-var RuleActions = {
+var ActionRuleActions = {
 
   addRule : function(rules) {
     return {
@@ -16,4 +16,4 @@ var RuleActions = {
   }
 };
   
-module.exports = RuleActions;
+module.exports = ActionRuleActions;
