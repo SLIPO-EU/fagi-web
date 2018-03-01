@@ -61,7 +61,6 @@ class Property extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     propertyA: state.propertyA,
     propertyB: state.propertyB

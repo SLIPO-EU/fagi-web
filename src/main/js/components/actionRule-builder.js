@@ -29,6 +29,7 @@ var controlElements = {
 }
 
 function logQuery(query) {
+  console.log('query:');
   console.log(query);
 }
 
@@ -49,8 +50,6 @@ function customOperatorSelector() {
     }
     
     render() {
-        
-      console.log(this);
 
       return (
         <div className="PropertyBox">
