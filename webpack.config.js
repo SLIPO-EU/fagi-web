@@ -6,7 +6,7 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
 	entry: [
-		'./src/main/js/index.js',
+		'./src/main/js/Main.js',
 		'./src/main/js/RuleBox.scss',
 	],
 	output: {

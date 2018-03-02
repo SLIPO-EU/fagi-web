@@ -5,25 +5,35 @@ var { bindActionCreators } = require('redux');
 var { connect, Provider } = require('react-redux');
 
 import QueryBuilder from 'react-querybuilder';
-import ActionRuleBuilder from './actionRule-builder';
+import ActionRuleBuilder from './ActionRuleBuilder';
 import Property from './property';
 import fusionPropertyReducer from '../reducers/fusionProperty';
 
+var { addRule, removeRule } = require('../actions/RuleBuilderActions');
 
-  
+var ind = {key:0};
+
 class RuleBuilder extends React.Component {
 
   constructor(props) {
     super(props);
-  }
-  
-  componentWillMount(){
-    console.log(this);
-  }
-  
-  deleteRule(id) {
 
-    var updatedRules = this.props.rules.filter(function( rule ) {
+    this.state = {
+        rules: [{id:0}]
+    };
+
+  }
+  
+  addRule(e) {
+    ind.key++;
+    var newRules = this.state.rules;
+    newRules.push({id:ind.key});
+
+    this.setState({rules : newRules});
+
+  }  
+  deleteRule(id) {
+    var updatedRules = this.state.rules.filter(function( rule ) {
       return rule.id !== id;
     });
 
@@ -53,17 +63,20 @@ class RuleBuilder extends React.Component {
   }
   
   render() {
-
+    
+    var showRules = this.state ?  this.getRules(this.state.rules) : [];
     return (
      <div>
-      {this.getRules(this.props.rules)}
+        <div>
+          <button className = "Button" type="button" onClick={e => this.addRule()}>Add Rule</button> 
+        </div>
+     
+     <div>
+      {showRules}
+      </div>
       </div>
     )
   }
-}
-
-RuleBuilder.defaultProps = {
-  rules: []
 }
 
 function mapStateToProps(state) {
@@ -74,9 +87,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { addRule, removeRule }) , dispatch)
   };
 }
 
-//export default connect(mapStateToProps, mapDispatchToProps)(RuleBuilder);
-export default RuleBuilder;
+export default connect(mapStateToProps, mapDispatchToProps)(RuleBuilder);

@@ -1,10 +1,9 @@
-var {combineReducers} = require('redux');
-var {routerReducer} = require('react-router-redux');
+import {combineReducers} from "redux";
 
-var fusionProperty = require('./fusionProperty');
+import fusionProperties from "./fusionProperty";
+import app from "./app";
 
-var indexReducer = combineReducers({
-  fusionProperty
-});
-
-module.exports = indexReducer;
+export default combineReducers({
+  app,
+  fusionProperties
+})
