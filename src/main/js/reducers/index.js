@@ -1,9 +1,11 @@
 import {combineReducers} from "redux";
 
-import fusionProperties from "./fusionProperty";
 import app from "./app";
+import ruleBuilder from "./ruleBuilder";
+import rule from "./rule";
 
 export default combineReducers({
   app,
-  fusionProperties
+  ruleBuilder,
+  rule
 })

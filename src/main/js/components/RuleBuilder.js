@@ -17,18 +17,19 @@ class RuleBuilder extends React.Component {
     this.deleteRule = this.deleteRule.bind(this)
 
     this.state = {
-        rules: [{id:0}]
+        rules: []
     };
   }
   
-  addRule(e) {
+  addRule() {
     ind.key++;
     var newRules = this.state.rules;
     newRules.push({id:ind.key});
 
     this.setState({rules : newRules});
-
-  }  
+    //this.props.actions.addRule({id:ind.key});
+  }
+  
   deleteRule(id) {
     var updatedRules = this.state.rules.filter(function( rule ) {
       return rule.id !== id;
@@ -39,18 +40,19 @@ class RuleBuilder extends React.Component {
    
   render() {
 
+    var ruleComponents = this.state.rules.length > 0 ? (this.state.rules.map(r => (
+            <Rule 
+              key={r.id} 
+              id={r.id}
+              onDelete={this.deleteRule}/>))) : null
+              
     return (
       <div>
         <div>
           <button className = "Button" type="button" onClick={e => this.addRule()}>Add Rule</button> 
         </div>
         <div>
-          {this.state.rules.map(r => (
-            <Rule 
-              key={r.id} 
-              id={r.id}
-              onDelete={this.deleteRule}/>
-            ))}
+          {ruleComponents}
         </div>
       </div>
     )

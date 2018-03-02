@@ -21,18 +21,13 @@ class Property extends React.Component {
     super(props);
   }
   
-  selectPropertyA(e){
-    console.log(e);
-    this.props.actions.setPropertyA(e);
-  }
-
-  selectPropertyB(e){
-    console.log(e);
-    this.props.actions.setPropertyB(e);
+  componentDidMount() {
+    this.props.onSelectA(properties[0].value);
+    this.props.onSelectB(properties[0].value);
   }
   
   render() {
-
+    console.log(this);
     return (
       <div>
         <div className="PropertyBox">
@@ -41,7 +36,7 @@ class Property extends React.Component {
           < /div >
           < div className="PropertyBox_content" > 
             < select title = "Choose property" 
-              onChange={e => this.selectPropertyA(e.target.value)}  >            
+              onChange={e => this.props.onSelectA(e.target.value)}  >            
               {options}
             < /select>
           < /div >
@@ -52,7 +47,7 @@ class Property extends React.Component {
           < /div >
           < div className="PropertyBox_content" > 
             < select title = "Choose property" 
-              onChange={e => this.selectPropertyB(e.target.value)}  >            
+              onChange={e => this.props.onSelectB(e.target.value)}  >            
               {options}
             < /select>
           < /div >

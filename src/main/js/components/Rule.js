@@ -3,16 +3,32 @@ var { bindActionCreators } = require('redux');
 var { connect} = require('react-redux');
 
 import ActionRuleBuilder from './ActionRuleBuilder';
-import PropertyPair from './PropertyPair';
+import FusionPropertyPair from './PropertyPair';
 
-var { setFusionPropertyA, setFusionPropertyB } = require('../actions/RuleActions');
+var { setRuleId, setFusionPropertyA, setFusionPropertyB } = require('../actions/RuleActions');
 
 class Rule extends React.Component {
 
   constructor(props) {
     super(props);
+    //bind delete handler to be passed to 'Rule'
+    this.selectPropertyA = this.selectPropertyA.bind(this);
+    this.selectPropertyB = this.selectPropertyB.bind(this);
+
+    this.props.actions.setRuleId(this.props.id);
+
+  }
+  
+  selectPropertyA(e){
+    console.log(e);
+    this.props.actions.setFusionPropertyA(e);
   }
 
+  selectPropertyB(e){
+    console.log(e);
+    this.props.actions.setFusionPropertyB(e);
+  }
+  
   render() {
 
     return (
@@ -24,7 +40,10 @@ class Rule extends React.Component {
            </span>
         </div>
         <div >
-          < PropertyPair / >
+          < FusionPropertyPair 
+              onSelectA={this.selectPropertyA}
+              onSelectB={this.selectPropertyB}
+          / >
         </div>
         < div >
           < ActionRuleBuilder  />
@@ -36,6 +55,20 @@ class Rule extends React.Component {
 }
 
 function mapStateToProps(state) {
+
+  var lala = [];
+  var newRule = {};
+  newRule.id = state.rule.id;
+  newRule.fusionPropertyA = state.rule.fusionPropertyA;
+  newRule.fusionPropertyB = state.rule.fusionPropertyB;
+
+   //replace in rules by current id.
+   if(state.rule.id){
+     var objIndex = state.ruleBuilder.rules.findIndex((obj => obj.id == state.rule.id));
+
+     objIndex !==-1 ? state.ruleBuilder.rules[objIndex] = newRule : state.ruleBuilder.rules.push(newRule);
+   }
+
   return {
     rule: state.id,
     rule: state.fusionPropertyA,
@@ -45,7 +78,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { setFusionPropertyA, setFusionPropertyB }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { setRuleId, setFusionPropertyA, setFusionPropertyB }) , dispatch)
   };
 }
 

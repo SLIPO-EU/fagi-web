@@ -1,16 +1,16 @@
 var types = require('../constants/RuleBuilderActionTypes');
 
 var RuleBuilderActions = {
-  addRule : function(rules) {
+  addRule : function(rule) {
     return {
       type : types.ADD_RULE,
-      rules : rules
+      rule : rule
     };
   },
-  removeRule : function(rules) {
+  removeRule : function(rule) {
     return {
       type : types.REMOVE_RULE,
-      rules : rules
+      rule : rule
     };
   }
 };
