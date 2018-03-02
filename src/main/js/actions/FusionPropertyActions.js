@@ -1,19 +1,13 @@
-var types = require('../constants/FusionPropertyActionTypes');
+var types = require('../constants/PropertyPairActionTypes');
 
-var FusionPropertyActions = {
+var FusionPropertyPairActions = {
 
-  setPropertyA : function(propertyA) {
+  setProperty : function(fusionProperty) {
     return {
-      type : types.SET_PROPERTY_A,
-      propertyA : propertyA
-    };
-  },
-  setPropertyB : function(propertyB) {
-    return {
-      type : types.SET_PROPERTY_B,
-      propertyB : propertyB
+      type : types.SET_PROPERTY,
+      fusionProperty : fusionProperty
     };
   }
 };
   
-module.exports = FusionPropertyActions;
+module.exports = FusionPropertyPairActions;

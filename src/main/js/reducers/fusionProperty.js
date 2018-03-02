@@ -1,4 +1,4 @@
-var types = require('../constants/FusionPropertyActionTypes');
+var types = require('../constants/PropertyPairActionTypes');
 
 var initialState = {
   propertyA: null,

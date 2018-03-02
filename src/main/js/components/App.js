@@ -1,16 +1,10 @@
 require('../RuleBox.scss');
 const React = require('react');
-const ReactDOM = require('react-dom');
 
-import { Provider, connect } from 'react-redux';
+import { connect } from 'react-redux';
 var { bindActionCreators } = require('redux');
 
-import QueryBuilder from 'react-querybuilder';
-import ActionRuleBuilder from '../components/ActionRuleBuilder';
 import RuleBuilder from '../components/RuleBuilder';
-import Property from '../components/property';
-import fusionPropertyReducer from '../reducers/fusionProperty';
-
 var { fuse } = require('../actions/AppActions');
 
 var ind = {key:0};
@@ -26,6 +20,10 @@ class App extends React.Component {
     this.setState({rules : rules});    
   }
 
+  fuse(){
+    console.log('fuse');
+  }
+  
   render() {
     return (
       < div > 
@@ -33,13 +31,18 @@ class App extends React.Component {
           < div align="center"> FAGI < /div >
         < /div >
         <div >
-          < RuleBuilder
-          /> 
+          < RuleBuilder /> 
+        </div>
+        <div>
+           <span style={{float: 'right'}}>
+             <button className = "Button" type="button" onClick={this.fuse}>Fuse</button> 
+           </span>
         </div>
       < /div >
     )
   }
 }
+
 function mapStateToProps(state) {
   return {
     success: state.success,

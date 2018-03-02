@@ -1,16 +1,11 @@
-require('../RuleBox.scss');
 const React = require('react');
-const ReactDOM = require('react-dom');
 var { bindActionCreators } = require('redux');
-var { connect, Provider } = require('react-redux');
-
-import QueryBuilder from 'react-querybuilder';
-import ActionRuleBuilder from './ActionRuleBuilder';
-import Property from './property';
-import fusionPropertyReducer from '../reducers/fusionProperty';
+var { connect } = require('react-redux');
+import Rule from './Rule';
 
 var { addRule, removeRule } = require('../actions/RuleBuilderActions');
 
+//begin with a default zero rule index
 var ind = {key:0};
 
 class RuleBuilder extends React.Component {
@@ -18,10 +13,12 @@ class RuleBuilder extends React.Component {
   constructor(props) {
     super(props);
 
+    //bind delete handler to be passed to 'Rule'
+    this.deleteRule = this.deleteRule.bind(this)
+
     this.state = {
         rules: [{id:0}]
     };
-
   }
   
   addRule(e) {
@@ -39,41 +36,22 @@ class RuleBuilder extends React.Component {
 
     this.setState({rules : updatedRules});
   }
-  
-  getRules(rules){
-    var rulesView = rules.map(r => (
-     <div key={r.id}>
-      < div  className = "Rule" > 
-        <div>
-           <span style={{float: 'right'}}>
-             <button className = "Button" type="button" onClick={e => this.deleteRule(r.id)}>Delete Rule</button> 
-           </span>
-        </div>
-        <div >
-          < Property / >
-        </div>
-        < div >
-          < ActionRuleBuilder  />
-        < /div>
-      < /div >
-    </div>)
-    );
    
-    return rulesView;
-  }
-  
   render() {
-    
-    var showRules = this.state ?  this.getRules(this.state.rules) : [];
+
     return (
-     <div>
+      <div>
         <div>
           <button className = "Button" type="button" onClick={e => this.addRule()}>Add Rule</button> 
         </div>
-     
-     <div>
-      {showRules}
-      </div>
+        <div>
+          {this.state.rules.map(r => (
+            <Rule 
+              key={r.id} 
+              id={r.id}
+              onDelete={this.deleteRule}/>
+            ))}
+        </div>
       </div>
     )
   }

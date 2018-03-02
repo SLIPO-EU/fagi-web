@@ -5,11 +5,13 @@ var { connect } = require('react-redux');
 
 var properties = require('../constants/properties');
 
-var { setPropertyA, setPropertyB } = require('../actions/FusionPropertyActions');
+var { setPropertyA, setPropertyB } = require('../actions/PropertyPairActions');
     
 var options =  properties.map(function(property) {
   return (
-   <option key={property.key} value ={property.value}>{property.label}</option>
+   <option 
+    key={property.key} 
+    value ={property.value}>{property.label}</option>
   );
 });
 
