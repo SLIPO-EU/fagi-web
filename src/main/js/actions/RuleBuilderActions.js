@@ -1,4 +1,4 @@
-var types = require('../constants/RuleBuilderActionTypes');
+var types = require('../constants/RuleAndBuilderActionTypes');
 
 var RuleBuilderActions = {
   addRule : function(rule) {
@@ -7,10 +7,10 @@ var RuleBuilderActions = {
       rule : rule
     };
   },
-  removeRule : function(rule) {
+  removeRule : function(ruleId) {
     return {
       type : types.REMOVE_RULE,
-      rule : rule
+      ruleId : ruleId
     };
   }
 };

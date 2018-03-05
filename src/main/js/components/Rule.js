@@ -19,14 +19,20 @@ class Rule extends React.Component {
 
   }
   
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  }   
+  
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps);
+  }
+
   selectPropertyA(e){
-    console.log(e);
-    this.props.actions.setFusionPropertyA(e);
+    this.props.actions.setFusionPropertyA(this.props.id, e);
   }
 
   selectPropertyB(e){
-    console.log(e);
-    this.props.actions.setFusionPropertyB(e);
+    this.props.actions.setFusionPropertyB(this.props.id, e);
   }
   
   render() {
@@ -55,19 +61,6 @@ class Rule extends React.Component {
 }
 
 function mapStateToProps(state) {
-
-  var lala = [];
-  var newRule = {};
-  newRule.id = state.rule.id;
-  newRule.fusionPropertyA = state.rule.fusionPropertyA;
-  newRule.fusionPropertyB = state.rule.fusionPropertyB;
-
-   //replace in rules by current id.
-   if(state.rule.id){
-     var objIndex = state.ruleBuilder.rules.findIndex((obj => obj.id == state.rule.id));
-
-     objIndex !==-1 ? state.ruleBuilder.rules[objIndex] = newRule : state.ruleBuilder.rules.push(newRule);
-   }
 
   return {
     rule: state.id,

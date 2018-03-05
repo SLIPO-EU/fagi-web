@@ -17,35 +17,46 @@ class RuleBuilder extends React.Component {
     this.deleteRule = this.deleteRule.bind(this)
 
     this.state = {
-        rules: []
+        rules: [],
+        update:false
     };
   }
   
   addRule() {
     ind.key++;
     var newRules = this.state.rules;
-    newRules.push({id:ind.key});
+    newRules.push({id:ind.key, fusionPropertyA:null, fusionPropertyB:null});
 
     this.setState({rules : newRules});
-    //this.props.actions.addRule({id:ind.key});
+    this.props.actions.addRule({id:ind.key});
+
   }
   
   deleteRule(id) {
+
     var updatedRules = this.state.rules.filter(function( rule ) {
       return rule.id !== id;
     });
 
-    this.setState({rules : updatedRules});
+    this.setState({rules : updatedRules, update:!this.state.update});
+    this.props.actions.removeRule(id);
+
   }
-   
+  
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
+  } 
+  
   render() {
 
-    var ruleComponents = this.state.rules.length > 0 ? (this.state.rules.map(r => (
-            <Rule 
-              key={r.id} 
-              id={r.id}
-              onDelete={this.deleteRule}/>))) : null
-              
+      var ruleComponents = this.state.rules.length > 0 ? (this.state.rules.map(r => (
+              <Rule 
+                updateRules={this.state.update}
+                key={r.id} 
+                id={r.id}
+                onDelete={this.deleteRule}/>))) : null;  
+
     return (
       <div>
         <div>

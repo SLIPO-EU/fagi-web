@@ -5,20 +5,24 @@ var initialState = {
 };
 
 var ruleBuilder = function(state, action) {
-    
+
   switch (action.type) {
     case types.ADD_RULE:
 
       var updatedRules = state.rules;
       updatedRules.push(action.rule);
+
       return Object.assign({}, state, {
-        rules : updatedRules,
-        ruleGroup : updatedRules
+        rules : updatedRules
       });
     case types.REMOVE_RULE:
-      //TODO: remove by id
+
+      var _updatedRules = state.rules;
+      var updatedRules2 = _updatedRules.filter(function( rule ) {
+        return rule.id !== action.ruleId;
+      });      
       return Object.assign({}, state, {
-        rules : action.rules
+        rules : updatedRules2
       });   
     default:
       return state || initialState;

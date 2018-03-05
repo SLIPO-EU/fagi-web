@@ -1,4 +1,4 @@
-var types = require('../constants/RuleActionTypes');
+var types = require('../constants/RuleAndBuilderActionTypes');
 
 var RuleActions = {
   setRuleId : function(id) {
@@ -7,15 +7,17 @@ var RuleActions = {
       id : id
     };
   },  
-  setFusionPropertyA : function(fusionPropertyA) {
+  setFusionPropertyA : function(id, fusionPropertyA) {
     return {
       type : types.SET_FUSION_PROPERTY_A,
+      activeId: id,
       fusionPropertyA : fusionPropertyA
     };
   },
-  setFusionPropertyB : function(fusionPropertyB) {
+  setFusionPropertyB : function(id, fusionPropertyB) {
     return {
       type : types.SET_FUSION_PROPERTY_B,
+      activeId: id,
       fusionPropertyB : fusionPropertyB
     };
   }  
