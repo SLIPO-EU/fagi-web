@@ -7,30 +7,23 @@ var functions = require('../constants/functions');
 var labels = require('../constants/labels');
 var combinators = require('../constants/combinators');
 var properties = require('../constants/properties');
+var datasetIdentifiers = require('../constants/DatasetIdentifiers');
 
-var options =  properties.map(function(property) {
+var propertyOptions =  properties.map(function(property) {
   return (
     <option key={property.key} value ={property.value}>{property.label}</option>
   );
 });
 
-var propertySelect = 
-  (
-    < select 
-      onChange={e => this.props.handleOnChange(e.target.value)} 
-      title = "Choose property" >
-      {options}
-    < /select>
+var datasetOptions =  datasetIdentifiers.map(function(d) {
+  return (
+    <option key={d.key} value ={d.value}>{d.label}</option>
   );
+}); 
 
 var controlElements = {
   operatorSelector: customOperatorSelector(),
   valueEditor: customValueEditor()
-}
-
-function logQuery(query) {
-  console.log('query:');
-  console.log(query);
 }
 
 function customOperatorSelector() {
@@ -39,6 +32,7 @@ function customOperatorSelector() {
     
     constructor(props) {
         super(props);
+        
     }
 
     selectActionRulePropertyA(e){
@@ -49,34 +43,80 @@ function customOperatorSelector() {
       console.log(e);
     }
     
+    componentDidMount(){
+      this.setState({threshold: 0});
+    }
+    
+    onThresholdChange(e){
+      console.log(e);
+      console.log(this);
+    }
+
+    
     render() {
 
-      return (
-        <div className="PropertyBox">
+      console.log(this);
+      
+      let selectedFunction = functions.find(f => f.name === this.props.field);
+
+      var thresholdLabel = selectedFunction.parCount === 3 ? (<div className="PropertyBox_content">
+          <label>Threshold:&nbsp;</label>
+        </div>) : null;
+
+      var thresholdField = selectedFunction.parCount === 3 ? (
+        <div className="PropertyBox_content">
+          <input type="text"
+            value={this.state.value}
+            onChange={e => this.onThresholdChange(e.target.value, this)}/>
+        </div>
+        ) : null;
+
+      var datasetSelection = selectedFunction.parCount === 1 ? (
+        <div className="PropertyBox_content">
+          <label forhtml="propertyA">Property for dataset A:&nbsp;</label>
+          < select 
+            onChange={e => this.selectActionRulePropertyA(e.target.value)} 
+            title = "Choose property" >
+            {datasetOptions}
+          < /select>
+        </div>
+      ) : null;
+      
+      var propertySelectionLabel = selectedFunction.parCount === 1 ? 'Property: ' : 'Property for dataset A:';
+      
+      var selection1 = (
+          <div className="PropertyBox_content">
+            <label forhtml="propertyA">{propertySelectionLabel}&nbsp;</label>
+            < select 
+              onChange={e => this.selectActionRulePropertyA(e.target.value)} 
+              title = "Choose property" >
+              {propertyOptions}
+            < /select>
+          </div>
+       );
+
+      var selection2 = selectedFunction.parCount !== 1 ? (
           <div className="PropertyBox_content">
             <label forhtml="propertyA">Property for dataset A:&nbsp;</label>
             < select 
               onChange={e => this.selectActionRulePropertyA(e.target.value)} 
               title = "Choose property" >
-              {options}
+              {propertyOptions}
             < /select>
           </div>
-          <div className="PropertyBox_content">
-            <label>Property for dataset B:&nbsp;</label>
-            < select 
-              onChange={e => this.selectActionRulePropertyA(e.target.value)} 
-              title = "Choose property" >
-              {options}
-            < /select>
-          </div>
-          <div className="PropertyBox_content">
-            <label>Threshold:&nbsp;</label>
-          </div>
-          <div className="PropertyBox_content">
-            <input type="text"
-                  value={this.props.value}
-                  onChange={e => click(e.target.value, this)}/>
-          </div>
+       ) : null;
+       
+      
+      var propertyASelect;
+      var propertyBSelect;
+      
+      return (
+        <div className="PropertyBox">
+          {datasetSelection}
+          {selection1}
+          {selection2}
+          {thresholdLabel}
+          {thresholdField}
         </div>
       );
     }
@@ -86,12 +126,17 @@ function customOperatorSelector() {
 }
 
 function customValueEditor() {
+  
       let properties = class Properties extends React.Component {
           constructor(props) {
               super(props);
           }
+          
           render() {
-              return (<span></span>);
+              return (
+                <span>
+                </span>
+               );
           }
       };
       return properties;
@@ -102,6 +147,7 @@ class ActionRuleBuilder extends React.Component {
 
   constructor(props) {
     super(props);
+    this.logQuery = this.logQuery.bind(this)
   }
   
   componentWillMount() {
@@ -111,6 +157,11 @@ class ActionRuleBuilder extends React.Component {
   componentDidMount() {
 
   }
+    
+  logQuery(e){
+    console.log('query:');
+    console.log(e);
+  }  
   
   render() {
     return (
@@ -120,7 +171,7 @@ class ActionRuleBuilder extends React.Component {
           translations = {labels}
           combinators = {combinators}
           controlElements = {controlElements}
-          onQueryChange = {logQuery} / > 
+          onQueryChange = {this.logQuery} / > 
       < /div>
     );
   }

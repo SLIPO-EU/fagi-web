@@ -16,12 +16,13 @@ class App extends React.Component {
   }
   
   componentWillMount(){
-    var rules = [{id:0}];
-    this.setState({rules : rules});    
+//    var rules = [{id:0}];
+//    this.setState({rules : rules});    
   }
 
   fuse(){
-    console.log('fuse');
+    console.log(this);
+    this.props.actions.fuse();
   }
   
   render() {
@@ -35,7 +36,7 @@ class App extends React.Component {
         </div>
         <div>
            <span style={{float: 'right'}}>
-             <button className = "Button" type="button" onClick={this.fuse}>Fuse</button> 
+             <button className = "Button" type="button" onClick={e => this.fuse()}>Fuse</button> 
            </span>
         </div>
       < /div >

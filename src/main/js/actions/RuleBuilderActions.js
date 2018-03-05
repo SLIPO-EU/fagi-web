@@ -1,4 +1,4 @@
-var types = require('../constants/RuleAndBuilderActionTypes');
+var types = require('../constants/RuleActionTypes');
 
 var RuleBuilderActions = {
   addRule : function(rule) {

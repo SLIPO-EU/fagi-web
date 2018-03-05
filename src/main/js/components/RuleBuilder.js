@@ -14,14 +14,14 @@ class RuleBuilder extends React.Component {
     super(props);
 
     //bind delete handler to be passed to 'Rule'
-    this.deleteRule = this.deleteRule.bind(this)
+    this.deleteRule = this.deleteRule.bind(this);
 
     this.state = {
         rules: [],
         update:false
     };
   }
-  
+
   addRule() {
     ind.key++;
     var newRules = this.state.rules;
@@ -50,12 +50,12 @@ class RuleBuilder extends React.Component {
   
   render() {
 
-      var ruleComponents = this.state.rules.length > 0 ? (this.state.rules.map(r => (
-              <Rule 
-                updateRules={this.state.update}
-                key={r.id} 
-                id={r.id}
-                onDelete={this.deleteRule}/>))) : null;  
+    var ruleComponents = this.state.rules.length > 0 ? (this.state.rules.map(r => (
+      <Rule 
+        updateRules={this.state.update}
+        key={r.id} 
+        id={r.id}
+        onDelete={this.deleteRule}/>))) : null;
 
     return (
       <div>

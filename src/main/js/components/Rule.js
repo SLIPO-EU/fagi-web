@@ -5,7 +5,17 @@ var { connect} = require('react-redux');
 import ActionRuleBuilder from './ActionRuleBuilder';
 import FusionPropertyPair from './PropertyPair';
 
+var fusionActionConstants = require('../constants/FusionActionConstants');
+
 var { setRuleId, setFusionPropertyA, setFusionPropertyB } = require('../actions/RuleActions');
+
+var options =  fusionActionConstants.map(function(action) {
+  return (
+   <option 
+    key={action.key} 
+    value ={action.value}>{action.label}</option>
+  );
+});
 
 class Rule extends React.Component {
 
@@ -18,14 +28,6 @@ class Rule extends React.Component {
     this.props.actions.setRuleId(this.props.id);
 
   }
-  
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
-  }   
-  
-  componentWillReceiveProps(nextProps){
-    console.log(nextProps);
-  }
 
   selectPropertyA(e){
     this.props.actions.setFusionPropertyA(this.props.id, e);
@@ -33,6 +35,11 @@ class Rule extends React.Component {
 
   selectPropertyB(e){
     this.props.actions.setFusionPropertyB(this.props.id, e);
+  }
+  
+  selectFusionAction(a){
+    console.log(a);
+    //this.props.actions.setFusionAction();
   }
   
   render() {
@@ -52,8 +59,21 @@ class Rule extends React.Component {
           / >
         </div>
         < div >
-          < ActionRuleBuilder  />
+          < ActionRuleBuilder
+            
+          />
         < /div>
+        <div className="PropertyBox">
+          < div className="PropertyBox_content" > 
+            <label>Fusion Action:&nbsp;&nbsp;</label>
+          < /div >
+          < div className="PropertyBox_content" > 
+            < select title = "Choose Fusion Action" 
+              onChange={e => this.selectFusionAction(e.target.value)}  >            
+              {options}
+            < /select>
+          < /div >
+        </div>     
       < /div >
     </div>);
     
