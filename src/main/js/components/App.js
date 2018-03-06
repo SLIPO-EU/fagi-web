@@ -5,19 +5,24 @@ import { connect } from 'react-redux';
 var { bindActionCreators } = require('redux');
 
 import RuleBuilder from '../components/RuleBuilder';
+
 var { fuse } = require('../actions/AppActions');
+var datasetActionConstants = require('../constants/DatasetActionConstants');
 
 var ind = {key:0};
+
+var options =  datasetActionConstants.map(function(action) {
+  return (
+   <option 
+    key={action.key} 
+    value ={action.value}>{action.label}</option>
+  );
+});
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
-  }
-  
-  componentWillMount(){
-//    var rules = [{id:0}];
-//    this.setState({rules : rules});    
   }
 
   fuse(){
@@ -34,11 +39,20 @@ class App extends React.Component {
         <div >
           < RuleBuilder /> 
         </div>
-        <div>
-           <span style={{float: 'right'}}>
-             <button className = "Button" type="button" onClick={e => this.fuse()}>Fuse</button> 
-           </span>
-        </div>
+        <span style={{float: 'right'}}>
+          <div className = "FusionBox">
+            <button  className = "FusionButton" type="button" onClick={e => this.fuse()}>Fuse</button> 
+            < div className="PropertyBox_content" > 
+              <label>Default Dataset Action:&nbsp;&nbsp;</label>
+            < /div >
+          < div className="PropertyBox_content" > 
+            < select title = "Choose Default Fusion Action" 
+              onChange={e => this.selectFusionAction(e.target.value)}  >            
+              {options}
+            < /select>
+          < /div >
+          </div> 
+        </span>       
       < /div >
     )
   }
