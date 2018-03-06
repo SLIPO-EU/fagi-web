@@ -30,22 +30,22 @@ class Property extends React.Component {
 
     return (
       <div>
-        <div className="PropertyBox">
-          < div className="PropertyBox_content" > 
+        <div className="RuleSelectBox">
+          < div className="RuleSelectBox_content" > 
             <label>Fusion property A:&nbsp;&nbsp;</label>
           < /div >
-          < div className="PropertyBox_content" > 
+          < div className="RuleSelectBox_content" > 
             < select title = "Choose property" 
               onChange={e => this.props.onSelectA(e.target.value)}  >            
               {options}
             < /select>
           < /div >
         </div>
-        <div className="PropertyBox">
-          < div className="PropertyBox_content" > 
+        <div className="RuleSelectBox">
+          < div className="RuleSelectBox_content" > 
             <label>Fusion property B:&nbsp;&nbsp;</label>
           < /div >
-          < div className="PropertyBox_content" > 
+          < div className="RuleSelectBox_content" > 
             < select title = "Choose property" 
               onChange={e => this.props.onSelectB(e.target.value)}  >            
               {options}

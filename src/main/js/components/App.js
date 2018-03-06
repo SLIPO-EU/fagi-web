@@ -33,7 +33,7 @@ class App extends React.Component {
   render() {
     return (
       < div > 
-        < div className="RuleBox" > 
+        < div className="Logo" > 
           < div align="center"> FAGI < /div >
         < /div >
         <div >
@@ -41,12 +41,12 @@ class App extends React.Component {
         </div>
         <span style={{float: 'right'}}>
           <div className = "FusionBox">
-            <button  className = "FusionButton" type="button" onClick={e => this.fuse()}>Fuse</button> 
-            < div className="PropertyBox_content" > 
+            <button  className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button> 
+            < div className="SelectBox_content" > 
               <label>Default Dataset Action:&nbsp;&nbsp;</label>
             < /div >
-          < div className="PropertyBox_content" > 
-            < select title = "Choose Default Fusion Action" 
+          < div className="SelectBox_content" > 
+            < select title = "Choose Default Dataset Fusion Action" 
               onChange={e => this.selectFusionAction(e.target.value)}  >            
               {options}
             < /select>

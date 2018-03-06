@@ -58,35 +58,62 @@ function customOperatorSelector() {
       console.log(this);
       
       let selectedFunction = functions.find(f => f.name === this.props.field);
-
-      var thresholdLabel = selectedFunction.parCount === 3 ? (<div className="PropertyBox_content">
-          <label>Threshold:&nbsp;</label>
-        </div>) : null;
-
-      var thresholdField = selectedFunction.parCount === 3 ? (
-        <div className="PropertyBox_content">
-          <input type="text"
-            value={this.state.value}
-            onChange={e => this.onThresholdChange(e.target.value, this)}/>
-        </div>
-        ) : null;
-
-      var datasetSelection = selectedFunction.parCount === 1 ? (
-        <div className="PropertyBox_content">
-          <label forhtml="propertyA">Property for dataset A:&nbsp;</label>
-          < select 
-            onChange={e => this.selectActionRulePropertyA(e.target.value)} 
-            title = "Choose property" >
-            {datasetOptions}
-          < /select>
-        </div>
-      ) : null;
+      let datasetSelectionLabel;
+      let propertySelectionLabel1;
+      let propertySelectionLabel2;
+      let thresholdLabel;
+      let thresholdField;
+      let datasetSelection;
       
-      var propertySelectionLabel = selectedFunction.parCount === 1 ? 'Property: ' : 'Property for dataset A:';
-      
-      var selection1 = (
-          <div className="PropertyBox_content">
-            <label forhtml="propertyA">{propertySelectionLabel}&nbsp;</label>
+      if(selectedFunction.parCount === 1){
+        datasetSelectionLabel = 'From Dataset: ';
+        
+        datasetSelection = (
+          <div className="SelectBox_content">
+            <label >{propertySelectionLabel1}&nbsp;</label>
+            < select 
+              onChange={e => this.selectActionRulePropertyA(e.target.value)} 
+              title = "Choose property" >
+              {datasetOptions}
+            < /select>
+          </div>
+        );
+        
+        propertySelectionLabel1 = 'Property: ';
+        
+        thresholdLabel = null;
+        thresholdField = null;
+        
+      } else if (selectedFunction.parCount === 2){
+        propertySelectionLabel1 = 'Property for dataset A: ';
+        propertySelectionLabel2 = 'Property for dataset B: ';
+        thresholdLabel = null;
+        thresholdField = null;
+        
+      } else if(selectedFunction.parCount === 3){
+        
+        propertySelectionLabel1 = 'Property for dataset A: ';
+        propertySelectionLabel2 = 'Property for dataset B: ';
+        
+        thresholdLabel = (
+          <div className="SelectBox_content">
+            <label>Threshold:&nbsp;</label>
+          </div>
+        );
+       
+        thresholdField = (
+         <div className="Threshold">
+           <input type="text"
+             value={this.state.value}
+             onChange={e => this.onThresholdChange(e.target.value, this)}/>
+         </div>
+         );
+       
+      }
+
+      var propertySelect1 = (
+          <div className="SelectBox_content">
+            <label>{propertySelectionLabel1}&nbsp;</label>
             < select 
               onChange={e => this.selectActionRulePropertyA(e.target.value)} 
               title = "Choose property" >
@@ -95,9 +122,9 @@ function customOperatorSelector() {
           </div>
        );
 
-      var selection2 = selectedFunction.parCount !== 1 ? (
-          <div className="PropertyBox_content">
-            <label forhtml="propertyA">Property for dataset A:&nbsp;</label>
+      var propertySelect2 = selectedFunction.parCount !== 1 ? (
+          <div className="SelectBox_content">
+            <label>{propertySelectionLabel2}&nbsp;</label>
             < select 
               onChange={e => this.selectActionRulePropertyA(e.target.value)} 
               title = "Choose property" >
@@ -111,10 +138,10 @@ function customOperatorSelector() {
       var propertyBSelect;
       
       return (
-        <div className="PropertyBox">
+        <div className="SelectBox">
           {datasetSelection}
-          {selection1}
-          {selection2}
+          {propertySelect1}
+          {propertySelect2}
           {thresholdLabel}
           {thresholdField}
         </div>

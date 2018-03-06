@@ -5,9 +5,6 @@ import Rule from './Rule';
 
 var { addRule, removeRule } = require('../actions/RuleBuilderActions');
 
-//begin with a default zero rule index
-var ind = {key:0};
-
 class RuleBuilder extends React.Component {
 
   constructor(props) {
@@ -18,17 +15,19 @@ class RuleBuilder extends React.Component {
 
     this.state = {
         rules: [],
-        update:false
+        ind:{key:0}
     };
   }
 
   addRule() {
-    ind.key++;
-    var newRules = this.state.rules;
-    newRules.push({id:ind.key, fusionPropertyA:null, fusionPropertyB:null});
 
-    this.setState({rules : newRules});
-    this.props.actions.addRule({id:ind.key});
+    let index = this.state.ind.key + 1;
+    var newRules = this.state.rules;
+    newRules.push({id:(index), fusionPropertyA:null, fusionPropertyB:null});
+
+    this.setState({ind:{key:index}, rules : newRules});
+
+    this.props.actions.addRule({id:index});
 
   }
   
@@ -38,7 +37,7 @@ class RuleBuilder extends React.Component {
       return rule.id !== id;
     });
 
-    this.setState({rules : updatedRules, update:!this.state.update});
+    this.setState({rules : updatedRules});
     this.props.actions.removeRule(id);
 
   }
@@ -52,7 +51,6 @@ class RuleBuilder extends React.Component {
 
     var ruleComponents = this.state.rules.length > 0 ? (this.state.rules.map(r => (
       <Rule 
-        updateRules={this.state.update}
         key={r.id} 
         id={r.id}
         onDelete={this.deleteRule}/>))) : null;
@@ -60,7 +58,7 @@ class RuleBuilder extends React.Component {
     return (
       <div>
         <div>
-          <button className = "Button" type="button" onClick={e => this.addRule()}>Add Rule</button> 
+          <button className = "RuleButton" type="button" onClick={e => this.addRule()}>Add Rule</button> 
         </div>
         <div>
           {ruleComponents}

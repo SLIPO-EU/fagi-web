@@ -33,7 +33,14 @@ const Properties = [
     value:"http://slipo.eu/def#address http://slipo.eu/def#number",
     selected: null,
     disabled: false
-  }
+  },
+  {
+    key:"date",
+    label:"date",
+    value:"http://slipo.eu/def#address http://slipo.eu/def#date",
+    selected: null,
+    disabled: false
+  }  
 ];
 
 module.exports = Properties;

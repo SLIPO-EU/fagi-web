@@ -1,5 +1,5 @@
-.RuleBox {
-  margin-up: 40px;
+.Logo {
+  margin-top: 40px;
   margin-bottom: 40px;
   margin-left: 40px;
   margin-right: 40px; 
@@ -9,15 +9,40 @@
   background: rgba(255, 233, 172, 0.5);
 }
 
-.RuleBox_content {
-  font-size: 15px;
-  text-align: center;
+.RuleWrapper {
+  overflow:hidden;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left: 40px;
+  margin-right: 40px; 
+  padding: 0.5rem;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  background: rgba(245, 255, 255, 0.5);
 }
 
-.PropertyBox {
+.RuleSelectBox {
   display: inline-block;
-  margin-top: 30px;
-  margin-up: 40px;
+  float:left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px; 
+  padding: 0.35rem;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  background: rgba(255, 233, 172, 0.5);
+}
+
+.RuleSelectBox_content {
+  display: inline-block;
+  float:left;
+  padding: 0.1rem;
+}
+
+.SelectBox {
+  display: inline-block;
+  margin-top: 40px;
   margin-bottom: 40px;
   margin-left: 40px;
   margin-right: 40px; 
@@ -27,24 +52,52 @@
   background: rgba(255, 233, 172, 0.5);
 }
 
-.PropertyBox_content {
+.SelectBox_content {
   display: inline-block;
   padding: 0.1rem;
 }
 
-.Rule {
-  margin-up: 40px;
-  margin-bottom: 40px;
+.ActionRule {
+  clear:both;
+  display: inline-block;
+  float:left;
+  margin-bottom: 5px;
   margin-left: 40px;
-  margin-right: 40px; 
   padding: 0.5rem;
   border: 1px solid #CCC;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(240, 240, 255, 0.5);
+}
+
+.ActionRuleBuilderBox {
+    float:left;
+}
+
+.FusionActionPair {
+  float:left;
+}
+
+.RuleFusionActionBox {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  margin-left: 40px;
+  margin-right: 40px;   
+  padding: 0.5rem;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  background: rgba(255, 233, 172, 0.5);
+}
+
+.RuleFusionActionBox_content {
+  float:left;
+  display: inline-block;
+  padding: 0.1rem;
 }
 
 .FusionBox {
-  margin-up: 40px;
+  margin-top: 40px;
   margin-bottom: 40px;
   margin-left: 40px;
   margin-right: 40px; 
@@ -54,17 +107,31 @@
   background: rgba(255, 255, 255, 0.5);
 }
 
-.FusionButton {
-  float:right;
+.RuleButton {
   margin-left: 40px;
-  margin-right: 20px;
-  padding: 0.3rem;
-}
-
-.Button {
-  margin-up: 20px;
-  margin-bottom: 40px;
-  margin-left: 40px;
-  margin-right: 40px; 
   padding: 0.5rem;
 }
+
+.FuseButton {
+  margin-left: 40px;
+  margin-right: 40px;
+  padding: 0.5rem;
+}
+
+.ConditionButton {
+  clear:both;
+  float:left;
+  margin-top: 10px;
+  margin-left: 40px;
+}
+
+.Threshold {
+  display: inline-block;
+  width: 35px;
+  padding: 0.1rem;
+}
+
+input {
+  width: 30px;
+}
+

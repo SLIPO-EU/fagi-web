@@ -1,6 +1,7 @@
 /logs/
 /target/
 bundle.js
+nb-configuration.xml
 
 **/*.min.js
 !apidoc/template/**/*.min.js

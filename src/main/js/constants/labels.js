@@ -21,7 +21,7 @@ const Labels = {
         title: "Add function"
     },
     addGroup: {
-        label: "+Add Nested Operation",
+        label: "+Nested Operation",
         title: "Add Nested Operation"
     },
     combinators: {
