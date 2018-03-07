@@ -32,21 +32,21 @@ class Validator extends React.Component {
   
   addValidationRule(){
     let index = this.state.ind.key + 1;
-    var newActionRules = this.state.validationRules;
-    newActionRules.push({id:(index)});
+    var newValidationRules = this.state.validationRules;
+    newValidationRules.push({id:(index)});
 
-    this.setState({ind:{key:index}, validationRules : newActionRules});
+    this.setState({ind:{key:index}, validationRules : newValidationRules});
 
     this.props.actions.addValidationRule(index); 
   }
   
   deleteValidationRule(id) {
 
-    var updatedActionRules = this.state.validationRules.filter(function( actionRule ) {
-      return actionRule.id !== id;
+    var updatedValidationRules = this.state.validationRules.filter(function( validationRule ) {
+      return validationRule.id !== id;
     });
 
-    this.setState({validationRules : updatedActionRules});
+    this.setState({validationRules : updatedValidationRules});
     this.props.actions.removeValidationRule(id);
   }
   
@@ -58,7 +58,7 @@ class Validator extends React.Component {
             <span style={{float: 'right'}}>
               <button type="button" onClick={e => this.deleteValidationRule(r.id)}>x</button> 
             </span>
-          </div>        
+          </div>
             < div className="ActionRuleBuilderBox">
               < ValidationRuleBuilder 
                 key={r.id} 
