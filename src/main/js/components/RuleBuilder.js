@@ -2,6 +2,7 @@ const React = require('react');
 var { bindActionCreators } = require('redux');
 var { connect } = require('react-redux');
 import Rule from './Rule';
+import Validator from './Validator';
 
 var { addRule, removeRule } = require('../actions/RuleBuilderActions');
 
@@ -42,12 +43,9 @@ class RuleBuilder extends React.Component {
 
   }
   
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
-  } 
-  
   render() {
+
+    var validationComponent;
 
     var ruleComponents = this.state.rules.length > 0 ? (this.state.rules.map(r => (
       <Rule 
@@ -58,7 +56,11 @@ class RuleBuilder extends React.Component {
     return (
       <div>
         <div>
-          <button className = "RuleButton" type="button" onClick={e => this.addRule()}>Add Rule</button> 
+          <Validator 
+             />
+        </div>
+        <div>
+          <button className = "RuleButton" type="button" onClick={e => this.addRule()}>Add Ruleset</button> 
         </div>
         <div>
           {ruleComponents}

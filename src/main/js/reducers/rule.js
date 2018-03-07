@@ -5,6 +5,7 @@ var initialState = {
   rules: []
 };
 
+
 var rule = function(state, action) {
   switch (action.type) {
     case types.ADD_RULE:
@@ -49,7 +50,49 @@ var rule = function(state, action) {
       return Object.assign({}, state, {
         activeId:action.activeId,
         rules: rB
+      });
+    case types.ADD_ACTION_RULE:
+    {
+
+      let rules = state.rules;
+      var index = _.findIndex(rules, {id: action.activeRuleId});
+
+      let currentRule = rules[index];
+
+      let actionRules;
+      if(currentRule.actionRules){
+        actionRules = currentRule.actionRules;
+      } else {
+        actionRules = [];
+      }
+      
+      actionRules.push({id:action.actionRuleId});
+      currentRule.actionRules = actionRules;
+      rules.splice(index, 1, currentRule);  
+
+      return Object.assign({}, state, {
+        rules : rules
+      });
+    }
+    case types.REMOVE_ACTION_RULE:
+    {
+
+      let rules = state.rules;
+      var index = _.findIndex(rules, {id: action.activeId});
+      
+      let currentRule = rules[index];
+
+      var actionRules = currentRule.actionRules.filter(function( actionRule ) {
+        return actionRule.id !== action.actionRuleId;
+      });       
+      
+      currentRule.actionRules = actionRules;
+      rules.splice(index, 1, currentRule);  
+
+      return Object.assign({}, state, {
+        rules : rules
       });      
+    }      
     default:
       return state || initialState;
   }

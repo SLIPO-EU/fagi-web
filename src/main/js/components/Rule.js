@@ -7,9 +7,7 @@ import FusionPropertyPair from './PropertyPair';
 
 var fusionActionConstants = require('../constants/FusionActionConstants');
 
-var { setRuleId, setFusionPropertyA, setFusionPropertyB } = require('../actions/RuleActions');
-
-var ind = {key:0};
+var { setRuleId, setFusionPropertyA, setFusionPropertyB, addActionRule, removeActionRule } = require('../actions/RuleActions');
 
 var options =  fusionActionConstants.map(function(action) {
   return (
@@ -23,6 +21,7 @@ class Rule extends React.Component {
 
   constructor(props) {
     super(props);
+
     //bind selectProperty to be passed to FusionProperty
     this.selectPropertyA = this.selectPropertyA.bind(this);
     this.selectPropertyB = this.selectPropertyB.bind(this);
@@ -50,39 +49,36 @@ class Rule extends React.Component {
   }
   
   addActionRule(){
-    console.log('add action rule');
-    
+
     let index = this.state.ind.key + 1;
     var newActionRules = this.state.actionRules;
     newActionRules.push({id:(index)});
 
     this.setState({ind:{key:index}, actionRules : newActionRules});
 
-    //this.props.actions.addRule({id:index});    
+    this.props.actions.addActionRule(this.props.id, index); 
   }
   
   deleteActionRule(id) {
-    console.log('delete action rule' + id);
-    
-//    var updatedActionRules = this.state.actionRules.filter(function( actionRule ) {
-//      return actionRule.id !== id;
-//    });
-//
-//    this.setState({actionRules : updatedActionRules});
-//    this.props.actions.removeActionRule(id);
+
+    var updatedActionRules = this.state.actionRules.filter(function( actionRule ) {
+      return actionRule.id !== id;
+    });
+
+    this.setState({actionRules : updatedActionRules});
+    this.props.actions.removeActionRule(this.props.id, id);
 
   }
   
   render() {
-    console.log(this);
-    
+
     var actionRuleComponents = this.state.actionRules.length > 0 ? (this.state.actionRules.map(r => (
       <div key={r.id} className="ActionRule">
           <div>
             <span style={{float: 'right'}}>
-              <button type="button" onClick={e => this.deleteActionRule(this.props.id)}>x</button> 
+              <button type="button" onClick={e => this.deleteActionRule(r.id)}>x</button> 
             </span>
-          </div>      
+          </div>
             < div className="ActionRuleBuilderBox">
               < ActionRuleBuilder 
                 key={r.id} 
@@ -135,7 +131,7 @@ class Rule extends React.Component {
        </div>     
       {actionRuleComponents}
           <div>
-            <button className = "ConditionButton" type="button" onClick={e => this.addActionRule()}>Add Condition</button> 
+            <button className = "ConditionButton" type="button" onClick={e => this.addActionRule()}>Add Fusion Rule</button> 
           </div>
         < /div >
       </div>
@@ -145,17 +141,18 @@ class Rule extends React.Component {
 }
 
 function mapStateToProps(state) {
-
   return {
     rule: state.id,
     rule: state.fusionPropertyA,
-    rule: state.fusionPropertyB
+    rule: state.fusionPropertyB,
+    rule: state.actionRules
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { setRuleId, setFusionPropertyA, setFusionPropertyB }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { setRuleId, setFusionPropertyA, setFusionPropertyB, 
+                                                      addActionRule, removeActionRule }) , dispatch)
   };
 }
 

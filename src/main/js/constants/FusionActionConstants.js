@@ -8,10 +8,7 @@ const FusionActions =
     {key: 'keep-more-points', name: 'keep-more-points', label: 'keep-more-points'},
     {key: 'keep-more-points-and-shift', name: 'keep-more-points-and-shift', label: 'keep-more-points-and-shift'},
     {key: 'shift-left-geometry', name: 'shift-left-geometry', label: 'shift-left-geometry'},
-    {key: 'shift-right-geometry', name: 'shift-right-geometry', label: 'shift-right-geometry'},   
-    {key: 'accept-mark-ambiguous', name: 'accept-mark-ambiguous', label: 'accept-mark-ambiguous'},    
-    {key: 'reject-mark-ambiguous', name: 'reject-mark-ambiguous', label: 'reject-mark-ambiguous'},     
-    {key: 'reject-link', name: 'reject-link', label: 'reject-link'}
+    {key: 'shift-right-geometry', name: 'shift-right-geometry', label: 'shift-right-geometry'}
 ];
 
 module.exports = FusionActions;

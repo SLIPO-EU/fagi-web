@@ -49,14 +49,11 @@ function customOperatorSelector() {
     
     onThresholdChange(e){
       console.log(e);
-      console.log(this);
     }
 
     
     render() {
 
-      console.log(this);
-      
       let selectedFunction = functions.find(f => f.name === this.props.field);
       let datasetSelectionLabel;
       let propertySelectionLabel1;
@@ -64,13 +61,13 @@ function customOperatorSelector() {
       let thresholdLabel;
       let thresholdField;
       let datasetSelection;
-      
+
       if(selectedFunction.parCount === 1){
         datasetSelectionLabel = 'From Dataset: ';
-        
+
         datasetSelection = (
           <div className="SelectBox_content">
-            <label >{propertySelectionLabel1}&nbsp;</label>
+            <label >{datasetSelectionLabel}&nbsp;</label>
             < select 
               onChange={e => this.selectActionRulePropertyA(e.target.value)} 
               title = "Choose property" >
@@ -78,12 +75,12 @@ function customOperatorSelector() {
             < /select>
           </div>
         );
-        
+
         propertySelectionLabel1 = 'Property: ';
-        
+
         thresholdLabel = null;
         thresholdField = null;
-        
+
       } else if (selectedFunction.parCount === 2){
         propertySelectionLabel1 = 'Property for dataset A: ';
         propertySelectionLabel2 = 'Property for dataset B: ';

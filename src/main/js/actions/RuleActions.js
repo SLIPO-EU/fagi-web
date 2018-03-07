@@ -20,6 +20,20 @@ var RuleActions = {
       activeId: id,
       fusionPropertyB : fusionPropertyB
     };
+  },
+  addActionRule : function(activeRuleId, actionRuleId) {
+    return {
+      type : types.ADD_ACTION_RULE,
+      activeRuleId: activeRuleId,
+      actionRuleId : actionRuleId
+    };
+  },
+  removeActionRule : function(ruleId, actionRuleId) {
+    return {
+      type : types.REMOVE_ACTION_RULE,
+      activeId: ruleId,
+      actionRuleId : actionRuleId
+    };
   }  
 };
   
