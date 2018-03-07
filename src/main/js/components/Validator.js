@@ -4,9 +4,10 @@ var { connect} = require('react-redux');
 
 import ValidationRuleBuilder from './ActionRuleBuilder';
 
-var validationActionConstants = require('../constants/ValidationActionConstants');
+var validatorActionConstants = require('../constants/ValidatorActionConstants');
+var { addValidationRule, removeValidationRule } = require('../actions/ValidatorActions');
 
-var options =  validationActionConstants.map(function(action) {
+var options =  validatorActionConstants.map(function(action) {
   return (
    <option 
     key={action.key} 
@@ -18,11 +19,11 @@ class Validator extends React.Component {
 
   constructor(props) {
     super(props);
+    
     this.state = {
       validationRules: [],
       ind:{key:0}
     };
-
   }
   
   selectValidationAction(a){
@@ -31,15 +32,22 @@ class Validator extends React.Component {
   
   addValidationRule(){
     let index = this.state.ind.key + 1;
-    var newValidationRules = this.state.validationRules;
-    newValidationRules.push({id:(index)});
+    var newActionRules = this.state.validationRules;
+    newActionRules.push({id:(index)});
 
-    this.setState({ind:{key:index}, validationRules : newValidationRules});
-    this.props.actions.addActionRule({id:index});
+    this.setState({ind:{key:index}, validationRules : newActionRules});
+
+    this.props.actions.addValidationRule(index); 
   }
   
   deleteValidationRule(id) {
 
+    var updatedActionRules = this.state.validationRules.filter(function( actionRule ) {
+      return actionRule.id !== id;
+    });
+
+    this.setState({validationRules : updatedActionRules});
+    this.props.actions.removeValidationRule(id);
   }
   
   render() {
@@ -48,7 +56,7 @@ class Validator extends React.Component {
       <div key={r.id} className="ActionRule">
           <div>
             <span style={{float: 'right'}}>
-              <button type="button" onClick={e => this.deleteValidationRule(this.props.id)}>x</button> 
+              <button type="button" onClick={e => this.deleteValidationRule(r.id)}>x</button> 
             </span>
           </div>        
             < div className="ActionRuleBuilderBox">
@@ -104,12 +112,13 @@ class Validator extends React.Component {
 function mapStateToProps(state) {
 
   return {
+    rules: state.rules
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { addValidationRule, removeValidationRule }) , dispatch)
   };
 }
 
