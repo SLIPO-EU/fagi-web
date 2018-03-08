@@ -2,14 +2,14 @@ require('../RuleBox.scss');
 const React = require('react');
 
 import { connect } from 'react-redux';
-var { bindActionCreators } = require('redux');
-
 import RuleBuilder from '../components/RuleBuilder';
-
-var { fuse } = require('../actions/AppActions');
+import Chart from '../components/Chart';
+var { bindActionCreators } = require('redux');
 var datasetActionConstants = require('../constants/DatasetActionConstants');
+var { fuse } = require('../actions/AppActions');
 
-var ind = {key:0};
+var barGaps = ['30%', '-100%'];
+var loopIndex = 0;
 
 var options =  datasetActionConstants.map(function(action) {
   return (
@@ -18,7 +18,7 @@ var options =  datasetActionConstants.map(function(action) {
     value ={action.value}>{action.label}</option>
   );
 });
-
+  
 class App extends React.Component {
 
   constructor(props) {
@@ -29,7 +29,7 @@ class App extends React.Component {
     console.log(this);
     this.props.actions.fuse();
   }
-  
+
   render() {
     return (
       < div > 
@@ -52,7 +52,11 @@ class App extends React.Component {
             < /select>
           < /div >
           </div> 
-        </span>       
+        </span>
+          < div >
+            <Chart 
+              />
+          < /div >
       < /div >
     )
   }
