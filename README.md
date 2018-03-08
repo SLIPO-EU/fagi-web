@@ -4,7 +4,7 @@ FAGI-web requires FAGI installed on your system. Follow the build instructions f
 
 Clone the repo:
 
-    git clone https://github.com/SLIPO-EU/FAGI.git
+    git clone https://github.com/SLIPO-EU/fagi-web.git fagi-web
     
 Build and install:
 

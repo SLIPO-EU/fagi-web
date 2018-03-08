@@ -2,7 +2,9 @@ var mirrorToPath = require('../helpers/path-mirror.js');
 
 var types = mirrorToPath({
 
-  FUSE : null
+  FUSE: null,
+  REQUEST_RUN_STATISTICS: null,
+  RECEIVED_STATISTICS: null
 
 });
 

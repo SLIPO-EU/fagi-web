@@ -6,10 +6,7 @@ import RuleBuilder from '../components/RuleBuilder';
 import Chart from '../components/Chart';
 var { bindActionCreators } = require('redux');
 var datasetActionConstants = require('../constants/DatasetActionConstants');
-var { fuse } = require('../actions/AppActions');
-
-var barGaps = ['30%', '-100%'];
-var loopIndex = 0;
+var { fuse, runStatistics } = require('../actions/AppActions');
 
 var options =  datasetActionConstants.map(function(action) {
   return (
@@ -23,14 +20,30 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      success: null,
+      error: null,
+      showStatistics:false,
+      loading: null,
+      statistics: null      
+    }
   }
 
   fuse(){
     console.log(this);
     this.props.actions.fuse();
   }
-
+  
+  runStatistics(){
+    console.log(this);
+    
+    this.setState({showStatistics:true});
+    
+    this.props.actions.runStatistics();
+  }
+  
   render() {
+
     return (
       < div > 
         < div className="Logo" > 
@@ -41,7 +54,8 @@ class App extends React.Component {
         </div>
         <span style={{float: 'right'}}>
           <div className = "FusionBox">
-            <button  className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button> 
+            <button className = "FuseButton" type="button" onClick={e => this.runStatistics()}>Calculate Stats</button> 
+           <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button> 
             < div className="SelectBox_content" > 
               <label>Default Dataset Action:&nbsp;&nbsp;</label>
             < /div >
@@ -53,8 +67,10 @@ class App extends React.Component {
           < /div >
           </div> 
         </span>
-          < div >
+          < div className='Chart'>
             <Chart 
+              loading={this.state.loading}
+              show={this.state.showStatistics}
               />
           < /div >
       < /div >
@@ -65,13 +81,15 @@ class App extends React.Component {
 function mapStateToProps(state) {
   return {
     success: state.success,
-    error: state.error
+    error: state.error,
+    loading: state.loading,
+    statistics: state.statistics
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { fuse }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { fuse, runStatistics }) , dispatch)
   };
 }
 
