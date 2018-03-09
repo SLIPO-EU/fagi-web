@@ -17,7 +17,12 @@ var receivedStatistics = function (success, errors, pairsA, pairsB) {
 };
 
 var AppActions = {
-
+  setDatasetAction : function(action) {
+    return {
+      type : types.SET_DATASET_ACTION,
+      datasetAction : action
+    };
+  },
   fuse : function(success, error) {
     return {
       type : types.FUSE,

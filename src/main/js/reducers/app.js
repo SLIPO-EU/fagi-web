@@ -9,6 +9,10 @@ var initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case types.SET_DATASET_ACTION:
+      return Object.assign({}, state, {
+        datasetAction: action.datasetAction
+      });    
     case types.FUSE:
       return Object.assign({}, state, {
         success: action.success,

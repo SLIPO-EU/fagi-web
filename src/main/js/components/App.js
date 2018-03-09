@@ -6,7 +6,7 @@ import RuleBuilder from '../components/RuleBuilder';
 import Chart from '../components/Chart';
 var { bindActionCreators } = require('redux');
 var datasetActionConstants = require('../constants/DatasetActionConstants');
-var { fuse, runStatistics } = require('../actions/AppActions');
+var { setDatasetAction, fuse, runStatistics } = require('../actions/AppActions');
 
 var options =  datasetActionConstants.map(function(action) {
   return (
@@ -42,6 +42,10 @@ class App extends React.Component {
     this.props.actions.runStatistics();
   }
   
+  selectDatasetAction(e){
+    this.props.actions.setDatasetAction(e);
+  }
+  
   render() {
 
     return (
@@ -61,7 +65,7 @@ class App extends React.Component {
             < /div >
           < div className="SelectBox_content" > 
             < select title = "Choose Default Dataset Fusion Action" 
-              onChange={e => this.selectFusionAction(e.target.value)}  >            
+              onChange={e => this.selectDatasetAction(e.target.value)}  >            
               {options}
             < /select>
           < /div >
@@ -82,6 +86,7 @@ function mapStateToProps(state) {
   return {
     success: state.success,
     error: state.error,
+    datasetAction: state.datasetAction,
     loading: state.loading,
     statistics: state.statistics
   };
@@ -89,7 +94,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { fuse, runStatistics }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { setDatasetAction, fuse, runStatistics }) , dispatch)
   };
 }
 

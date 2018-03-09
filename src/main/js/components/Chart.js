@@ -16,7 +16,7 @@ var option = {
 //    },
     tooltip: {},
     legend: {
-        data:['Total', 'Non empty fields A(%)','Non empty fields B(%)']
+        data:['Total POIs', 'Non empty fields A(%)','Non empty fields B(%)']
     },
     
     xAxis: {
@@ -28,7 +28,7 @@ var option = {
     },
     animationDurationUpdate: 1000,
     series: [{
-        name: 'Total',
+        name: 'Total POIs',
         type: 'bar',
         itemStyle: {
             normal: {
