@@ -1,9 +1,5 @@
 package gr.athena.innovation.fagi.web.controller;
 
-import gr.athena.innovation.fagi.preview.RDFStatisticsCollector;
-import gr.athena.innovation.fagi.preview.StatisticsCollector;
-import gr.athena.innovation.fagi.preview.StatisticsContainer;
-import gr.athena.innovation.fagi.preview.StatisticsExporter;
 import gr.athena.innovation.fagi.web.model.RestResponse;
 import gr.athena.innovation.fagi.web.model.StatisticsResponse;
 import java.util.HashMap;
@@ -56,7 +52,7 @@ public class TestController {
             response.setStatPairsB(statPairsB);
             
             //simulate calculation time for response
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             
             return response;
             

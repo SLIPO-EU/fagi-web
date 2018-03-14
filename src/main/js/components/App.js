@@ -6,6 +6,9 @@ import RuleBuilder from '../components/RuleBuilder';
 import Chart from '../components/Chart';
 var { bindActionCreators } = require('redux');
 var datasetActionConstants = require('../constants/DatasetActionConstants');
+var chartOption = require('../constants/ChartOptions');
+var chartDefaultOption = require('../constants/ChartDefaultOptions');
+var datasetActionConstants = require('../constants/DatasetActionConstants');
 var { setDatasetAction, fuse, runStatistics } = require('../actions/AppActions');
 
 var options =  datasetActionConstants.map(function(action) {
@@ -73,10 +76,12 @@ class App extends React.Component {
         </span>
           < div className='Chart'>
             <Chart 
+              option={chartOption}
+              defaultOption={chartDefaultOption}
               loading={this.state.loading}
               show={this.state.showStatistics}
               />
-          < /div >
+          < /div > 
       < /div >
     )
   }
