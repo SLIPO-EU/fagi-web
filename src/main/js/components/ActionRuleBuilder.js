@@ -1,13 +1,17 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 require('./query-builder.scss');
+
 import QueryBuilder from 'react-querybuilder';
 
+var { bindActionCreators } = require('redux');
+var { connect} = require('react-redux');
 var functions = require('../constants/functions');
 var labels = require('../constants/labels');
 var combinators = require('../constants/combinators');
 var properties = require('../constants/properties');
 var datasetIdentifiers = require('../constants/DatasetIdentifiers');
+var { setQuery } = require('../actions/ActionRuleBuilderActions');
 
 var propertyOptions =  properties.map(function(property) {
   return (
@@ -169,22 +173,25 @@ class ActionRuleBuilder extends React.Component {
 
   constructor(props) {
     super(props);
-    this.logQuery = this.logQuery.bind(this)
+    this.logQuery = this.logQuery.bind(this);
+
   }
-  
+
   componentWillMount() {
 
   }
-  
-  componentDidMount() {
 
+  componentDidMount() {
+    console.log(this);
   }
-    
+
   logQuery(e){
     console.log('query:');
     console.log(e);
+
+    this.props.onChange(e, this.props.actionRuleId, this.props.ruleId);
   }  
-  
+
   render() {
     return (
       <div className="query-builder"> 
@@ -200,4 +207,16 @@ class ActionRuleBuilder extends React.Component {
   }
 }
 
-export default ActionRuleBuilder;
+function mapStateToProps(state) {
+  return {
+    query:state.query
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions : bindActionCreators(Object.assign({}, { setQuery }) , dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActionRuleBuilder);

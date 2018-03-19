@@ -28,6 +28,7 @@ class Rule extends React.Component {
     //bind selectProperty to be passed to FusionProperty
     this.selectPropertyA = this.selectPropertyA.bind(this);
     this.selectPropertyB = this.selectPropertyB.bind(this);
+    this.updateActionRule = this.updateActionRule.bind(this);
 
     this.props.actions.setRuleId(this.props.id);
     
@@ -73,6 +74,10 @@ class Rule extends React.Component {
 
   }
   
+  updateActionRule(query, actionRuleId, ruleID){
+    console.log(query, actionRuleId, ruleID);
+  }
+  
   render() {
 
     var actionRuleComponents = this.state.actionRules.length > 0 ? (this.state.actionRules.map(r => (
@@ -84,8 +89,11 @@ class Rule extends React.Component {
           </div>
             < div className="ActionRuleBuilderBox">
               < ActionRuleBuilder 
-                key={r.id} 
-                id={r.id} />
+                key={this.props.id}
+                ruleId={this.props.id}
+                actionRuleId={r.id}
+                onChange={this.updateActionRule}
+                 />
             < /div>
             <div className="FusionActionPair" >
               <div className="RuleFusionActionBox">

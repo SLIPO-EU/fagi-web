@@ -52,7 +52,7 @@ class Validator extends React.Component {
     this.setState({validationRules : updatedValidationRules});
     this.props.actions.removeValidationRule(id);
   }
-  
+
   render() {
 
     var validationRuleComponents = this.state.validationRules.length > 0 ? (this.state.validationRules.map(r => (

@@ -5,7 +5,6 @@ var initialState = {
   rules: []
 };
 
-
 var rule = function(state, action) {
   switch (action.type) {
     case types.ADD_RULE:

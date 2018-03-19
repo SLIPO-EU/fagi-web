@@ -14,5 +14,5 @@ var RuleBuilderActions = {
     };
   }
 };
-  
+
 module.exports = RuleBuilderActions;
