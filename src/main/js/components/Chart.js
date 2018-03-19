@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 var { bindActionCreators } = require('redux');
 
 import ReactEchartsCore from 'echarts-for-react/lib/core';
+
 //import echarts modules to reduce bundle size
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';

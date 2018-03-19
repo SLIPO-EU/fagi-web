@@ -15,21 +15,21 @@ class RuleBuilder extends React.Component {
     this.deleteRule = this.deleteRule.bind(this);
 
     this.state = {
-        rules: [],
-        ind:{key:0}
+      rules: [],
+      ind:{key:0}
     };
   }
 
   addRule() {
 
     let index = this.state.ind.key + 1;
+    
     var newRules = this.state.rules;
     newRules.push({id:(index), fusionPropertyA:null, fusionPropertyB:null});
 
     this.setState({ind:{key:index}, rules : newRules});
 
     this.props.actions.addRule({id:index});
-
   }
   
   deleteRule(id) {
@@ -56,8 +56,7 @@ class RuleBuilder extends React.Component {
     return (
       <div>
         <div>
-          <Validator 
-             />
+          <Validator />
         </div>
         <div>
           <button className = "RuleButton" type="button" onClick={e => this.addRule()}>Add Ruleset</button> 

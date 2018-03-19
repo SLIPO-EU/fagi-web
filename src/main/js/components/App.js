@@ -33,7 +33,7 @@ class App extends React.Component {
   }
 
   fuse(){
-    console.log(this);
+    //console.log(this);
     this.props.actions.fuse();
   }
   
@@ -48,7 +48,7 @@ class App extends React.Component {
   selectDatasetAction(e){
     this.props.actions.setDatasetAction(e);
   }
-  
+
   render() {
 
     return (
@@ -72,7 +72,7 @@ class App extends React.Component {
               {options}
             < /select>
           < /div >
-          </div> 
+          </div>
         </span>
           < div className='Chart'>
             <Chart 
@@ -81,7 +81,7 @@ class App extends React.Component {
               loading={this.state.loading}
               show={this.state.showStatistics}
               />
-          < /div > 
+          < /div >
       < /div >
     )
   }

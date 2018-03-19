@@ -9,9 +9,10 @@ var { addValidationRule, removeValidationRule } = require('../actions/ValidatorA
 
 var options =  validatorActionConstants.map(function(action) {
   return (
-   <option 
-    key={action.key} 
-    value ={action.value}>{action.label}</option>
+    <option 
+      key={action.key} 
+      value ={action.value}>{action.label}
+    </option>
   );
 });
 
@@ -31,7 +32,9 @@ class Validator extends React.Component {
   }
   
   addValidationRule(){
+    
     let index = this.state.ind.key + 1;
+    
     var newValidationRules = this.state.validationRules;
     newValidationRules.push({id:(index)});
 
@@ -59,53 +62,52 @@ class Validator extends React.Component {
               <button type="button" onClick={e => this.deleteValidationRule(r.id)}>x</button> 
             </span>
           </div>
-            < div className="ActionRuleBuilderBox">
-              < ValidationRuleBuilder 
+            <div className="ActionRuleBuilderBox">
+              <ValidationRuleBuilder 
                 key={r.id} 
                 id={r.id} />
-            < /div>
+            </div>
             <div className="FusionActionPair" >
               <div className="RuleFusionActionBox">
-                < div className="RuleSelectBox_content" > 
+                <div className="RuleSelectBox_content"> 
                   <label>Validation Action:&nbsp;&nbsp;</label>
-                < /div >
-                < div className="RuleSelectBox_content" > 
-                  < select title = "Choose Validation Action" 
-                    onChange={e => this.selectValidationAction(e.target.value)} >            
+                </div>
+                <div className="RuleSelectBox_content" > 
+                  <select title = "Choose Validation Action" 
+                    onChange={e => this.selectValidationAction(e.target.value)}>            
                     {options}
-                  < /select>
-                < /div >
+                  </select>
+                </div>
               </div>
             </div>
-          < /div>
+          </div>
           )
         )
       ) : null;    
 
     return (
       <div className = "RuleWrapper" key={this.props.id} >
-        < div >
-         <div >
-          <div className="RuleSelectBox">
-            < div className="RuleSelectBox_content" > 
-              <label>Default Validation Action:&nbsp;&nbsp;</label>
-            < /div >
-            < div className="RuleSelectBox_content" > 
-              < select title = "Choose Default Action" 
-                onChange={e => this.selectValidationAction(e.target.value)} >
-                {options}
-              < /select>
-            < /div >
+        <div>
+          <div>
+            <div className="RuleSelectBox">
+              <div className="RuleSelectBox_content" > 
+                <label>Default Validation Action:&nbsp;&nbsp;</label>
+              </div>
+              <div className="RuleSelectBox_content"> 
+                <select title = "Choose Default Action" 
+                  onChange={e => this.selectValidationAction(e.target.value)}>
+                  {options}
+                </select>
+              </div>
+            </div>
           </div>
-       </div>     
-      {validationRuleComponents}
+          {validationRuleComponents}
           <div>
             <button className = "ConditionButton" type="button" onClick={e => this.addValidationRule()}>Add Validation Rule</button> 
           </div>
-        < /div >
+        </div>
       </div>
     );
-    
   }
 }
 

@@ -32,7 +32,6 @@ function customOperatorSelector() {
     
     constructor(props) {
         super(props);
-        
     }
 
     selectActionRulePropertyA(e){
@@ -50,7 +49,6 @@ function customOperatorSelector() {
     onThresholdChange(e){
       console.log(e);
     }
-
     
     render() {
 
@@ -82,6 +80,7 @@ function customOperatorSelector() {
         thresholdField = null;
 
       } else if (selectedFunction.parCount === 2){
+        
         propertySelectionLabel1 = 'Property for dataset A: ';
         propertySelectionLabel2 = 'Property for dataset B: ';
         thresholdLabel = null;
@@ -99,36 +98,35 @@ function customOperatorSelector() {
         );
        
         thresholdField = (
-         <div className="Threshold">
-           <input type="text"
-             value={this.state.value}
-             onChange={e => this.onThresholdChange(e.target.value, this)}/>
-         </div>
+          <div className="Threshold">
+            <input type="text"
+              value={this.state.value}
+              onChange={e => this.onThresholdChange(e.target.value, this)}/>
+          </div>
          );
-       
       }
 
       var propertySelect1 = (
-          <div className="SelectBox_content">
-            <label>{propertySelectionLabel1}&nbsp;</label>
-            < select 
-              onChange={e => this.selectActionRulePropertyA(e.target.value)} 
-              title = "Choose property" >
-              {propertyOptions}
-            < /select>
-          </div>
-       );
+        <div className="SelectBox_content">
+          <label>{propertySelectionLabel1}&nbsp;</label>
+          <select 
+            onChange={e => this.selectActionRulePropertyA(e.target.value)} 
+            title = "Choose property">
+            {propertyOptions}
+          </select>
+        </div>
+      );
 
       var propertySelect2 = selectedFunction.parCount !== 1 ? (
-          <div className="SelectBox_content">
-            <label>{propertySelectionLabel2}&nbsp;</label>
-            < select 
-              onChange={e => this.selectActionRulePropertyA(e.target.value)} 
-              title = "Choose property" >
-              {propertyOptions}
-            < /select>
-          </div>
-       ) : null;
+        <div className="SelectBox_content">
+          <label>{propertySelectionLabel2}&nbsp;</label>
+          <select 
+            onChange={e => this.selectActionRulePropertyA(e.target.value)} 
+            title = "Choose property">
+            {propertyOptions}
+          </select>
+        </div>
+      ) : null;
        
       
       var propertyASelect;
@@ -151,21 +149,21 @@ function customOperatorSelector() {
 
 function customValueEditor() {
   
-      let properties = class Properties extends React.Component {
-          constructor(props) {
-              super(props);
-          }
-          
-          render() {
-              return (
-                <span>
-                </span>
-               );
-          }
-      };
-      return properties;
-  }
+  let properties = class Properties extends React.Component {
+    constructor(props) {
+      super(props);
+    }
 
+    render() {
+      return (
+        <span>
+        </span>
+      );
+    }
+  };
+      
+  return properties;
+}
   
 class ActionRuleBuilder extends React.Component {
 
@@ -189,14 +187,15 @@ class ActionRuleBuilder extends React.Component {
   
   render() {
     return (
-      < div className="query-builder"> 
-        < QueryBuilder
+      <div className="query-builder"> 
+        <QueryBuilder
           fields = {functions}
           translations = {labels}
           combinators = {combinators}
           controlElements = {controlElements}
-          onQueryChange = {this.logQuery} / > 
-      < /div>
+          onQueryChange = {this.logQuery} 
+        />
+      </div>
     );
   }
 }

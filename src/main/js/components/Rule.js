@@ -11,9 +11,12 @@ var { setRuleId, setFusionPropertyA, setFusionPropertyB, addActionRule, removeAc
 
 var options =  fusionActionConstants.map(function(action) {
   return (
-   <option 
-    key={action.key} 
-    value ={action.value}>{action.label}</option>
+    <option 
+      key={action.key} 
+      value ={action.value}
+      >
+      {action.label}
+    </option>
   );
 });
 
