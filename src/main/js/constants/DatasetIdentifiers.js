@@ -1,7 +1,7 @@
-const FusionActions = 
+const DatasetIdentifiers = 
 [
-  {key:'a', name: 'A', label: 'Left'},
-  {key: 'b', name: 'B', label: 'Right'}
+  {type:'dataset', key: 'a', name: 'A', label: 'Left'},
+  {type:'dataset', key: 'b', name: 'B', label: 'Right'}
 ];
 
-module.exports = FusionActions;
+module.exports = DatasetIdentifiers;

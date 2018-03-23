@@ -91,7 +91,7 @@ var rule = function(state, action) {
       return Object.assign({}, state, {
         rules : rules
       });      
-    }      
+    }  
     default:
       return state || initialState;
   }

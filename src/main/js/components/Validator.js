@@ -2,7 +2,7 @@ const React = require('react');
 var { bindActionCreators } = require('redux');
 var { connect} = require('react-redux');
 
-import ValidationRuleBuilder from './ActionRuleBuilder';
+import ActionRuleBuilder from './ActionRuleBuilder';
 
 var validatorActionConstants = require('../constants/ValidatorActionConstants');
 var { addValidationRule, removeValidationRule } = require('../actions/ValidatorActions');
@@ -20,6 +20,8 @@ class Validator extends React.Component {
 
   constructor(props) {
     super(props);
+    
+    this.updateActionRule = this.updateActionRule.bind(this);
     
     this.state = {
       validationRules: [],
@@ -53,6 +55,10 @@ class Validator extends React.Component {
     this.props.actions.removeValidationRule(id);
   }
 
+  updateActionRule(query, actionRuleId, ruleID){
+    console.log(query, actionRuleId, ruleID);
+  }
+  
   render() {
 
     var validationRuleComponents = this.state.validationRules.length > 0 ? (this.state.validationRules.map(r => (
@@ -63,9 +69,12 @@ class Validator extends React.Component {
             </span>
           </div>
             <div className="ActionRuleBuilderBox">
-              <ValidationRuleBuilder 
-                key={r.id} 
-                id={r.id} />
+              <ActionRuleBuilder 
+                key={this.props.id}
+                ruleId={this.props.id}
+                actionRuleId={r.id}
+                onChange={this.updateActionRule}
+              />
             </div>
             <div className="FusionActionPair" >
               <div className="RuleFusionActionBox">

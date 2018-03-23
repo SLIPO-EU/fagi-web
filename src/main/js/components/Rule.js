@@ -62,7 +62,7 @@ class Rule extends React.Component {
 
     this.props.actions.addActionRule(this.props.id, index); 
   }
-  
+
   deleteActionRule(id) {
 
     var updatedActionRules = this.state.actionRules.filter(function( actionRule ) {
@@ -73,11 +73,12 @@ class Rule extends React.Component {
     this.props.actions.removeActionRule(this.props.id, id);
 
   }
-  
+
   updateActionRule(query, actionRuleId, ruleID){
+    console.log('update action rule');
     console.log(query, actionRuleId, ruleID);
   }
-  
+
   render() {
 
     var actionRuleComponents = this.state.actionRules.length > 0 ? (this.state.actionRules.map(r => (
@@ -121,33 +122,32 @@ class Rule extends React.Component {
               <button className = "RuleButton" type="button" onClick={e => this.props.onDelete(this.props.id)}>Delete Rule</button> 
             </span>
           </div>
-         <div >
           <div >
-            < FusionPropertyPair 
-              onSelectA={this.selectPropertyA}
-              onSelectB={this.selectPropertyB}
-            / >
-          </div>
-          <div className="RuleSelectBox">
-            < div className="RuleSelectBox_content" > 
-              <label>Default Rule Action:&nbsp;&nbsp;</label>
-            < /div >
-            < div className="RuleSelectBox_content" > 
-              < select title = "Choose Default Action" 
-                onChange={e => this.selectFusionAction(e.target.value)} >
-                {options}
-              < /select>
-            < /div >
-          </div>
-       </div>     
-      {actionRuleComponents}
+            <div >
+              < FusionPropertyPair 
+                onSelectA={this.selectPropertyA}
+                onSelectB={this.selectPropertyB}
+              / >
+            </div>
+            <div className="RuleSelectBox">
+              < div className="RuleSelectBox_content" > 
+                <label>Default Rule Action:&nbsp;&nbsp;</label>
+              < /div >
+              < div className="RuleSelectBox_content" > 
+                < select title = "Choose Default Action" 
+                  onChange={e => this.selectFusionAction(e.target.value)} >
+                  {options}
+                < /select>
+              < /div >
+            </div>
+          </div>     
+          {actionRuleComponents}
           <div>
             <button className = "ConditionButton" type="button" onClick={e => this.addActionRule()}>Add Fusion Rule</button> 
           </div>
         < /div >
       </div>
     );
-    
   }
 }
 

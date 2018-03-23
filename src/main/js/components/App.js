@@ -28,61 +28,60 @@ class App extends React.Component {
       error: null,
       showStatistics:false,
       loading: null,
-      statistics: null      
+      statistics: null,
+      datasetAction: datasetActionConstants[0]
     }
   }
 
   fuse(){
-    //console.log(this);
     this.props.actions.fuse();
   }
   
   runStatistics(){
-    console.log(this);
-    
     this.setState({showStatistics:true});
-    
+
     this.props.actions.runStatistics();
   }
-  
+
   selectDatasetAction(e){
+    //this.setState({datasetAction:e});
     this.props.actions.setDatasetAction(e);
   }
 
   render() {
 
     return (
-      < div > 
-        < div className="Logo" > 
-          < div align="center"> FAGI < /div >
-        < /div >
+      <div> 
+        <div className="Logo"> 
+          <div align="center"> FAGI </div>
+        </div>
         <div >
           < RuleBuilder /> 
         </div>
         <span style={{float: 'right'}}>
           <div className = "FusionBox">
             <button className = "FuseButton" type="button" onClick={e => this.runStatistics()}>Calculate Stats</button> 
-           <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button> 
-            < div className="SelectBox_content" > 
+            <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button> 
+            <div className="SelectBox_content"> 
               <label>Default Dataset Action:&nbsp;&nbsp;</label>
-            < /div >
-          < div className="SelectBox_content" > 
-            < select title = "Choose Default Dataset Fusion Action" 
-              onChange={e => this.selectDatasetAction(e.target.value)}  >            
+            </div> 
+          <div className="SelectBox_content"> 
+            <select title = "Choose Default Dataset Fusion Action" 
+              onChange={e => this.selectDatasetAction(e.target.value)}>            
               {options}
-            < /select>
-          < /div >
+            </select>
           </div>
+        </div>
         </span>
-          < div className='Chart'>
+          <div className='Chart'>
             <Chart 
               option={chartOption}
               defaultOption={chartDefaultOption}
               loading={this.state.loading}
               show={this.state.showStatistics}
               />
-          < /div >
-      < /div >
+          </div>
+      </div>
     )
   }
 }
