@@ -4,7 +4,7 @@ var { connect } = require('react-redux');
 import Rule from './Rule';
 import Validator from './Validator';
 
-var { addRule, removeRule } = require('../actions/RuleBuilderActions');
+var { addRule, removeRule, updateActionRules } = require('../actions/RuleBuilderActions');
 
 class RuleBuilder extends React.Component {
 
@@ -13,6 +13,7 @@ class RuleBuilder extends React.Component {
 
     //bind delete handler to be passed to 'Rule'
     this.deleteRule = this.deleteRule.bind(this);
+    this.updateActionRules = this.updateActionRules.bind(this);
 
     this.state = {
       rules: [],
@@ -43,6 +44,10 @@ class RuleBuilder extends React.Component {
 
   }
   
+  updateActionRules(ruleId, actionRuleId, query) {
+    this.props.actions.updateActionRules(ruleId, actionRuleId, query);
+  }
+  
   render() {
 
     var validationComponent;
@@ -51,6 +56,7 @@ class RuleBuilder extends React.Component {
       <Rule 
         key={r.id} 
         id={r.id}
+        updateActionRule={this.updateActionRules}
         onDelete={this.deleteRule}/>))) : null;
 
     return (
@@ -77,7 +83,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { addRule, removeRule }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { addRule, removeRule, updateActionRules }) , dispatch)
   };
 }
 

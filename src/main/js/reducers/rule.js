@@ -20,7 +20,23 @@ var rule = function(state, action) {
       });      
       return Object.assign({}, state, {
         rules : updatedRules2
-      });  
+      });
+    case types.UPDATE_ACTION_RULE:
+      
+      let r = state.rules.find(function( rule ) {
+        return rule.id == action.ruleId;
+      });
+
+      let ar = r.actionRules.find(function(actionRule) {
+        return actionRule.id == action.actionRuleId
+      });
+
+      ar.query = action.query;
+      //todo add propA propB
+
+      return Object.assign({}, state, {
+        rules : state.rules
+      });
     case types.SET_RULE_ID:
       return Object.assign({}, state, {
         id: action.id

@@ -70,13 +70,14 @@ class ActionRuleBuilder extends React.Component {
   }  
 
   render() {
+    var ops = [{name:{op1:'prop1'}, label:'propA'}];
     return (
       <div className="query-builder"> 
         <QueryBuilder
           fields = {functions}
           translations = {labels}
           combinators = {combinators}
-          operators={null}
+          operators={ops}
           controlElements = {this.state.controlElements}
           onQueryChange = {this.logQuery} 
         />

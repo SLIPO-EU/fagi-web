@@ -74,9 +74,8 @@ class Rule extends React.Component {
 
   }
 
-  updateActionRule(query, actionRuleId, ruleID){
-    console.log('update action rule');
-    console.log(query, actionRuleId, ruleID);
+  updateActionRule(query, actionRuleId, ruleId){
+    this.props.updateActionRule(ruleId, actionRuleId, query);
   }
 
   render() {
@@ -94,7 +93,7 @@ class Rule extends React.Component {
                 ruleId={this.props.id}
                 actionRuleId={r.id}
                 onChange={this.updateActionRule}
-                 />
+              />
             < /div>
             <div className="FusionActionPair" >
               <div className="RuleFusionActionBox">
@@ -112,7 +111,7 @@ class Rule extends React.Component {
           < /div>
           )
         )
-      ) : null;    
+      ) : null;
 
     return (
       <div className = "RuleWrapper" key={this.props.id} >
@@ -122,12 +121,12 @@ class Rule extends React.Component {
               <button className = "RuleButton" type="button" onClick={e => this.props.onDelete(this.props.id)}>Delete Rule</button> 
             </span>
           </div>
-          <div >
-            <div >
-              < FusionPropertyPair 
+          <div>
+            <div>
+              <FusionPropertyPair 
                 onSelectA={this.selectPropertyA}
                 onSelectB={this.selectPropertyB}
-              / >
+              />
             </div>
             <div className="RuleSelectBox">
               < div className="RuleSelectBox_content" > 

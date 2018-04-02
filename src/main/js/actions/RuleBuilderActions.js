@@ -12,7 +12,15 @@ var RuleBuilderActions = {
       type : types.REMOVE_RULE,
       ruleId : ruleId
     };
-  }
+  },
+  updateActionRules : function(ruleId, actionRuleId, query) {
+    return {
+      type : types.UPDATE_ACTION_RULE,
+      ruleId : ruleId,
+      actionRuleId : actionRuleId,
+      query : query
+    };
+  }  
 };
 
 module.exports = RuleBuilderActions;
