@@ -12,7 +12,7 @@ var combinators = require('../constants/combinators');
 var properties = require('../constants/properties');
 var datasetIdentifiers = require('../constants/DatasetIdentifiers');
 var { setQuery } = require('../actions/ActionRuleBuilderActions');
-import condition from './Condition';
+import Condition from './Condition';
   
 var propertyOptions =  properties.map(function(property) {
   return (
@@ -44,33 +44,79 @@ function customValueEditor() {
   return properties;
 }
 
+class ConditionWrapper extends React.Component {
+  
+  constructor(props) {
+    super(props);
+  }
+  
+  setActionPropertyA(ruleId, actionRuleId, propA){
+    console.log(ruleId, actionRuleId, propA);
+    //this.setState({propertyA:e});
+  }
+
+  setActionPropertyB(ruleId, actionRuleId, propB){
+    console.log(ruleId, actionRuleId, propB);
+    //this.setState({propertyA:e});
+  }
+
+  setDataset(ruleId, actionRuleId, dataset){
+    console.log(ruleId, actionRuleId, dataset);
+    //this.setState({propertyA:e});
+  }
+
+  setThreshold(ruleId, actionRuleId, thres){
+    console.log(ruleId, actionRuleId, thres);
+    //this.setState({propertyA:e});
+  }
+
+  render() {
+
+    return (
+      <Condition
+        ruleId={this.props.options[0].ruleId}
+        actionRuleId={this.props.options[0].actionRuleId}
+        field={this.props.field}
+        setActionPropertyA={this.setActionPropertyA}
+        setActionPropertyB={this.setActionPropertyB}
+        setDataset={this.setDataset}
+        setThreshold={this.setThreshold}
+      />
+    )
+  }
+}
+
 class ActionRuleBuilder extends React.Component {
 
   constructor(props) {
     super(props);
     this.logQuery = this.logQuery.bind(this);
-
+    
     this.state = {
+      field: 'isDateKnownFormat',
       actionRules: [],
       ind:{key:0},
-      controlElements: {operatorSelector: condition, valueEditor: customValueEditor()}
+      controlElements: {operatorSelector: ConditionWrapper, valueEditor: customValueEditor()}
     };
   }
-
-  componentWillMount() {
-
-  }
-
+  
   componentDidMount() {
     console.log(this);
   }
 
   logQuery(e){
+    console.log(e);
+    //TODO: add propA, propB, dataset, threshold to query from condition
+    //define keys for each query-rule
+    let field = e.rules[0] ? e.rules[0].field : this.state.field;
+    this.setState({field:field});
     this.props.onChange(e, this.props.actionRuleId, this.props.ruleId);
-  }  
-
+  }
+  
   render() {
-    var ops = [{name:{op1:'prop1'}, label:'propA'}];
+
+    var ops = [{ruleId:this.props.ruleId, actionRuleId: this.props.actionRuleId}];
+
     return (
       <div className="query-builder"> 
         <QueryBuilder

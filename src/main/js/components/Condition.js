@@ -30,7 +30,6 @@ class Condition extends React.Component {
 
   constructor(props) {
     super(props);
-
   }
 
   componentDidMount(){
@@ -52,30 +51,26 @@ class Condition extends React.Component {
     if(selectedFunction.parameterCount !== 1){
       this.setState({datasetId: null});
     }
-    //this.setState({name: newProps.name});
   }
 
   selectDatasetIdentifier(e){
     console.log(e);
-
-    //this.setState({datasetId:e});
-    this.props.actions.setDataset(e);
+    this.props.setDataset(this.props.ruleId, this.props.actionRuleId, e);
   }
   
   selectActionRulePropertyA(e){
+    this.props.setActionPropertyA(this.props.ruleId, this.props.actionRuleId, e);
     this.setState({propertyA:e});
   }
 
   selectActionRulePropertyB(e){
+    this.props.setActionPropertyB(this.props.ruleId, this.props.actionRuleId, e);
     this.setState({propertyB:e});
   }
 
 
   onThresholdChange(e){
-    console.log(e);
-    //this.setState({threshold:e});
-    this.props.actions.setThreshold(e);
-    
+    this.props.setThreshold(this.props.ruleId, this.props.actionRuleId, e);
   }
 
   render() {
