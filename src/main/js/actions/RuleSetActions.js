@@ -1,6 +1,6 @@
 var types = require('../constants/RuleActionTypes');
 
-var RuleBuilderActions = {
+var RuleSetActions = {
   addRule : function(rule) {
     return {
       type : types.ADD_RULE,
@@ -20,7 +20,7 @@ var RuleBuilderActions = {
       actionRuleId : actionRuleId,
       query : query
     };
-  }  
+  }
 };
 
-module.exports = RuleBuilderActions;
+module.exports = RuleSetActions;

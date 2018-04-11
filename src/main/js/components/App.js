@@ -2,7 +2,7 @@ require('../RuleBox.scss');
 const React = require('react');
 
 import { connect } from 'react-redux';
-import RuleBuilder from '../components/RuleBuilder';
+import RuleSet from '../components/RuleSet';
 import Chart from '../components/Chart';
 var { bindActionCreators } = require('redux');
 var datasetActionConstants = require('../constants/DatasetActionConstants');
@@ -56,7 +56,7 @@ class App extends React.Component {
           <div align="center"> FAGI </div>
         </div>
         <div >
-          < RuleBuilder /> 
+          < RuleSet /> 
         </div>
         <span style={{float: 'right'}}>
           <div className = "FusionBox">

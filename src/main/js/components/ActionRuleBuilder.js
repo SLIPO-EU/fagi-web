@@ -48,26 +48,38 @@ class ConditionWrapper extends React.Component {
   
   constructor(props) {
     super(props);
+    this.setDataset = this.setDataset.bind(this);
+    this.setActionPropertyA = this.setActionPropertyA.bind(this);
+    this.setActionPropertyB = this.setActionPropertyB.bind(this);
+    this.setThreshold = this.setThreshold.bind(this);
+  }
+  
+  componentDidMount() {
+    this.props.handleOnChange({dataset:datasetIdentifiers[0].name, propA:properties[0], propB:properties[0], threshold:0});
   }
   
   setActionPropertyA(ruleId, actionRuleId, propA){
     console.log(ruleId, actionRuleId, propA);
-    //this.setState({propertyA:e});
+    let _query = Object.assign(this.props.value, {propA:propA});
+    this.props.handleOnChange(_query);  
   }
 
   setActionPropertyB(ruleId, actionRuleId, propB){
     console.log(ruleId, actionRuleId, propB);
-    //this.setState({propertyA:e});
+    let _query = Object.assign(this.props.value, {propB:propB});
+    this.props.handleOnChange(_query);    
   }
 
   setDataset(ruleId, actionRuleId, dataset){
     console.log(ruleId, actionRuleId, dataset);
-    //this.setState({propertyA:e});
+    let _query = Object.assign(this.props.value, {dataset:dataset});
+    this.props.handleOnChange(_query);
   }
 
   setThreshold(ruleId, actionRuleId, thres){
     console.log(ruleId, actionRuleId, thres);
-    //this.setState({propertyA:e});
+    let _query = Object.assign(this.props.value, {threshold:thres});
+    this.props.handleOnChange(_query);  
   }
 
   render() {
@@ -91,7 +103,7 @@ class ActionRuleBuilder extends React.Component {
   constructor(props) {
     super(props);
     this.logQuery = this.logQuery.bind(this);
-    
+
     this.state = {
       field: 'isDateKnownFormat',
       actionRules: [],
@@ -99,7 +111,7 @@ class ActionRuleBuilder extends React.Component {
       controlElements: {operatorSelector: ConditionWrapper, valueEditor: customValueEditor()}
     };
   }
-  
+
   componentDidMount() {
     console.log(this);
   }
@@ -112,10 +124,10 @@ class ActionRuleBuilder extends React.Component {
     this.setState({field:field});
     this.props.onChange(e, this.props.actionRuleId, this.props.ruleId);
   }
-  
+
   render() {
 
-    var ops = [{ruleId:this.props.ruleId, actionRuleId: this.props.actionRuleId}];
+    var ops = [{la: 'la', ruleId:this.props.ruleId, actionRuleId: this.props.actionRuleId}];
 
     return (
       <div className="query-builder"> 

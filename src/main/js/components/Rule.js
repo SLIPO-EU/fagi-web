@@ -87,28 +87,29 @@ class Rule extends React.Component {
               <button type="button" onClick={e => this.deleteActionRule(r.id)}>x</button> 
             </span>
           </div>
-            < div className="ActionRuleBuilderBox">
+            <div className="ActionRuleBuilderBox">
               < ActionRuleBuilder 
                 key={this.props.id}
                 ruleId={this.props.id}
                 actionRuleId={r.id}
                 onChange={this.updateActionRule}
               />
-            < /div>
-            <div className="FusionActionPair" >
+            </div>
+            <div className="FusionActionPair">
               <div className="RuleFusionActionBox">
-                < div className="RuleSelectBox_content" > 
+                <div className="RuleSelectBox_content"> 
                   <label>Fusion Action:&nbsp;&nbsp;</label>
-                < /div >
-                < div className="RuleSelectBox_content" > 
-                  < select title = "Choose Fusion Action" 
-                    onChange={e => this.selectFusionAction(e.target.value)} >            
+                </div>
+                <div className="RuleSelectBox_content" > 
+                  <select title = "Choose Fusion Action" 
+                    onChange={e => this.selectFusionAction(e.target.value)}
+                  >            
                     {options}
-                  < /select>
-                < /div >
+                  </select>
+                </div >
               </div>
             </div>
-          < /div>
+          </div>
           )
         )
       ) : null;

@@ -4,9 +4,9 @@ var { connect } = require('react-redux');
 import Rule from './Rule';
 import Validator from './Validator';
 
-var { addRule, removeRule, updateActionRules } = require('../actions/RuleBuilderActions');
+var { addRule, removeRule, updateActionRules } = require('../actions/RuleSetActions');
 
-class RuleBuilder extends React.Component {
+class RuleSet extends React.Component {
 
   constructor(props) {
     super(props);
@@ -87,4 +87,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RuleBuilder);
+export default connect(mapStateToProps, mapDispatchToProps)(RuleSet);

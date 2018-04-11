@@ -2,8 +2,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 require('./query-builder.scss');
 
-import QueryBuilder from 'react-querybuilder';
-
 var { bindActionCreators } = require('redux');
 var { connect} = require('react-redux');
 var functions = require('../constants/functions');
@@ -67,7 +65,6 @@ class Condition extends React.Component {
     this.props.setActionPropertyB(this.props.ruleId, this.props.actionRuleId, e);
     this.setState({propertyB:e});
   }
-
 
   onThresholdChange(e){
     this.props.setThreshold(this.props.ruleId, this.props.actionRuleId, e);
