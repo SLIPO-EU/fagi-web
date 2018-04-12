@@ -4,7 +4,9 @@ var initialState = {
   success: null,
   error: null,
   loading: null,
-  statistics: null
+  calculating: null,
+  statistics: null,
+  config: null
 };
 
 export default (state = initialState, action) => {
@@ -12,12 +14,17 @@ export default (state = initialState, action) => {
     case types.SET_DATASET_ACTION:
       return Object.assign({}, state, {
         datasetAction: action.datasetAction
-      });    
-    case types.FUSE:
+      });
+    case types.REQUEST_FUSE:
       return Object.assign({}, state, {
+        calculating: true
+      });
+    case types.RESPONSE_FUSE:
+      return Object.assign({}, state, {
+        calculating: false,
         success: action.success,
         error: action.error
-      });
+      });      
     case types.REQUEST_RUN_STATISTICS:
       return Object.assign({}, state, {
         success: action.success,

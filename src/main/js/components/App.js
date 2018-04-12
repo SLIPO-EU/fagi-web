@@ -1,9 +1,10 @@
 require('../RuleBox.scss');
 const React = require('react');
-
+import MDSpinner from "react-md-spinner";
 import { connect } from 'react-redux';
 import RuleSet from '../components/RuleSet';
 import Chart from '../components/Chart';
+
 var { bindActionCreators } = require('redux');
 var datasetActionConstants = require('../constants/DatasetActionConstants');
 var chartOption = require('../constants/ChartOptions');
@@ -34,7 +35,9 @@ class App extends React.Component {
   }
 
   fuse(){
-    this.props.actions.fuse();
+    console.log('fuse');
+    console.log(this.props.config);
+    this.props.actions.fuse(this.props.config);
   }
   
   runStatistics(){
@@ -50,6 +53,17 @@ class App extends React.Component {
 
   render() {
 
+    if(this.props.calculating){
+      return(
+        <div className="centered">
+          <MDSpinner 
+            duration={4000} 
+            size={80}
+          />
+        </div>
+      );
+    }
+
     return (
       <div> 
         <div className="Logo"> 
@@ -64,7 +78,7 @@ class App extends React.Component {
             <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button> 
             <div className="SelectBox_content"> 
               <label>Default Dataset Action:&nbsp;&nbsp;</label>
-            </div> 
+            </div>
           <div className="SelectBox_content"> 
             <select title = "Choose Default Dataset Fusion Action" 
               onChange={e => this.selectDatasetAction(e.target.value)}>            
@@ -87,12 +101,17 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
+  
+  let config = {validationRules : state.validation, ruleset : state.ruleset};
+  
   return {
     success: state.success,
     error: state.error,
     datasetAction: state.datasetAction,
-    loading: state.loading,
-    statistics: state.statistics
+    loading: state.app.loading,
+    calculating: state.app.calculating,
+    statistics: state.statistics,
+    config: config
   };
 }
 

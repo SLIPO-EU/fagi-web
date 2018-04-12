@@ -62,5 +62,24 @@ public class TestController {
             return new RestResponse(ex.getMessage(), ex.toString());
         }
     }
+    
+    @RequestMapping(value = "/action/fusion/run", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ResponseBody
+    public RestResponse fuse(String config) {
+        try{    
+
+            RestResponse response = new RestResponse();
+            
+            //simulate calculation time for response
+            Thread.sleep(3500);
+            
+            return response;
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+
+            return new RestResponse(ex.getMessage(), ex.toString());
+        }
+    }    
 }
 

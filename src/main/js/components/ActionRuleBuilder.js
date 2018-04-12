@@ -127,7 +127,7 @@ class ActionRuleBuilder extends React.Component {
 
   render() {
 
-    var ops = [{la: 'la', ruleId:this.props.ruleId, actionRuleId: this.props.actionRuleId}];
+    var ops = [{ruleId:this.props.ruleId, actionRuleId: this.props.actionRuleId}];
 
     return (
       <div className="query-builder"> 
