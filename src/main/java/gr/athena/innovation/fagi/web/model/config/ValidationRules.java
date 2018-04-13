@@ -7,5 +7,15 @@ import java.util.List;
  * @author nkarag
  */
 public class ValidationRules {
-    private List<Rule> rules;
+    
+    private String defaultValidationAction;
+    private List<ValidationRule> rules;
+
+    public String getDefaultValidationAction() {
+        return defaultValidationAction;
+    }
+
+    public List<ValidationRule> getRules() {
+        return rules;
+    }
 }

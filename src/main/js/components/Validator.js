@@ -5,7 +5,8 @@ var { connect} = require('react-redux');
 import ActionRuleBuilder from './ActionRuleBuilder';
 
 var validatorActionConstants = require('../constants/ValidatorActionConstants');
-var { addValidationRule, removeValidationRule } = require('../actions/ValidatorActions');
+var { addValidationRule, removeValidationRule, updateActionRules, setDefaultValidationAction, 
+      selectValidationAction } = require('../actions/ValidatorActions');
 
 var options =  validatorActionConstants.map(function(action) {
   return (
@@ -21,7 +22,10 @@ class Validator extends React.Component {
   constructor(props) {
     super(props);
     
-    this.updateActionRule = this.updateActionRule.bind(this);
+    this.updateActionRules = this.updateActionRules.bind(this);
+    this.selectValidationAction = this.selectValidationAction.bind(this);
+    
+    this.props.actions.setDefaultValidationAction(validatorActionConstants[0].name);
     
     this.state = {
       validationRules: [],
@@ -29,8 +33,12 @@ class Validator extends React.Component {
     };
   }
   
-  selectValidationAction(a){
-    console.log(a);
+  setDefaultValidationAction(e){
+    this.props.actions.setDefaultValidationAction(e);
+  }
+  
+  selectValidationAction(actionRuleId, validationAction){
+    this.props.actions.selectValidationAction(actionRuleId, validationAction);
   }
   
   addValidationRule(){
@@ -55,8 +63,9 @@ class Validator extends React.Component {
     this.props.actions.removeValidationRule(id);
   }
 
-  updateActionRule(query, actionRuleId, ruleID){
-    console.log(query, actionRuleId, ruleID);
+  updateActionRules(query, actionRuleId, ruleId) {
+    //ignoring ruleId, There is only one rule in validation.
+    this.props.actions.updateActionRules(actionRuleId, query);
   }
   
   render() {
@@ -73,7 +82,7 @@ class Validator extends React.Component {
                 key={this.props.id}
                 ruleId={this.props.id}
                 actionRuleId={r.id}
-                onChange={this.updateActionRule}
+                onChange={this.updateActionRules}
               />
             </div>
             <div className="FusionActionPair" >
@@ -83,7 +92,7 @@ class Validator extends React.Component {
                 </div>
                 <div className="RuleSelectBox_content" > 
                   <select title = "Choose Validation Action" 
-                    onChange={e => this.selectValidationAction(e.target.value)}>            
+                    onChange={e => this.selectValidationAction(r.id, e.target.value)}>            
                     {options}
                   </select>
                 </div>
@@ -104,7 +113,7 @@ class Validator extends React.Component {
               </div>
               <div className="RuleSelectBox_content"> 
                 <select title = "Choose Default Action" 
-                  onChange={e => this.selectValidationAction(e.target.value)}>
+                  onChange={e => this.setDefaultValidationAction(e.target.value)}>
                   {options}
                 </select>
               </div>
@@ -121,15 +130,16 @@ class Validator extends React.Component {
 }
 
 function mapStateToProps(state) {
-
   return {
-    rules: state.rules
+    rules: state.validator.rules
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { addValidationRule, removeValidationRule }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { addValidationRule, removeValidationRule, 
+                                                     updateActionRules, setDefaultValidationAction, 
+                                                     selectValidationAction }) , dispatch)
   };
 }
 

@@ -7,7 +7,8 @@ import FusionPropertyPair from './PropertyPair';
 
 var fusionActionConstants = require('../constants/FusionActionConstants');
 
-var { setRuleId, changeFusionAction, setDefaultFusionAction, setFusionPropertyA, setFusionPropertyB, addActionRule, removeActionRule } = require('../actions/RuleActions');
+var { setRuleId, changeFusionAction, setDefaultFusionAction, setFusionPropertyA, setFusionPropertyB, 
+      addActionRule, removeActionRule } = require('../actions/RuleActions');
 
 var options =  fusionActionConstants.map(function(action) {
   return (
@@ -33,6 +34,8 @@ class Rule extends React.Component {
 
     this.props.actions.setRuleId(this.props.id);
     
+    this.props.actions.setDefaultFusionAction(this.props.id, fusionActionConstants[0].name);
+    
     this.state = {
       actionRules: [],
       ind:{key:0}
@@ -49,7 +52,6 @@ class Rule extends React.Component {
   }
   
   selectDefaultFusionAction(e){
-    console.log(e);
     this.props.actions.setDefaultFusionAction(this.props.id, e);
   }
   

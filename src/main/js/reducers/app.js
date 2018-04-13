@@ -1,7 +1,7 @@
 var types = require('../constants/AppActionTypes');
 
 var initialState = {
-  datasetAction: "keep-left",
+  datasetAction: null,
   success: null,
   error: null,
   loading: null,

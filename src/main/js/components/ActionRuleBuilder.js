@@ -59,25 +59,21 @@ class ConditionWrapper extends React.Component {
   }
   
   setActionPropertyA(ruleId, actionRuleId, propA){
-    console.log(ruleId, actionRuleId, propA);
     let _query = Object.assign(this.props.value, {propA:propA});
     this.props.handleOnChange(_query);  
   }
 
   setActionPropertyB(ruleId, actionRuleId, propB){
-    console.log(ruleId, actionRuleId, propB);
     let _query = Object.assign(this.props.value, {propB:propB});
     this.props.handleOnChange(_query);    
   }
 
   setDataset(ruleId, actionRuleId, dataset){
-    console.log(ruleId, actionRuleId, dataset);
     let _query = Object.assign(this.props.value, {dataset:dataset});
     this.props.handleOnChange(_query);
   }
 
   setThreshold(ruleId, actionRuleId, thres){
-    console.log(ruleId, actionRuleId, thres);
     let _query = Object.assign(this.props.value, {threshold:thres});
     this.props.handleOnChange(_query);  
   }
@@ -113,8 +109,6 @@ class ActionRuleBuilder extends React.Component {
   }
 
   logQuery(e){
-    console.log(e);
-
     let field = e.rules[0] ? e.rules[0].field : this.state.field;
     this.setState({field:field});
     this.props.onChange(e, this.props.actionRuleId, this.props.ruleId);

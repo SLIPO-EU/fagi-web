@@ -32,6 +32,8 @@ class App extends React.Component {
       statistics: null,
       datasetAction: datasetActionConstants[0]
     }
+    
+    this.props.actions.setDatasetAction(datasetActionConstants[0].name);
   }
 
   fuse(){
@@ -51,8 +53,9 @@ class App extends React.Component {
 
   render() {
 
+    let loading;
     if(this.props.calculating){
-      return(
+      loading = (
         <div className="centered">
           <MDSpinner 
             duration={4000} 
@@ -60,10 +63,13 @@ class App extends React.Component {
           />
         </div>
       );
+    } else {
+      loading = null;
     }
 
     return (
       <div> 
+        {loading}
         <div className="Logo"> 
           <div align="center"> FAGI </div>
         </div>
@@ -72,8 +78,8 @@ class App extends React.Component {
         </div>
         <span style={{float: 'right'}}>
           <div className = "FusionBox">
-            <button className = "FuseButton" type="button" onClick={e => this.runStatistics()}>Calculate Stats</button> 
-            <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button> 
+            <button className = "FuseButton" type="button" onClick={e => this.runStatistics()}>Calculate Stats</button>
+            <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button>
             <div className="SelectBox_content"> 
               <label>Default Dataset Action:&nbsp;&nbsp;</label>
             </div>
@@ -100,7 +106,7 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
 
-  let config = {datasetAction: state.app.datasetAction, validationRules: state.validation, ruleset: state.ruleset};
+  let config = {datasetAction: state.app.datasetAction, validationRules: state.validator, ruleset: state.ruleset};
   
   return {
     success: state.success,

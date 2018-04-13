@@ -1,4 +1,5 @@
 var types = require('../constants/RuleActionTypes');
+var fusionActionConstants = require('../constants/FusionActionConstants');
 var _ = require('lodash');
 
 var initialState = {
@@ -109,7 +110,8 @@ var rule = function(state, action) {
         actionRules = [];
       }
       
-      actionRules.push({id:action.actionRuleId});
+      actionRules.push({id:action.actionRuleId, fusionAction: fusionActionConstants[0].name});
+      
       currentRule.actionRules = actionRules;
       rules.splice(index, 1, currentRule);  
 
