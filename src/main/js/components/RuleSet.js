@@ -14,6 +14,7 @@ class RuleSet extends React.Component {
     //bind delete handler to be passed to 'Rule'
     this.deleteRule = this.deleteRule.bind(this);
     this.updateActionRules = this.updateActionRules.bind(this);
+    this.changeFusionAction = this.changeFusionAction.bind(this);
 
     this.state = {
       rules: [],
@@ -48,6 +49,10 @@ class RuleSet extends React.Component {
     this.props.actions.updateActionRules(ruleId, actionRuleId, query);
   }
   
+  changeFusionAction(ruleId, actionRuleId, fusionAction) {
+    this.props.actions.changeFusionAction(ruleId, actionRuleId, fusionAction);
+  }  
+  
   render() {
 
     var validationComponent;
@@ -57,7 +62,9 @@ class RuleSet extends React.Component {
         key={r.id} 
         id={r.id}
         updateActionRule={this.updateActionRules}
-        onDelete={this.deleteRule}/>))) : null;
+        changeFusionAction={this.changeFusionAction}
+        onDelete={this.deleteRule}
+      />))) : null;
 
     return (
       <div>

@@ -40,6 +40,8 @@ var AppActions = {
   },
 
   fuse : function(config) {
+    delete config.ruleset.activeId;
+    delete config.ruleset.id;
     return function(dispatch, getState) {
       dispatch(requestFuse());
       return api.fuse(config).then(function (response) {

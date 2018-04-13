@@ -112,14 +112,9 @@ class ActionRuleBuilder extends React.Component {
     };
   }
 
-  componentDidMount() {
-    console.log(this);
-  }
-
   logQuery(e){
     console.log(e);
-    //TODO: add propA, propB, dataset, threshold to query from condition
-    //define keys for each query-rule
+
     let field = e.rules[0] ? e.rules[0].field : this.state.field;
     this.setState({field:field});
     this.props.onChange(e, this.props.actionRuleId, this.props.ruleId);

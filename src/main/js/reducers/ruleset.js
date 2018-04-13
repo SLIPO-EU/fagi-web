@@ -32,7 +32,6 @@ var rule = function(state, action) {
       });
 
       ar.query = action.query;
-      //todo add propA propB
 
       return Object.assign({}, state, {
         rules : state.rules
@@ -41,6 +40,35 @@ var rule = function(state, action) {
       return Object.assign({}, state, {
         id: action.id
       });
+    case types.CHANGE_FUSION_ACTION:
+    {  
+      let r = state.rules.find(function( rule ) {
+        return rule.id == action.ruleId;
+      });
+
+      let ar = r.actionRules.find(function(actionRule) {
+        return actionRule.id == action.actionRuleId
+      });
+
+      ar.fusionAction = action.fusionAction;
+      return Object.assign({}, state, {
+        rules : state.rules
+      });
+    }
+    case types.SET_DEFAULT_RULE_ACTION:
+    {
+      let r = state.rules;
+      var index = _.findIndex(r, {id: action.activeId});
+      
+      let rule = r[index];
+      rule.defaultRuleAction = action.defaultRuleAction;
+      r.splice(index, 1, rule);
+      
+      return Object.assign({}, state, {
+        activeId:action.activeId,
+        rules: r
+      }); 
+    }
     case types.SET_FUSION_PROPERTY_A:
       let rA = state.rules;
       var index = _.findIndex(rA, {id: action.activeId});

@@ -6,7 +6,25 @@ var RuleActions = {
       type : types.SET_RULE_ID,
       id : id
     };
-  },  
+  },
+  
+  setDefaultFusionAction : function(id, defaultRuleAction) {
+    return {
+      type : types.SET_DEFAULT_RULE_ACTION,
+      activeId: id,
+      defaultRuleAction : defaultRuleAction
+    };
+  },
+  
+  changeFusionAction : function(ruleId, actionRuleId, fusionAction) {
+    return {
+      type : types.CHANGE_FUSION_ACTION,
+      ruleId : ruleId,
+      actionRuleId : actionRuleId,
+      fusionAction : fusionAction
+    };
+  },
+  
   setFusionPropertyA : function(id, fusionPropertyA) {
     return {
       type : types.SET_FUSION_PROPERTY_A,

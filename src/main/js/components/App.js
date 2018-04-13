@@ -35,8 +35,6 @@ class App extends React.Component {
   }
 
   fuse(){
-    console.log('fuse');
-    console.log(this.props.config);
     this.props.actions.fuse(this.props.config);
   }
   
@@ -101,13 +99,13 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
-  
-  let config = {validationRules : state.validation, ruleset : state.ruleset};
+
+  let config = {datasetAction: state.app.datasetAction, validationRules: state.validation, ruleset: state.ruleset};
   
   return {
     success: state.success,
     error: state.error,
-    datasetAction: state.datasetAction,
+    datasetAction: state.app.datasetAction,
     loading: state.app.loading,
     calculating: state.app.calculating,
     statistics: state.statistics,

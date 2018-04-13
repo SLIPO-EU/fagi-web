@@ -7,7 +7,7 @@ import FusionPropertyPair from './PropertyPair';
 
 var fusionActionConstants = require('../constants/FusionActionConstants');
 
-var { setRuleId, setFusionPropertyA, setFusionPropertyB, addActionRule, removeActionRule } = require('../actions/RuleActions');
+var { setRuleId, changeFusionAction, setDefaultFusionAction, setFusionPropertyA, setFusionPropertyB, addActionRule, removeActionRule } = require('../actions/RuleActions');
 
 var options =  fusionActionConstants.map(function(action) {
   return (
@@ -29,6 +29,7 @@ class Rule extends React.Component {
     this.selectPropertyA = this.selectPropertyA.bind(this);
     this.selectPropertyB = this.selectPropertyB.bind(this);
     this.updateActionRule = this.updateActionRule.bind(this);
+    this.changeFusionAction = this.changeFusionAction.bind(this);
 
     this.props.actions.setRuleId(this.props.id);
     
@@ -47,9 +48,9 @@ class Rule extends React.Component {
     this.props.actions.setFusionPropertyB(this.props.id, e);
   }
   
-  selectFusionAction(a){
-    console.log(a);
-    //this.props.actions.setFusionAction();
+  selectDefaultFusionAction(e){
+    console.log(e);
+    this.props.actions.setDefaultFusionAction(this.props.id, e);
   }
   
   addActionRule(){
@@ -78,6 +79,10 @@ class Rule extends React.Component {
     this.props.updateActionRule(ruleId, actionRuleId, query);
   }
 
+  changeFusionAction(fusionAction, actionRuleId){
+    this.props.actions.changeFusionAction(this.props.id, actionRuleId, fusionAction);
+  }
+  
   render() {
 
     var actionRuleComponents = this.state.actionRules.length > 0 ? (this.state.actionRules.map(r => (
@@ -102,9 +107,9 @@ class Rule extends React.Component {
                 </div>
                 <div className="RuleSelectBox_content" > 
                   <select title = "Choose Fusion Action" 
-                    onChange={e => this.selectFusionAction(e.target.value)}
+                    onChange={e => this.changeFusionAction(e.target.value, r.id)}
                   >            
-                    {options}
+                  {options}
                   </select>
                 </div >
               </div>
@@ -135,7 +140,7 @@ class Rule extends React.Component {
               < /div >
               < div className="RuleSelectBox_content" > 
                 < select title = "Choose Default Action" 
-                  onChange={e => this.selectFusionAction(e.target.value)} >
+                  onChange={e => this.selectDefaultFusionAction(e.target.value)} >
                   {options}
                 < /select>
               < /div >
@@ -162,8 +167,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { setRuleId, setFusionPropertyA, setFusionPropertyB, 
-                                                      addActionRule, removeActionRule }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { setRuleId, changeFusionAction, setDefaultFusionAction, 
+                                                     setFusionPropertyA, setFusionPropertyB, addActionRule, 
+                                                     removeActionRule }) , dispatch)
   };
 }
 
