@@ -4,8 +4,12 @@ import com.google.gson.Gson;
 import gr.athena.innovation.fagi.web.model.RestResponse;
 import gr.athena.innovation.fagi.web.model.StatisticsResponse;
 import gr.athena.innovation.fagi.web.model.config.RulesConfigRequest;
+import gr.athena.innovation.fagi.web.xml.XMLBuilder;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,7 +78,16 @@ public class TestController {
         String s = gson.toJson(config);
         System.out.println(s);
         
-        try{    
+        XMLBuilder xmlBuilder = new XMLBuilder();
+        
+        try {
+            
+            xmlBuilder.writeRulesToXML(config);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try{
 
             RestResponse response = new RestResponse();
             
