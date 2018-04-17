@@ -1,6 +1,7 @@
 package gr.athena.innovation.fagi.web.xml;
 
 import exception.ApplicationException;
+import gr.athena.innovation.fagi.web.model.config.ActionRule;
 import gr.athena.innovation.fagi.web.model.config.Operator;
 import gr.athena.innovation.fagi.web.model.config.Property;
 import gr.athena.innovation.fagi.web.model.config.Query;
@@ -25,7 +26,7 @@ import org.jdom2.output.XMLOutputter;
  */
 public class XMLBuilder {
     
-    private List<Element> validationExternalProperties = new ArrayList<>();
+    private List<Element> externalProperties = new ArrayList<>();
     private Integer numIndex = 0;
     private Integer alphabetIndex = 0;
     
@@ -47,50 +48,82 @@ public class XMLBuilder {
             Element defaultActionElement = new Element(Vocabulary.DEFAULT_ACTION);
             defaultActionElement.addContent(defaultAction);
             validationRuleElement.addContent(defaultActionElement);
-            
-            //<externalProperty>
 
             //<actionRuleSet>
             Element actionRulesetElement = new Element(Vocabulary.ACTION_RULE_SET);
                 
-                
-                for(ValidationRule actionRule : validation.getRules()){
-                    //<actionRule>
-                    Element actionRuleElement = buildActionRule(actionRule);
-                    actionRulesetElement.addContent(actionRuleElement);
-                }
+            for(ValidationRule actionRule : validation.getRules()){
+                //<actionRule>
+                Element actionRuleElement = buildValidationRule(actionRule);
+                actionRulesetElement.addContent(actionRuleElement);
+            }
                 
             validationRuleElement.addContent(actionRulesetElement);
         
-            for(Element p : validationExternalProperties){
+            //<externalProperty>
+            for(Element p : externalProperties){
                 validationRuleElement.addContent(p);
             }
             
         rulesElement.addContent(validationRuleElement);
                     
+        
+
         /*Fusion Rules*/
         RuleSet ruleset = config.getRuleset();
-//        for(Rule rule : ruleset.getRules()){
-//            Element rule = new Element("rule");
-//            //rule.
-//        }
+        for(Rule rule : ruleset.getRules()){
+            externalProperties.clear();
+            Element ruleElement = new Element(Vocabulary.RULE);
+            
+            /*fusion properties */
+            Element fusionPropertyAElement = new Element(Vocabulary.PROPERTY_A);
+            Element fusionPropertyBElement = new Element(Vocabulary.PROPERTY_B);
+            fusionPropertyAElement.addContent(rule.getFusionPropertyA());
+            fusionPropertyBElement.addContent(rule.getFusionPropertyB());
+            
+            ruleElement.addContent(fusionPropertyAElement);
+            ruleElement.addContent(fusionPropertyBElement);
+            
+            /* default fusion action */
+            String defaultRuleAction = rule.getDefaultRuleAction();
+            Element defaultRuleActionElement = new Element(Vocabulary.DEFAULT_ACTION);
+            defaultRuleActionElement.addContent(defaultRuleAction);
+            ruleElement.addContent(defaultRuleActionElement);
+            
+            /* action rules (conditions) */
+            rule.getActionRules();
+            
+            
+            Element actionRulesetElement2 = new Element(Vocabulary.ACTION_RULE_SET);
+                
+            for(ActionRule actionRule : rule.getActionRules()){
+                //<actionRule>
+                Element actionRuleElement = buildActionRule(actionRule);
+                actionRulesetElement2.addContent(actionRuleElement);
+            }
+                
+            ruleElement.addContent(actionRulesetElement2);
+        
+            for(Element p : externalProperties){
+                ruleElement.addContent(p);
+            }
+            
+            rulesElement.addContent(ruleElement);
+        }
 
         rulesElement.addContent(defaultDatasetAction);
-        //rulesElement.addContent(rulesElement)
-        //root.addContent(validationRules);
-        //root.addContent(child3);
 
 
         doc.setRootElement(rulesElement);
 
         XMLOutputter outter = new XMLOutputter();
         outter.setFormat(Format.getPrettyFormat());
-        System.out.println("writing xml to file..");
-        outter.output(doc, new FileWriter(new File("/home/nkarag/Documents/SLIPO/testXml.xml")));
+        //System.out.println("writing xml to file..");
+        //outter.output(doc, new FileWriter(new File("testXml.xml")));
 
     }
 
-    private Element buildActionRule(ValidationRule rule) {
+    private Element buildValidationRule(ValidationRule rule) {
         
         Element actionRuleElement = new Element(Vocabulary.ACTION_RULE);
             Element actionElement = new Element(Vocabulary.ACTION);
@@ -124,14 +157,21 @@ public class XMLBuilder {
                     
                     //should be single function or two nested combinators
                     if(query.getRules().size() == 1){
-                        //single function:
-                        Element functionElement = buildFunction(query, 0);
+                        //single function or single epxression
+                        if(containsNested(query)){
+                            String comb = query.getRules().get(0).getCombinator();
+                            Element combElement = buildNestedExpression(comb, query);
+                            notElement.addContent(combElement);                                
+                        } else {
+                            //single function
+                            Element functionElement = buildFunction(query, 0);
+                            notElement.addContent(functionElement);                            
+                        }
 
-                        notElement.addContent(functionElement);
-                        
                     } else if(query.getRules().size() > 1){
-                        //TODO
-                        //nested
+
+                        Element andElement = buildCombinatorElement(Vocabulary.AND, query);
+                        notElement.addContent(andElement);                        
                         
                     } else {
                         throw new ApplicationException("'NOT' operator does not contain any expressions or function");
@@ -141,11 +181,14 @@ public class XMLBuilder {
                     
                 } else if(combinator.equals(Vocabulary.AND)){
 
-                    buildCombinatorElement(Vocabulary.AND, query, expressionElement);
+                    Element andElement = buildCombinatorElement(Vocabulary.AND, query);
+                    expressionElement.addContent(andElement);
                     
                 } else if(combinator.equals(Vocabulary.OR)){
                     
-                    buildCombinatorElement(Vocabulary.OR, query, expressionElement);                    
+                    Element orElement = buildCombinatorElement(Vocabulary.OR, query); 
+                    expressionElement.addContent(orElement);
+                    
                 }
         
                 conditionElement.addContent(expressionElement);
@@ -155,29 +198,105 @@ public class XMLBuilder {
         return actionRuleElement;
     }
 
-    private void buildCombinatorElement(String combinator, Query query, Element expressionElement) throws ApplicationException {
-        Element andElement = new Element(combinator);
+    private Element buildActionRule(ActionRule rule) {
         
-        //And expression contains more expressions. Iterate and build all expressions.
+        Element actionRuleElement = new Element(Vocabulary.ACTION_RULE);
+            Element actionElement = new Element(Vocabulary.ACTION);
+            
+            actionElement.addContent(rule.getFusionAction());
+            actionRuleElement.addContent(actionElement);
+        
+            //<condition>
+            Element conditionElement = new Element(Vocabulary.CONDITION);
+                //<expression>
+                Element expressionElement = new Element(Vocabulary.EXPRESSION);
+
+                Query query = rule.getQuery();
+                
+                String combinator = query.getCombinator();
+                //Operator operator = query.getOperator();
+        
+                if(combinator == null || combinator.equals(Vocabulary.NONE)){
+                    //single fuction
+                    if(query.getRules().size() == 1){
+                        Element functionElement = buildFunction(query, 0);
+                        expressionElement.addContent(functionElement);
+                    } else {
+                        throw new ApplicationException("None operator should have a single function. Found: " 
+                                + query.getRules().size());
+                    }
+
+                } else if(combinator.equals(Vocabulary.NOT)) {
+                    
+                    Element notElement = new Element(Vocabulary.NOT);
+                    
+                    //should be single function or two nested combinators
+                    if(query.getRules().size() == 1){
+                        //single function or single epxression
+                        if(containsNested(query)){
+                            String comb = query.getRules().get(0).getCombinator();
+                            Element combElement = buildNestedExpression(comb, query);
+                            notElement.addContent(combElement);                                
+                        } else {
+                            //single function
+                            Element functionElement = buildFunction(query, 0);
+                            notElement.addContent(functionElement);                            
+                        }
+
+                    } else if(query.getRules().size() > 1){
+
+                        Element andElement = buildCombinatorElement(Vocabulary.AND, query);
+                        notElement.addContent(andElement);                        
+                        
+                    } else {
+                        throw new ApplicationException("'NOT' operator does not contain any expressions or function");
+                    }
+                    
+                    expressionElement.addContent(notElement);
+                    
+                } else if(combinator.equals(Vocabulary.AND)){
+
+                    Element andElement = buildCombinatorElement(Vocabulary.AND, query);
+                    expressionElement.addContent(andElement);
+                    
+                } else if(combinator.equals(Vocabulary.OR)){
+                    
+                    Element orElement = buildCombinatorElement(Vocabulary.OR, query); 
+                    expressionElement.addContent(orElement);
+                    
+                }
+        
+                conditionElement.addContent(expressionElement);
+
+            actionRuleElement.addContent(conditionElement);
+        
+        return actionRuleElement;
+    }
+    
+    private Element buildCombinatorElement(String combinator, Query query) throws ApplicationException {
+        Element combinatorElement = new Element(combinator);
+        
+        //Combinator expression contains more expressions. Iterate with 'buildNestedExpression' and build all expressions.
         if(containsNested(query)){
+
             if(query.getRules().get(0).getCombinator() == null){
                 throw new ApplicationException("Fail with nested expression, null child combinator.");
             } else {
                 String comb = query.getRules().get(0).getCombinator();//only one nested combinator allowed.
                 
                 Element nestedElement = buildNestedExpression(comb, query);
-                andElement.addContent(nestedElement);
+                combinatorElement.addContent(nestedElement);
             }
             
-        } else { //AND expression contains simple functions. Iterate and build all functions
-            
+        } else { //Combinator expression contains simple functions. Iterate with 'buildFunction' and build all functions
+
             for(int i=0; i< query.getRules().size(); i++){
                 Element functionElement = buildFunction(query, i);
-                andElement.addContent(functionElement);
+                combinatorElement.addContent(functionElement);
             }
         }
-        
-        expressionElement.addContent(andElement);
+
+        return combinatorElement;
     }
 
     private Element buildNestedExpression(String combinator, Query query){
@@ -267,8 +386,8 @@ public class XMLBuilder {
         propertyB.setAttribute(Vocabulary.ID, variableB);
         propertyB.addContent(propertyValueB);        
         
-        validationExternalProperties.add(propertyA);
-        validationExternalProperties.add(propertyB);
+        externalProperties.add(propertyA);
+        externalProperties.add(propertyB);
         
         numIndex++;
         alphabetIndex++;
