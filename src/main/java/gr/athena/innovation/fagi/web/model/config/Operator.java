@@ -8,7 +8,7 @@ public class Operator {
     private String dataset;
     private Property propA;
     private Property propB;
-    private double threshold;
+    private Double threshold;
 
     public String getDataset() {
         return dataset;
@@ -22,7 +22,7 @@ public class Operator {
         return propB;
     }
 
-    public double getThreshold() {
+    public Double getThreshold() {
         return threshold;
     }
 }

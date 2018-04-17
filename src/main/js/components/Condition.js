@@ -52,18 +52,25 @@ class Condition extends React.Component {
   }
 
   selectDatasetIdentifier(e){
-    console.log(e);
     this.props.setDataset(this.props.ruleId, this.props.actionRuleId, e);
   }
   
   selectActionRulePropertyA(e){
+
     this.props.setActionPropertyA(this.props.ruleId, this.props.actionRuleId, e);
-    this.setState({propertyA:e});
+    
+    let propA = properties.find(p => p.value === e);
+    
+    this.setState({propertyA:propA});
   }
 
   selectActionRulePropertyB(e){
+
     this.props.setActionPropertyB(this.props.ruleId, this.props.actionRuleId, e);
-    this.setState({propertyB:e});
+    
+    let propB = properties.find(p => p.value === e);
+    
+    this.setState({propertyB:propB});
   }
 
   onThresholdChange(e){

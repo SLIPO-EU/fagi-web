@@ -59,12 +59,18 @@ class ConditionWrapper extends React.Component {
   }
   
   setActionPropertyA(ruleId, actionRuleId, propA){
-    let _query = Object.assign(this.props.value, {propA:propA});
+    
+    let p1 = properties.find(p => p.value === propA);
+    let _query = Object.assign(this.props.value, {propA:p1});
+    
     this.props.handleOnChange(_query);  
   }
 
   setActionPropertyB(ruleId, actionRuleId, propB){
-    let _query = Object.assign(this.props.value, {propB:propB});
+    
+    let p2 = properties.find(p => p.value === propB);
+    let _query = Object.assign(this.props.value, {propB:p2});
+    
     this.props.handleOnChange(_query);    
   }
 

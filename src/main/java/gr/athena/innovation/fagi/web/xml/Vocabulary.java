@@ -1,4 +1,7 @@
-package gr.athena.innovation.fagi.web.model.config;
+package gr.athena.innovation.fagi.web.xml;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -33,7 +36,34 @@ public class Vocabulary {
     public static final String NONE = "none";
     public static final String A = "a";
     public static final String B = "b";
-    public static final String CONCATENATION_SEP = ", ";
+    public static final String COMMA = ", ";
     
     public static final char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+    public static final String ID = "id";
+    
+    public static final String LEFT = "A";
+    public static final String RIGHT = "B";
+    
+    public static final Map<String, Integer> functionParameters = createFunctionMap();
+    
+    private static Map<String, Integer> createFunctionMap(){
+        
+        Map<String,Integer> map = new HashMap<>();
+        map.put("isDateKnownFormat", 1);
+        map.put("isDatePrimaryFormat", 1);
+        map.put("isValidDate", 1);
+        map.put("isGeometryMoreComplex", 1);
+        map.put("isLiteralAbbreviation", 1);
+        map.put("isSameSimpleNormalize", 3);
+        map.put("isSameCustomNormalize", 3);
+        map.put("isPhoneNumberParsable", 1);
+        map.put("isSamePhoneNumber", 2);
+        map.put("isSamePhoneNumberCustomNormalize", 2);
+        map.put("isSamePhoneNumberUsingExitCode", 3);
+        map.put("exists", 1);
+        map.put("notExists", 1);
+
+        return map;
+    }    
+    
 }
