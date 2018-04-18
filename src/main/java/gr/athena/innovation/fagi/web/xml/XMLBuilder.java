@@ -3,7 +3,6 @@ package gr.athena.innovation.fagi.web.xml;
 import exception.ApplicationException;
 import gr.athena.innovation.fagi.web.model.config.ActionRule;
 import gr.athena.innovation.fagi.web.model.config.Operator;
-import gr.athena.innovation.fagi.web.model.config.Property;
 import gr.athena.innovation.fagi.web.model.config.Query;
 import gr.athena.innovation.fagi.web.model.config.Rule;
 import gr.athena.innovation.fagi.web.model.config.RuleSet;
@@ -21,12 +20,13 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 /**
- *
+ * Takes the config java object and produces the 'rules' XML file used as input in FAGI. 
+ * 
  * @author nkarag
  */
 public class XMLBuilder {
     
-    private List<Element> externalProperties = new ArrayList<>();
+    private final List<Element> externalProperties = new ArrayList<>();
     private Integer numIndex = 0;
     private Integer alphabetIndex = 0;
     
@@ -118,8 +118,8 @@ public class XMLBuilder {
 
         XMLOutputter outter = new XMLOutputter();
         outter.setFormat(Format.getPrettyFormat());
-        //System.out.println("writing xml to file..");
-        //outter.output(doc, new FileWriter(new File("testXml.xml")));
+        System.out.println("writing xml to file..");
+        outter.output(doc, new FileWriter(new File("/home/nkarag/Documents/SLIPO/testXml.xml")));
 
     }
 
@@ -335,7 +335,7 @@ public class XMLBuilder {
                 if(op.getDataset().equals(Vocabulary.LEFT)){
                     function = field + "(" + vars.getVarA() + ")";
                 } else if(op.getDataset().equals(Vocabulary.RIGHT)){
-                    function = field + "(" + vars.getVarB() + ")";
+                    function = field + "(" + vars.getVarA() + ")"; //only A variable is defined from UI
                 } else {
                     System.out.println("Operator contains malformed dataset: " + parentOperator.getDataset());
                     throw new ApplicationException("Operator contains malformed dataset: "

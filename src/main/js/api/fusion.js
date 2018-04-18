@@ -7,6 +7,7 @@ var fusionAPI = {
     fuse: function(config) {
       console.log('api config:');
       console.log(config);
+      
       return baseAPI.json('/action/fusion/run', config);
     }    
   };

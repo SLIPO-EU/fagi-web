@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class TestController {
+public class FusionController {
 
     @RequestMapping("/")
     public String index() {
@@ -85,14 +85,14 @@ public class TestController {
             xmlBuilder.writeRulesToXML(config);
             
         } catch (IOException ex) {
-            Logger.getLogger(TestController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FusionController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try{
 
             RestResponse response = new RestResponse();
             
             //simulate calculation time for response
-            Thread.sleep(500);
+            Thread.sleep(200);
             
             return response;
             

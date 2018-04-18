@@ -2,15 +2,11 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 require('./query-builder.scss');
 
-var { bindActionCreators } = require('redux');
-var { connect} = require('react-redux');
 var functions = require('../constants/functions');
 var operators = require('../constants/operators');
-var labels = require('../constants/labels');
 var combinators = require('../constants/combinators');
 var properties = require('../constants/properties');
 var datasetIdentifiers = require('../constants/DatasetIdentifiers');
-var { setDataset, setThreshold } = require('../actions/ConditionActions');
   
 var propertyOptions =  properties.map(function(property) {
   return (
@@ -170,16 +166,4 @@ class Condition extends React.Component {
   }
 };
 
-function mapStateToProps(state, ownProps) {
-  return {
-    condition : state.condition
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions : bindActionCreators(Object.assign({}, {setDataset, setThreshold}) , dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Condition);
+export default Condition;

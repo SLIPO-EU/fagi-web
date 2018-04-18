@@ -3,15 +3,12 @@ const ReactDOM = require('react-dom');
 
 import QueryBuilder from 'react-querybuilder';
 
-var { bindActionCreators } = require('redux');
-var { connect} = require('react-redux');
 var functions = require('../constants/functions');
 var operators = require('../constants/operators');
 var labels = require('../constants/labels');
 var combinators = require('../constants/combinators');
 var properties = require('../constants/properties');
 var datasetIdentifiers = require('../constants/DatasetIdentifiers');
-var { setQuery } = require('../actions/ActionRuleBuilderActions');
 import Condition from './Condition';
   
 var propertyOptions =  properties.map(function(property) {
@@ -42,6 +39,27 @@ function customValueEditor() {
   };
 
   return properties;
+}
+
+//for future use, to be added to controlElements as {addRuleAction:addRule()}
+function addRule() {
+  
+  let addFunction = class AddFunction extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+    
+    render() {
+      return (
+      <button 
+              title='Add Function'
+              onClick={e=>handleOnClick(e)}>
+        {'+Function'}
+      </button>
+      );
+    }    
+  };
+  return addFunction;
 }
 
 class ConditionWrapper extends React.Component {
@@ -139,16 +157,4 @@ class ActionRuleBuilder extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    query:state.query
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions : bindActionCreators(Object.assign({}, { setQuery }) , dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ActionRuleBuilder);
+export default ActionRuleBuilder;

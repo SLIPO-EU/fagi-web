@@ -1,12 +1,8 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-var { bindActionCreators } = require('redux');
-var { connect } = require('react-redux');
 
 var properties = require('../constants/properties');
-
-var { setPropertyA, setPropertyB } = require('../actions/PropertyPairActions');
-    
+  
 var options =  properties.map(function(property) {
   return (
    <option 
@@ -57,17 +53,4 @@ class Property extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    propertyA: state.propertyA,
-    propertyB: state.propertyB
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions : bindActionCreators(Object.assign({}, { setPropertyA, setPropertyB}) , dispatch)
-  };
-}
-
-module.exports = connect(mapStateToProps, mapDispatchToProps)(Property);
+module.exports = Property;
