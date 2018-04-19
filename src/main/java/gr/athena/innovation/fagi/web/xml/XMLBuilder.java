@@ -145,7 +145,7 @@ public class XMLBuilder {
                     //single fuction
                     if(query.getRules().size() == 1){
                         Element functionElement = buildFunction(query, 0);
-                        expressionElement.addContent(functionElement);
+                        conditionElement.addContent(functionElement);
                     } else {
                         throw new ApplicationException("None operator should have a single function. Found: " 
                                 + query.getRules().size());
@@ -178,20 +178,18 @@ public class XMLBuilder {
                     }
                     
                     expressionElement.addContent(notElement);
-                    
+                    conditionElement.addContent(expressionElement);
                 } else if(combinator.equals(Vocabulary.AND)){
 
                     Element andElement = buildCombinatorElement(Vocabulary.AND, query);
                     expressionElement.addContent(andElement);
-                    
+                    conditionElement.addContent(expressionElement);
                 } else if(combinator.equals(Vocabulary.OR)){
                     
                     Element orElement = buildCombinatorElement(Vocabulary.OR, query); 
                     expressionElement.addContent(orElement);
-                    
+                    conditionElement.addContent(expressionElement);
                 }
-        
-                conditionElement.addContent(expressionElement);
 
             actionRuleElement.addContent(conditionElement);
         
@@ -220,7 +218,7 @@ public class XMLBuilder {
                     //single fuction
                     if(query.getRules().size() == 1){
                         Element functionElement = buildFunction(query, 0);
-                        expressionElement.addContent(functionElement);
+                        conditionElement.addContent(functionElement);
                     } else {
                         throw new ApplicationException("None operator should have a single function. Found: " 
                                 + query.getRules().size());
@@ -253,20 +251,20 @@ public class XMLBuilder {
                     }
                     
                     expressionElement.addContent(notElement);
+                    conditionElement.addContent(expressionElement);
                     
                 } else if(combinator.equals(Vocabulary.AND)){
 
                     Element andElement = buildCombinatorElement(Vocabulary.AND, query);
                     expressionElement.addContent(andElement);
+                    conditionElement.addContent(expressionElement);
                     
                 } else if(combinator.equals(Vocabulary.OR)){
                     
                     Element orElement = buildCombinatorElement(Vocabulary.OR, query); 
                     expressionElement.addContent(orElement);
-                    
+                    conditionElement.addContent(expressionElement);
                 }
-        
-                conditionElement.addContent(expressionElement);
 
             actionRuleElement.addContent(conditionElement);
         
@@ -362,22 +360,16 @@ public class XMLBuilder {
     }
 
     private PropertyVariablePair addExternalPropertyPair(String propertyValueA, String propertyValueB){
-        
-        if(alphabetIndex > Vocabulary.ALPHABET.length){
-            throw new ApplicationException("Too many external properties, we ran out of alphabet characters");
-        }
-        
+
         PropertyVariablePair vars = new PropertyVariablePair();
         
         Element propertyA = new Element(Vocabulary.EXTERNAL_PROPERTY);
         Element propertyB = new Element(Vocabulary.EXTERNAL_PROPERTY);
         
-        String variableA = Vocabulary.ALPHABET[alphabetIndex] + numIndex.toString();
+        String variableA = Vocabulary.A + numIndex.toString();
         vars.setVarA(variableA);
         
-        alphabetIndex++;
-        
-        String variableB = Vocabulary.ALPHABET[alphabetIndex] + numIndex.toString();
+        String variableB = Vocabulary.B + numIndex.toString();
         vars.setVarB(variableB);
         
         propertyA.setAttribute(Vocabulary.ID, variableA);
@@ -390,7 +382,6 @@ public class XMLBuilder {
         externalProperties.add(propertyB);
         
         numIndex++;
-        alphabetIndex++;
         
         return vars;
     }

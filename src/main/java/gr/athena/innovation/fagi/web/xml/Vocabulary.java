@@ -37,8 +37,7 @@ public class Vocabulary {
     public static final String A = "a";
     public static final String B = "b";
     public static final String COMMA = ", ";
-    
-    public static final char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+
     public static final String ID = "id";
     
     public static final String LEFT = "A";
