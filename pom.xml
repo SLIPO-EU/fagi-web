@@ -15,7 +15,8 @@
         <frontend.skip>false</frontend.skip>
         <node.version>v6.10.3</node.version>
         <npm.version>3.10.10</npm.version>
-        <node.env>development</node.env>        
+        <node.env>development</node.env>     
+        <fagi.version>1.2.3-SNAPSHOT</fagi.version>   
     </properties>
     
     <profiles>
@@ -101,10 +102,10 @@
         </dependency>
         
         <dependency>
-                <groupId>gr.athena.innovation</groupId>
-                <artifactId>fagi</artifactId>
-                <version>1.1-SNAPSHOT</version>
-                <scope>compile</scope>
+            <groupId>gr.athena.innovation</groupId>
+            <artifactId>fagi</artifactId>
+            <version>${fagi.version}</version>
+            <scope>compile</scope>
         </dependency>     
          
         <dependency>

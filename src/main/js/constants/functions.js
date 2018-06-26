@@ -22,7 +22,7 @@ const Functions = [
   },
   {
     name:"isLiteralAbbreviation",
-    label:"Literal is abbreviation",
+    label:"Literal contains abbreviation",
     parameterCount:1
   },
   {

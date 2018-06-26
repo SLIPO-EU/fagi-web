@@ -4,6 +4,7 @@ import MDSpinner from "react-md-spinner";
 import { connect } from 'react-redux';
 import RuleSet from '../components/RuleSet';
 import Chart from '../components/Chart';
+import Configuration from '../components/Configuration';
 
 var { bindActionCreators } = require('redux');
 var datasetActionConstants = require('../constants/DatasetActionConstants');
@@ -67,7 +68,21 @@ class App extends React.Component {
       loading = null;
     }
 
+    let ontologyReady = false;
     return (
+      ontologyReady ? 
+        (
+          <div >
+            <div className="Logo"> 
+              <div align="center"> Configuration </div>
+            </div>
+            <div>
+              <Configuration />
+            </div>
+          </div>
+        ) :
+
+      (
       <div> 
         {loading}
         <div className="Logo"> 
@@ -100,7 +115,7 @@ class App extends React.Component {
               />
           </div>
       </div>
-    )
+    ))
   }
 }
 
