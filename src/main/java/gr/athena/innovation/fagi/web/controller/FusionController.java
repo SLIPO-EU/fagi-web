@@ -1,20 +1,37 @@
 package gr.athena.innovation.fagi.web.controller;
 
 import com.google.gson.Gson;
+import gr.athena.innovation.fagi.web.model.OntologyResponse;
 import gr.athena.innovation.fagi.web.model.RestResponse;
 import gr.athena.innovation.fagi.web.model.StatisticsResponse;
 import gr.athena.innovation.fagi.web.model.config.RulesConfigRequest;
 import gr.athena.innovation.fagi.web.xml.XMLBuilder;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.NodeIterator;
+import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.ResourceFactory;
+import org.apache.jena.rdf.model.StmtIterator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class FusionController {
@@ -99,6 +116,47 @@ public class FusionController {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
 
+            return new RestResponse(ex.getMessage(), ex.toString());
+        }
+    }
+    
+    @RequestMapping(value = "/action/upload", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ResponseBody
+    public RestResponse upload(@RequestBody String ontologyText) throws FileNotFoundException, IOException {
+
+        File temp = File.createTempFile("ontologyTemp", ".owl");
+
+        try (PrintWriter pw = new PrintWriter(temp)) {
+            pw.write(ontologyText);
+        }
+        
+        Model model = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+        model.read(temp.getAbsolutePath());
+
+        List<String> properties = new ArrayList<>();
+        NodeIterator nodeIterator = model.listObjects();
+        while (nodeIterator.hasNext()){
+            RDFNode node = nodeIterator.next();
+            if(node.isResource()){
+                System.out.println(node);
+                properties.add(node.toString());
+            }
+        }
+        
+        System.out.println("ontology size: " + model.size());
+
+        try{
+
+            OntologyResponse response = new OntologyResponse();
+            response.setProperties(properties);
+
+            temp.delete();
+            
+            return response;
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            temp.delete();
             return new RestResponse(ex.getMessage(), ex.toString());
         }
     }    

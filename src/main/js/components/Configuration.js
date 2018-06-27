@@ -1,32 +1,50 @@
 var React = require('react');
-import { connect } from 'react-redux';
 var { bindActionCreators } = require('redux');
-
+import { connect } from 'react-redux';
+import Dropzone from 'react-dropzone';
+var { uploadFile } = require('../actions/ConfigurationActions');
 
 class Configuration extends React.Component {
 
-  onChangeFile(event) {
-      event.stopPropagation();
-      event.preventDefault();
-      var file = event.target.files[0];
-      console.log(file);
-      this.setState({file});
+  constructor() {
+    super();
+    this.state = {files: []}
   }
-  
-  showOpenFileDlg() {
-      this.inputOpenFileRef.current.click()
+
+  onDrop(files) {
+    var context = this;
+    var reader = new FileReader();
+    reader.addEventListener("loadend", function(event) {
+      context.props.actions.uploadFile(event.target.result);
+    });
+    reader.readAsText(files[0]);
+    this.setState({
+      files
+    });
   }
-  
+
   render() {
     return (
-       <div>
-          <input className="FuseButton" id="myInput"
-             type="file"
-             ref={(ref) => this.upload = ref}
-             onChange={this.onChangeFile.bind(this)}
-          />
+      <div className="FusionBox">
+      <section>
+        <div>
+          <Dropzone 
+            onDrop={this.onDrop.bind(this)}>
+            <p>Drag and drop ontology file , or click to select file to upload. </p>
+            <p>Only *.owl files will be accepted</p>
+          </Dropzone>
+        </div>
+        <aside>
+          <h2>Accepted Ontology file</h2>
+          <ul>
+            {
+              this.state.files.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)
+            }
+          </ul>
+        </aside>
+      </section>
       </div>
-    )
+    );
   }
 }
 
@@ -38,9 +56,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { uploadFile }) , dispatch)
   };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Configuration);
-

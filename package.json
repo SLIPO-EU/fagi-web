@@ -15,6 +15,7 @@
     "numeral": "^1.5.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-dropzone": "^4.2.12",
     "react-intl": "^2.4.0",
     "react-md-spinner": "^0.2.5",
     "react-querybuilder": "git+https://github.com/sapientglobalmarkets/react-querybuilder.git#master",

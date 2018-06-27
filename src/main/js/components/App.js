@@ -69,6 +69,7 @@ class App extends React.Component {
     }
 
     let ontologyReady = false;
+
     return (
       ontologyReady ? 
         (

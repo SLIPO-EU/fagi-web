@@ -26,7 +26,4 @@ public class StatisticsResponse extends RestResponse {
     public void setStatPairsB(Map<String, String> statPairsB) {
         this.statPairsB = statPairsB;
     }
-
-
-    
 }

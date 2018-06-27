@@ -9,7 +9,10 @@ var fusionAPI = {
       console.log(config);
       
       return baseAPI.json('/action/fusion/run', config);
-    }    
+    },
+    upload: function(file) {
+      return baseAPI.json('/action/upload', file);
+    }     
   };
 
 module.exports = fusionAPI;
