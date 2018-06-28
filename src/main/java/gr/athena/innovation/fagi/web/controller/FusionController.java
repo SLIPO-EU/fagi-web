@@ -11,27 +11,26 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
+import org.apache.jena.ontology.DatatypeProperty;
+import org.apache.jena.ontology.ObjectProperty;
+import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
-import org.apache.jena.rdf.model.Model;
+import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.rdf.model.NodeIterator;
-import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.ResourceFactory;
-import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.util.iterator.ExtendedIterator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class FusionController {
@@ -130,21 +129,49 @@ public class FusionController {
             pw.write(ontologyText);
         }
         
-        Model model = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM);
+        OntModel model = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_RDFS_INF);
         model.read(temp.getAbsolutePath());
 
-        List<String> properties = new ArrayList<>();
-        NodeIterator nodeIterator = model.listObjects();
-        while (nodeIterator.hasNext()){
-            RDFNode node = nodeIterator.next();
-            if(node.isResource()){
-                System.out.println(node);
-                properties.add(node.toString());
+        //get all datatype properties (e.g. should contain #nameValue).
+        //for each datatype property get the domain (e.g should be #Name for #nameValue)
+        Map<String, String> datatypePropertiesToDomains = new HashMap<>();
+        ExtendedIterator<DatatypeProperty> datatypeProperties = model.listDatatypeProperties();
+        while(datatypeProperties.hasNext()){
+            DatatypeProperty datatypeProperty = datatypeProperties.next();
+            if(datatypeProperty != null){
+                OntResource domain = datatypeProperty.getDomain();
+                if(domain != null){
+                    datatypePropertiesToDomains.put(datatypeProperty.toString(), domain.toString());
+                }
+                
             }
         }
         
-        System.out.println("ontology size: " + model.size());
+        //get all objectProperties (should contain #name)
+        //for each object property, get the range (e.g. should be #Name for #name object property)
+        //match with above.
+        MultiValuedMap<String, String> rangesToObjectProperties = new ArrayListValuedHashMap();
+        ExtendedIterator<ObjectProperty> objectProperties = model.listObjectProperties();
+        while(objectProperties.hasNext()){
+            ObjectProperty objectProperty = objectProperties.next();
+            OntResource range = objectProperty.getRange();
+            if(range != null ){
+                rangesToObjectProperties.put(range.toString(),objectProperty.toString());
+            }
+            //<#Name> <#name>
+        }
+        
+        List<String> properties = new ArrayList<>();
+        for(Map.Entry<String, String> entry : datatypePropertiesToDomains.entrySet()){
+            String find = entry.getValue();
 
+            Collection<String> found = rangesToObjectProperties.get(find);
+            for(String item : found){
+                String prop = item + " ---->>>> " + entry.getKey();
+                System.out.println(prop);
+                properties.add(prop);
+            }
+        }
         try{
 
             OntologyResponse response = new OntologyResponse();
