@@ -4,9 +4,9 @@ var { connect} = require('react-redux');
 
 import ActionRuleBuilder from './ActionRuleBuilder';
 
-var validatorActionConstants = require('../constants/ValidatorActionConstants');
+var validatorActionConstants = require('../../constants/ValidatorActionConstants');
 var { addValidationRule, removeValidationRule, updateActionRules, setDefaultValidationAction, 
-      selectValidationAction } = require('../actions/ValidatorActions');
+      selectValidationAction } = require('../../actions/ValidatorActions');
 
 var options =  validatorActionConstants.map(function(action) {
   return (

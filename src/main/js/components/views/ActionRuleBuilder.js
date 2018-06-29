@@ -3,12 +3,12 @@ const ReactDOM = require('react-dom');
 
 import QueryBuilder from 'react-querybuilder';
 
-var functions = require('../constants/functions');
-var operators = require('../constants/operators');
-var labels = require('../constants/labels');
-var combinators = require('../constants/combinators');
-var properties = require('../constants/properties');
-var datasetIdentifiers = require('../constants/DatasetIdentifiers');
+var functions = require('../../constants/functions');
+var operators = require('../../constants/operators');
+var labels = require('../../constants/labels');
+var combinators = require('../../constants/combinators');
+var properties = require('../../constants/properties');
+var datasetIdentifiers = require('../../constants/DatasetIdentifiers');
 import Condition from './Condition';
   
 var propertyOptions =  properties.map(function(property) {

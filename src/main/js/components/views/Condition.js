@@ -2,11 +2,11 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 require('./query-builder.scss');
 
-var functions = require('../constants/functions');
-var operators = require('../constants/operators');
-var combinators = require('../constants/combinators');
-var properties = require('../constants/properties');
-var datasetIdentifiers = require('../constants/DatasetIdentifiers');
+var functions = require('../../constants/functions');
+var operators = require('../../constants/operators');
+var combinators = require('../../constants/combinators');
+var properties = require('../../constants/properties');
+var datasetIdentifiers = require('../../constants/DatasetIdentifiers');
   
 var propertyOptions =  properties.map(function(property) {
   return (

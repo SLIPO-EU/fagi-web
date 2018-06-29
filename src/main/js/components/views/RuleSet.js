@@ -4,7 +4,7 @@ var { connect } = require('react-redux');
 import Rule from './Rule';
 import Validator from './Validator';
 
-var { addRule, removeRule, updateActionRules } = require('../actions/RuleSetActions');
+var { addRule, removeRule, updateActionRules } = require('../../actions/RuleSetActions');
 
 class RuleSet extends React.Component {
 

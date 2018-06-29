@@ -55,7 +55,7 @@ var AppActions = {
   runStatistics : function() {
     return function(dispatch, getState) {
       dispatch(requestStatistics());
-      return statisticsAPI.runStatistics().then(function (response) {
+      return api.runStatistics().then(function (response) {
         dispatch(receivedStatistics(response.success, response.errors, response.statPairsA, response.statPairsB));
       }, function (error) {
         dispatch(receivedStatistics(false, error, null));

@@ -2,7 +2,7 @@ var React = require('react');
 var { bindActionCreators } = require('redux');
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
-var { uploadFile } = require('../actions/ConfigurationActions');
+var { uploadFile } = require('../../actions/ConfigurationActions');
 
 var style = {
   textAlign: 'center',

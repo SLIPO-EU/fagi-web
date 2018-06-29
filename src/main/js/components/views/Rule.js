@@ -5,10 +5,10 @@ var { connect} = require('react-redux');
 import ActionRuleBuilder from './ActionRuleBuilder';
 import FusionPropertyPair from './PropertyPair';
 
-var fusionActionConstants = require('../constants/FusionActionConstants');
+var fusionActionConstants = require('../../constants/FusionActionConstants');
 
 var { setRuleId, changeFusionAction, setDefaultFusionAction, setFusionPropertyA, setFusionPropertyB, 
-      addActionRule, removeActionRule } = require('../actions/RuleActions');
+      addActionRule, removeActionRule } = require('../../actions/RuleActions');
 
 var options =  fusionActionConstants.map(function(action) {
   return (
@@ -147,7 +147,7 @@ class Rule extends React.Component {
                 < /select>
               < /div >
             </div>
-          </div>     
+          </div>
           {actionRuleComponents}
           <div>
             <button className = "ConditionButton" type="button" onClick={e => this.addActionRule()}>Add Fusion Rule</button> 

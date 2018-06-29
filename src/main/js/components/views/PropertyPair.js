@@ -1,7 +1,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-var properties = require('../constants/properties');
+var properties = require('../../constants/properties');
   
 var options =  properties.map(function(property) {
   return (

@@ -1,17 +1,18 @@
-require('../RuleBox.scss');
+
 const React = require('react');
 import MDSpinner from "react-md-spinner";
 import { connect } from 'react-redux';
-import RuleSet from '../components/RuleSet';
-import Chart from '../components/Chart';
-import Configuration from '../components/Configuration';
+require('../../RuleBox.scss');
+import RuleSet from './RuleSet';
+import Chart from './Chart';
+import Configuration from '../views/Configuration';
 
 var { bindActionCreators } = require('redux');
-var datasetActionConstants = require('../constants/DatasetActionConstants');
-var chartOption = require('../constants/ChartOptions');
-var chartDefaultOption = require('../constants/ChartDefaultOptions');
-var datasetActionConstants = require('../constants/DatasetActionConstants');
-var { setDatasetAction, fuse, runStatistics } = require('../actions/AppActions');
+var datasetActionConstants = require('../../constants/DatasetActionConstants');
+var chartOption = require('../../constants/ChartOptions');
+var chartDefaultOption = require('../../constants/ChartDefaultOptions');
+var datasetActionConstants = require('../../constants/DatasetActionConstants');
+var { setDatasetAction, fuse, runStatistics } = require('../../actions/AppActions');
 
 var options =  datasetActionConstants.map(function(action) {
   return (
