@@ -21,7 +21,7 @@ module.exports = {
 		  use: {
 			loader: 'babel-loader',
 			options: {
-			  presets: ['react']
+			  presets: ['env','react','stage-0']
 			}
 		  },
 		  
@@ -37,6 +37,5 @@ module.exports = {
 	},
     plugins: [
         new ExtractTextPlugin('query-builder.css')
-]	
+	]	
 };
-
