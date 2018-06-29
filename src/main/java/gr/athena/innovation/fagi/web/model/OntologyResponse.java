@@ -8,14 +8,13 @@ import java.util.List;
  * @author nkarag
  */
 public class OntologyResponse extends RestResponse {
-    private List<String> properties;
+    private List<OntologyProperty> properties; 
 
-    public List<String> getProperties() {
+    public List<OntologyProperty> getProperties() {
         return properties;
     }
 
-    public void setProperties(List<String> properties) {
+    public void setProperties(List<OntologyProperty> properties) {
         this.properties = properties;
     }
-    
 }

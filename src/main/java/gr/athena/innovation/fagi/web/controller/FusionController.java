@@ -1,6 +1,7 @@
 package gr.athena.innovation.fagi.web.controller;
 
 import com.google.gson.Gson;
+import gr.athena.innovation.fagi.web.model.OntologyProperty;
 import gr.athena.innovation.fagi.web.model.OntologyResponse;
 import gr.athena.innovation.fagi.web.model.RestResponse;
 import gr.athena.innovation.fagi.web.model.StatisticsResponse;
@@ -160,18 +161,24 @@ public class FusionController {
             }
             //<#Name> <#name>
         }
-        
-        List<String> properties = new ArrayList<>();
-        for(Map.Entry<String, String> entry : datatypePropertiesToDomains.entrySet()){
-            String find = entry.getValue();
 
-            Collection<String> found = rangesToObjectProperties.get(find);
-            for(String item : found){
-                String prop = item + " ---->>>> " + entry.getKey();
-                System.out.println(prop);
-                properties.add(prop);
+        List<OntologyProperty> properties = new ArrayList<>();
+        for(Map.Entry<String, String> entry : datatypePropertiesToDomains.entrySet()){
+            String domain = entry.getValue();
+
+            Collection<String> range = rangesToObjectProperties.get(domain);
+            for(String objectProperty : range){
+                String datatypeProperty = entry.getKey();
+                
+                OntologyProperty property = new OntologyProperty();
+                property.setObjectProperty(objectProperty);
+                property.setDatatypeProperty(datatypeProperty);
+                
+                System.out.println(property);
+                properties.add(property);
             }
         }
+        
         try{
 
             OntologyResponse response = new OntologyResponse();

@@ -7,9 +7,10 @@ var requestUpload = function () {
   };
 };
 
-var uploadResponse = function (success, errors) {
+var uploadResponse = function (success, errors, ontology) {
   return {
     type: types.UPLOAD_FILE_RESPONSE,
+    ontology: ontology,
     success: success,
     errors: errors
   };
@@ -20,7 +21,7 @@ var AppActions = {
     return function(dispatch, getState) {
       dispatch(requestUpload());
       return api.upload(file).then(function (response) {
-        dispatch(uploadResponse(response.success, response.errors));
+        dispatch(uploadResponse(response.success, response.errors, response.properties));
       }, function (error) {
         dispatch(uploadResponse(false, error));
       });
