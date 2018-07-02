@@ -84,7 +84,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log('render home');
     var cssClasses = [
       'app',
       /* header-* */
@@ -103,12 +102,11 @@ class Home extends React.Component {
         <div className="app-body">
           <Route path="/" component={Sidebar} />
           <div className="main">
-            <Container fluid className="slipo-container">
+            <Container fluid >
               <Switch>
-                {/* Static */}
+                <Route path={'/index.html'} component={Configuration} />
                 <Route path={'/configuration'} component={Configuration} />
                 <Route path={'/specification'} component={App} />
-                {/* Default */}
                 <Redirect push={true} to={ErrorPages.NotFound} />
               </Switch>
             </Container>

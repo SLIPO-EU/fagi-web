@@ -55,8 +55,6 @@ const routes = {
  * @returns the route properties
  */
 export function getRoute(path) {
-  console.log('get route');
-  console.log(path);
   const prop = matchRoute(path);
 
   if (routes.hasOwnProperty(prop)) {
@@ -74,8 +72,6 @@ export function getRoute(path) {
  * @returns the route that matched the given path or null if no match is found
  */
 export function matchRoute(path) {
-  console.log('matching route: ');
-  console.log(path);
   for (let route in routes) {
     let re = pathToRegexp(route);
     if (re.test(path)) {
@@ -94,8 +90,6 @@ export function matchRoute(path) {
  * @param {string[]|object} params - Optional parameters to bind
  */
 export function buildPath(path, params) {
-  console.log('build path');
-  console.log(params);
   let result = path || '/';
 
   if (params) {

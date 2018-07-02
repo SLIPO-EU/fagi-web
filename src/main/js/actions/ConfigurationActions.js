@@ -1,5 +1,5 @@
 var types = require('../constants/ConfigurationActionTypes');
-var api = require('../api/fusion');
+var api = require('../api/configuration');
 
 var requestUpload = function () {
   return {

@@ -10,7 +10,6 @@ import { StaticRoutes, buildPath } from '../../model/routes';
 class Sidebar extends React.Component {
 
   render() {
-    console.log('render sidebar');
     var { location } = this.props;
 
     var expanded = (p) => (
@@ -30,7 +29,6 @@ class Sidebar extends React.Component {
                 {'Configuration'}
               </NavLink>
             </li>
-
             <li className="nav-item">
               <NavLink to={StaticRoutes.Spec} className="nav-link" activeClassName="active">
                 {'Specification'}
