@@ -1,6 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-require('./query-builder.scss');
+require('../../../scss/style.scss');
 
 var functions = require('../../constants/functions');
 var operators = require('../../constants/operators');
@@ -122,7 +122,7 @@ class Condition extends React.Component {
 
       thresholdField = (
         <div className="Threshold">
-          <input type="text"
+          <input className= "Threshold" type="text"
             value={this.state.value}
             onChange={e => this.onThresholdChange(e.target.value)}/>
         </div>

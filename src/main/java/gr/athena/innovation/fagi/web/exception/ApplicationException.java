@@ -1,4 +1,4 @@
-package exception;
+package gr.athena.innovation.fagi.web.exception;
 
 /**
  *

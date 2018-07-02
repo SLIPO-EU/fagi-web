@@ -1,13 +1,11 @@
 'use strict';
 
 var path = require('path');
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
-
 
 module.exports = {
 	entry: [
 		'./src/main/js/Main.js',
-		'./src/main/js/RuleBox.scss',
+		'./src/main/scss/style.scss',
 	],
 	output: {
 		path: path.resolve(__dirname, './target/classes/static'),
@@ -34,8 +32,5 @@ module.exports = {
 	},
     resolve: {
         extensions: ['.js', '.jsx', '.scss']
-	},
-    plugins: [
-        new ExtractTextPlugin('query-builder.css')
-	]	
+	}
 };

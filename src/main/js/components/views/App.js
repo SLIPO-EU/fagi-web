@@ -1,8 +1,7 @@
-
 const React = require('react');
+require('../../../scss/style.scss');
 import MDSpinner from "react-md-spinner";
 import { connect } from 'react-redux';
-require('../../RuleBox.scss');
 import RuleSet from './RuleSet';
 import Chart from './Chart';
 import Configuration from '../views/Configuration';

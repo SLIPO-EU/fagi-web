@@ -1,6 +1,6 @@
 package gr.athena.innovation.fagi.web.xml;
 
-import exception.ApplicationException;
+import gr.athena.innovation.fagi.web.exception.ApplicationException;
 import gr.athena.innovation.fagi.web.model.config.ActionRule;
 import gr.athena.innovation.fagi.web.model.config.Operator;
 import gr.athena.innovation.fagi.web.model.config.Query;

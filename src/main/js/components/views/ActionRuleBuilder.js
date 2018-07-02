@@ -143,7 +143,7 @@ class ActionRuleBuilder extends React.Component {
     var ops = [{ruleId:this.props.ruleId, actionRuleId: this.props.actionRuleId}];
 
     return (
-      <div className="query-builder"> 
+      <div> 
         <QueryBuilder
           fields = {functions}
           translations = {labels}
