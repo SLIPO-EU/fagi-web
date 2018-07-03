@@ -34,6 +34,11 @@ class Sidebar extends React.Component {
                 {'Specification'}
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink to={StaticRoutes.Stats} className="nav-link" activeClassName="active">
+                {'Statistics'}
+              </NavLink>
+            </li>           
           </ul>
         </nav>
       </div>

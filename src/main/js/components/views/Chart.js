@@ -43,7 +43,7 @@ class Chart extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    loading: state.app.loading
+    loading: state.statistics.loading
   };
 }
 

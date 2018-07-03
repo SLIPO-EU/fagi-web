@@ -3,8 +3,10 @@ import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 
 import { Container } from 'reactstrap';
 import Sidebar from './views/SideBar.js';
-import App from './views/App.js';
+
 import Configuration from './views/Configuration.js';
+import App from './views/App.js';
+import Statistics from './views/Statistics.js';
 
 import {
   StaticRoutes,
@@ -107,6 +109,7 @@ class Home extends React.Component {
                 <Route path={'/index.html'} component={Configuration} />
                 <Route path={'/configuration'} component={Configuration} />
                 <Route path={'/specification'} component={App} />
+                <Route path={'/statistics'} component={Statistics} />
                 <Redirect push={true} to={ErrorPages.NotFound} />
               </Switch>
             </Container>

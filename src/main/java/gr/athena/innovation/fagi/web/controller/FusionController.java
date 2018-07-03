@@ -59,7 +59,7 @@ public class FusionController {
             response.setStatPairsB(statPairsB);
             
             //simulate calculation time for response
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             
             return response;
             

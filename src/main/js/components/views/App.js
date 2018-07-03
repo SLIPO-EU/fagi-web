@@ -3,15 +3,10 @@ require('../../../scss/style.scss');
 import MDSpinner from "react-md-spinner";
 import { connect } from 'react-redux';
 import RuleSet from './RuleSet';
-import Chart from './Chart';
-import Configuration from '../views/Configuration';
 
 var { bindActionCreators } = require('redux');
 var datasetActionConstants = require('../../constants/DatasetActionConstants');
-var chartOption = require('../../constants/ChartOptions');
-var chartDefaultOption = require('../../constants/ChartDefaultOptions');
-var datasetActionConstants = require('../../constants/DatasetActionConstants');
-var { setDatasetAction, fuse, runStatistics } = require('../../actions/AppActions');
+var { setDatasetAction, fuse } = require('../../actions/AppActions');
 
 var options =  datasetActionConstants.map(function(action) {
   return (
@@ -28,9 +23,7 @@ class App extends React.Component {
     this.state = {
       success: null,
       error: null,
-      showStatistics:false,
       loading: null,
-      statistics: null,
       datasetAction: datasetActionConstants[0]
     }
     
@@ -40,15 +33,8 @@ class App extends React.Component {
   fuse(){
     this.props.actions.fuse(this.props.config);
   }
-  
-  runStatistics(){
-    this.setState({showStatistics:true});
-
-    this.props.actions.runStatistics();
-  }
 
   selectDatasetAction(e){
-    //this.setState({datasetAction:e});
     this.props.actions.setDatasetAction(e);
   }
 
@@ -68,22 +54,7 @@ class App extends React.Component {
       loading = null;
     }
 
-    let ontologyReady = false;
-
     return (
-      ontologyReady ? 
-        (
-          <div >
-            <div className="Logo"> 
-              <div align="center"> Configuration </div>
-            </div>
-            <div>
-              <Configuration />
-            </div>
-          </div>
-        ) :
-
-      (
       <div> 
         {loading}
         <div className="Logo"> 
@@ -94,7 +65,6 @@ class App extends React.Component {
         </div>
         <span style={{float: 'right'}}>
           <div className = "FusionBox">
-            <button className = "FuseButton" type="button" onClick={e => this.runStatistics()}>Calculate Stats</button>
             <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button>
             <div className="SelectBox_content"> 
               <label>Default Dataset Action:&nbsp;&nbsp;</label>
@@ -107,16 +77,8 @@ class App extends React.Component {
           </div>
         </div>
         </span>
-          <div className='Chart'>
-            <Chart 
-              option={chartOption}
-              defaultOption={chartDefaultOption}
-              loading={this.state.loading}
-              show={this.state.showStatistics}
-              />
-          </div>
       </div>
-    ))
+    )
   }
 }
 
@@ -130,14 +92,13 @@ function mapStateToProps(state) {
     datasetAction: state.app.datasetAction,
     loading: state.app.loading,
     calculating: state.app.calculating,
-    statistics: state.statistics,
     config: config
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { setDatasetAction, fuse, runStatistics }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { setDatasetAction, fuse }) , dispatch)
   };
 }
 

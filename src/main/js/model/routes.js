@@ -5,10 +5,12 @@ import { Configuration } from '../components/views/Configuration';
 
 const Config = '/configuration';
 const Spec = '/specification';
+const Stats = '/statistics';
 
 export const StaticRoutes = {
   Config,
-  Spec
+  Spec,
+  Stats
 };
 
 /**
@@ -20,13 +22,13 @@ const NotFound = '/error/404';
 
 export const ErrorPages = {
   Forbidden,
-  NotFound,
+  NotFound
 };
 
 /**
  * Default links
  */
-const defaultLinks = [Config, Spec];
+const defaultLinks = [Config, Spec, Stats];
 
 const routes = {
 
@@ -44,7 +46,14 @@ const routes = {
     defaultTitle: 'Specification',
     contextComponent: App,
     links: [Config],
-  }
+  },
+  [Stats]: {
+    description: 'Fusion Statistics',
+    title: 'Statistics',
+    defaultTitle: 'Statistics',
+    contextComponent: App,
+    links: [Config]
+  }  
 };
 
 /**

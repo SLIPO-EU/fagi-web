@@ -1,21 +1,6 @@
 var types = require('../constants/AppActionTypes');
 var api = require('../api/fusion');
 
-var requestStatistics = function () {
-  return {
-    type: types.REQUEST_RUN_STATISTICS
-  };
-};
-
-var receivedStatistics = function (success, errors, pairsA, pairsB) {
-  return {
-    type: types.RECEIVED_STATISTICS,
-    success: success,
-    errors: errors,
-    statistics: [{pairsA},{pairsB}]
-  };
-};
-
 var requestFuse = function () {
   return {
     type: types.REQUEST_FUSE
@@ -29,7 +14,6 @@ var responseFuse = function (success, error) {
     error: error
   };
 };
-
 
 var AppActions = {
   setDatasetAction : function(action) {
@@ -48,17 +32,6 @@ var AppActions = {
         dispatch(responseFuse(response.success, response.errors));
       }, function (error) {
         dispatch(responseFuse(false, error));
-      });
-    };
-  },
-  
-  runStatistics : function() {
-    return function(dispatch, getState) {
-      dispatch(requestStatistics());
-      return api.runStatistics().then(function (response) {
-        dispatch(receivedStatistics(response.success, response.errors, response.statPairsA, response.statPairsB));
-      }, function (error) {
-        dispatch(receivedStatistics(false, error, null));
       });
     };
   }
