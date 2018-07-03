@@ -1,6 +1,7 @@
 var types = require('../constants/ConfigurationActionTypes');
 
 var initialState = {
+  loading: null,
   ontology: {}
 };
 

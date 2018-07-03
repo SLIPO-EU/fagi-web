@@ -43,8 +43,12 @@ class App extends React.Component {
     let loading;
     if(this.props.calculating){
       loading = (
-        <div className="centered">
+        <div className="centered-up">
           <MDSpinner 
+            color1="#263238"
+            color2="#676f73"
+            color3="#a8adaf"
+            color4="#676f73"         
             duration={4000} 
             size={80}
           />
@@ -55,28 +59,27 @@ class App extends React.Component {
     }
 
     return (
-      <div> 
+      <div>
         {loading}
-        <div className="Logo"> 
-          <div align="center"> FAGI </div>
-        </div>
-        <div >
-          < RuleSet /> 
-        </div>
-        <span style={{float: 'right'}}>
-          <div className = "FusionBox">
-            <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button>
-            <div className="SelectBox_content"> 
-              <label>Default Dataset Action:&nbsp;&nbsp;</label>
-            </div>
-          <div className="SelectBox_content"> 
-            <select title = "Choose Default Dataset Fusion Action" 
-              onChange={e => this.selectDatasetAction(e.target.value)}>            
-              {options}
-            </select>
+        <div className ={(this.props.calculating ? 'blur' : null)}>
+          <div >
+            < RuleSet />
           </div>
+          <span style={{float: 'right'}}>
+            <div className = "FusionBox">
+              <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button>
+              <div className="SelectBox_content"> 
+                <label>Default Dataset Action:&nbsp;&nbsp;</label>
+              </div>
+            <div className="SelectBox_content"> 
+              <select title = "Choose Default Dataset Fusion Action" 
+                onChange={e => this.selectDatasetAction(e.target.value)}>            
+                {options}
+              </select>
+            </div>
+          </div>
+          </span>
         </div>
-        </span>
       </div>
     )
   }

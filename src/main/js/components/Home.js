@@ -7,6 +7,7 @@ import Sidebar from './views/SideBar.js';
 import Configuration from './views/Configuration.js';
 import App from './views/App.js';
 import Statistics from './views/Statistics.js';
+import Header from './views/Header.js';
 
 import {
   StaticRoutes,
@@ -100,7 +101,8 @@ class Home extends React.Component {
 
     return (
       <div >
-        <BrowserRouter basename={'/'} >
+        <Header />
+        <BrowserRouter basename={'/'} >      
         <div className="app-body">
           <Route path="/" component={Sidebar} />
           <div className="main">

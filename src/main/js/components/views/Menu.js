@@ -13,16 +13,13 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case TOGGLE_MENU:
-      console.log('switch menu');
       return {
         ...state,
         expanded: state.expanded.has(action.item) ?
           state.expanded.remove(action.item)
           : state.expanded.add(action.item),
       };
-
     default:
-      console.log('switch menu');
       return state;
   }
 };

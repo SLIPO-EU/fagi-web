@@ -98,6 +98,8 @@ public class ConfigurationController {
 
             temp.delete();
             
+            //preview loading on client
+            Thread.sleep(2000);
             return response;
             
         } catch (Exception ex) {

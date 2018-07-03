@@ -1,6 +1,5 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-require('../../../scss/style.scss');
 
 var functions = require('../../constants/functions');
 var operators = require('../../constants/operators');

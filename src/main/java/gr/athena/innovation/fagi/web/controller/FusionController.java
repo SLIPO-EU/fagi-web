@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class FusionController {
 
-    @RequestMapping(value = {"/", "/configuration", "/specification"})
+    @RequestMapping(value = {"/", "/configuration", "/specification", "/statistics"})
     public String index() {
         return "redirect:index.html";
     }
@@ -92,7 +92,7 @@ public class FusionController {
             RestResponse response = new RestResponse();
             
             //simulate calculation time for response
-            Thread.sleep(200);
+            Thread.sleep(1500);
             
             return response;
             
