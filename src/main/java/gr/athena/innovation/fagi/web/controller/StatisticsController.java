@@ -1,10 +1,12 @@
 package gr.athena.innovation.fagi.web.controller;
 
 import gr.athena.innovation.fagi.web.model.RestResponse;
+import gr.athena.innovation.fagi.web.model.StatisticsRequest;
 import gr.athena.innovation.fagi.web.model.StatisticsResponse;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class StatisticsController {
 
-    @RequestMapping(value = "/action/statistics/run", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
+    @RequestMapping(value = "/action/statistics/run", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public RestResponse getStatistics() {
              
@@ -57,5 +59,28 @@ public class StatisticsController {
             return new RestResponse(ex.getMessage(), ex.toString());
         }
     }
+    
+    @RequestMapping(value = "/action/statistics/selected", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    @ResponseBody
+    public RestResponse getSelectedStatistics(@RequestBody StatisticsRequest request) {
+
+        try{
+            
+            Map<String, String> statPairsA = new HashMap<>();
+            Map<String, String> statPairsB = new HashMap<>();
+
+            StatisticsResponse response = new StatisticsResponse();
+            
+            response.setStatPairsA(statPairsA);
+            response.setStatPairsB(statPairsB);
+
+            return response;
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+
+            return new RestResponse(ex.getMessage(), ex.toString());
+        }
+    }    
 }
 

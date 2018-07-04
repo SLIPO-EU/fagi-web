@@ -7,7 +7,7 @@ import java.util.Map;
  * @author nkarag
  */
 public class StatisticsResponse extends RestResponse {
-    
+
     private Map<String, String> statPairsA;
     private Map<String, String> statPairsB;
 

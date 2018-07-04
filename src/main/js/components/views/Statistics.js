@@ -6,10 +6,55 @@ import Chart from './Chart';
 var { bindActionCreators } = require('redux');
 var chartOption = require('../../constants/ChartOptions');
 var chartDefaultOption = require('../../constants/ChartDefaultOptions');
-var { runStatistics } = require('../../actions/StatisticsActions');
+var { runStatistics, runSelectedStatistics } = require('../../actions/StatisticsActions');
 import Table from './Table';
 import Checkbox from './Checkbox';
-  
+
+function makeData() {
+  return [
+    {
+      key: 'stat1',
+      name: "stat1",
+      description: "description1"
+    },
+    {
+      key: 'stat2',
+      name: "stat2",
+      description: "description2"
+    },
+    {
+      key: 'stat3',
+      name: "stat3",
+      description: "description3"
+    },
+    {
+      key: 'stat4',
+      name: "stat4",
+      description: "description4"
+    },
+    {
+      key: 'stat5',
+      name: "stat5",
+      description: "description5"
+    },
+    {
+      key: 'stat6',
+      name: "stat6",
+      description: "description6"
+    },
+    {
+      key: 'stat7',
+      name: "stat7",
+      description: "description7"
+    },
+    {
+      key: 'stat8',
+      name: "stat8",
+      description: "description8"
+    }
+  ];
+}
+
 class Statistics extends React.Component {
 
   constructor(props) {
@@ -30,6 +75,17 @@ class Statistics extends React.Component {
   runStatistics(){
     this.setState({showStatistics:true});
     this.props.actions.runStatistics();
+  }
+
+  runSelectedStatistics(){
+
+    //TODO: filter keys when unchecked
+    let stats = Object.keys(this.state.selected);
+    let request = {};
+    request.statistics = stats;
+
+    this.setState({showStatistics:true});
+    this.props.actions.runSelectedStatistics(request);
   }
   
   toggleSelectAll() {
@@ -107,7 +163,8 @@ class Statistics extends React.Component {
           }
         ]
       }
-    ];  
+    ];
+
     return (
       <div>
         <div>
@@ -123,6 +180,9 @@ class Statistics extends React.Component {
           <span style={{float: 'right'}}>
             <div className = "FusionBox">
               <button className = "FuseButton" type="button" onClick={e => this.runStatistics()}>Calculate Stats</button>
+            </div>
+            <div className = "FusionBox">
+              <button className = "FuseButton" type="button" onClick={e => this.runSelectedStatistics()}>Calculate Selected</button>
             </div>
           </span>
           <div className='Chart'>
@@ -150,53 +210,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { runStatistics }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { runStatistics, runSelectedStatistics }) , dispatch)
   };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Statistics);
-
-function makeData() {
-  return [
-    {
-      key: 'stat1',
-      name: "stat1",
-      description: "description1"
-    },
-    {
-      key: 'stat2',
-      name: "stat2",
-      description: "description2"
-    },
-    {
-      key: 'stat3',
-      name: "stat3",
-      description: "description3"
-    },
-    {
-      key: 'stat4',
-      name: "stat4",
-      description: "description4"
-    },
-    {
-      key: 'stat5',
-      name: "stat5",
-      description: "description5"
-    },
-    {
-      key: 'stat6',
-      name: "stat6",
-      description: "description6"
-    },
-    {
-      key: 'stat7',
-      name: "stat7",
-      description: "description7"
-    },
-    {
-      key: 'stat8',
-      name: "stat8",
-      description: "description8"
-    }
-  ];
-}

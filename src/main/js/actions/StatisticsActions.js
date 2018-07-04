@@ -27,7 +27,17 @@ var StatisticsActions = {
         dispatch(receivedStatistics(false, error, null));
       });
     };
-  }
+  },
+  runSelectedStatistics : function(selectedStatistics) {
+    return function(dispatch, getState) {
+      dispatch(requestStatistics());
+      return api.runSelectedStatistics(selectedStatistics).then(function (response) {
+        dispatch(receivedStatistics(response.success, response.errors, response.statistics));
+      }, function (error) {
+        dispatch(receivedStatistics(false, error, null));
+      });
+    };
+  }  
 };
   
 module.exports = StatisticsActions;
