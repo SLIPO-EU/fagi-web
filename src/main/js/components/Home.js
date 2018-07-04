@@ -14,30 +14,6 @@ import {
   ErrorPages
 } from '../model/routes';
 
-/////////////////////////////////////////////////////////////////
-//
-//    // Header options
-//    1. '.header-fixed'					- Fixed Header
-//
-//    // Sidebar options
-//    1. '.sidebar-fixed'					- Fixed Sidebar
-//    2. '.sidebar-hidden'				- Hidden Sidebar
-//    3. '.sidebar-off-canvas'		- Off Canvas Sidebar
-//    4. '.sidebar-minimized'			- Minimized Sidebar (Only icons)
-//    5. '.sidebar-compact'			  - Compact Sidebar
-//    6. '.sidebar-mobile-show'   - ??
-//
-//    // Aside options
-//    1. '.aside-menu-fixed'			- Fixed Aside Menu
-//    2. '.aside-menu-hidden'			- Hidden Aside Menu
-//    3. '.aside-menu-off-canvas'	- Off Canvas Aside Menu
-//
-//    // Footer options
-//    1. 'footer-fixed'						- Fixed footer
-//
-/////////////////////////////////////////////////////////////////
-
-//@DragDropContext(HTML5Backend)
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -102,7 +78,7 @@ class Home extends React.Component {
     return (
       <div >
         <Header />
-        <BrowserRouter basename={'/'} >      
+        <BrowserRouter basename={'/'} >
         <div className="app-body">
           <Route path="/" component={Sidebar} />
           <div className="main">
@@ -122,9 +98,5 @@ class Home extends React.Component {
     );
   }
 }
-
-//Home.propTypes = {
-//  user: userPropType,
-//};
 
 export default Home;

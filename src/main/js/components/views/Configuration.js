@@ -57,6 +57,19 @@ class Configuration extends React.Component {
       );      
     }
 
+    let ontInfo = null;
+    
+    if(this.state.files) {
+      if(this.state.files.length >0 && this.props.ontology.properties){
+        ontInfo = (
+          <ul>
+            <li key={'1'}>{this.props.ontology.numberOfClasses} classes</li>
+           <li key={'2'}>{this.props.ontology.properties.length} properties</li>
+          </ul>
+        );        
+      }
+    }
+    
     return (
       <div>
         <div>
@@ -74,12 +87,8 @@ class Configuration extends React.Component {
             </div>
            {loading}
             <aside className ={(this.props.loading ? 'blur' : null)}>
-              <label>Accepted Ontology</label>
-              <ul>
-                {
-                  this.state.files.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)
-                }
-              </ul>
+              <label>Accepted Ontology:</label>
+              {ontInfo}
             </aside>
           </section>
           </div>
@@ -91,7 +100,8 @@ class Configuration extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    loading: state.configuration.loading
+    loading: state.configuration.loading,
+    ontology: state.configuration.ontology
   };
 }
 

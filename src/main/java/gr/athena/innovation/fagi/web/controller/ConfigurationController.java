@@ -1,5 +1,6 @@
 package gr.athena.innovation.fagi.web.controller;
 
+import gr.athena.innovation.fagi.web.model.FagiOntology;
 import gr.athena.innovation.fagi.web.model.OntologyProperty;
 import gr.athena.innovation.fagi.web.model.OntologyResponse;
 import gr.athena.innovation.fagi.web.model.RestResponse;
@@ -94,7 +95,12 @@ public class ConfigurationController {
         try{
 
             OntologyResponse response = new OntologyResponse();
-            response.setProperties(properties);
+            
+            FagiOntology ontology = new FagiOntology();
+            ontology.setNumberOfClasses(model.listClasses().toList().size());
+            ontology.setProperties(properties);
+
+            response.setOntology(ontology);
 
             temp.delete();
             

@@ -21,7 +21,7 @@ var AppActions = {
     return function(dispatch, getState) {
       dispatch(requestUpload());
       return api.upload(file).then(function (response) {
-        dispatch(uploadResponse(response.success, response.errors, response.properties));
+        dispatch(uploadResponse(response.success, response.errors, response.ontology));
       }, function (error) {
         dispatch(uploadResponse(false, error));
       });

@@ -19,71 +19,103 @@ class Statistics extends React.Component {
       error: null,
       showStatistics:false,
       loading: null,
-      statistics: null
+      statistics: null,
+      selected: {}, 
+      selectAll: 0, 
+      data: makeData()
     }
+    this.toggleRow = this.toggleRow.bind(this);
   }
 
   runStatistics(){
     this.setState({showStatistics:true});
     this.props.actions.runStatistics();
   }
+  
+  toggleSelectAll() {
+    let newSelected = {};
 
+    if (this.state.selectAll === 0) {
+      this.state.data.forEach(x => {
+          newSelected[x.name] = true;
+      });
+    }
+
+    this.setState({
+      selected: newSelected,
+      selectAll: this.state.selectAll === 0 ? 1 : 0
+    });
+  }
+  
+  toggleRow(name) {
+    const newSelected = Object.assign({}, this.state.selected);
+    newSelected[name] = !this.state.selected[name];
+    this.setState({
+      selected: newSelected,
+      selectAll: 2
+    });
+  }
+  
   render() {
-    var data = [
+
+    const columns = [
       {
-        key: 1,
-        selected: {value: false, text: 'text1'},
-        name: 'stat1',
-        description: 'stat1 description',
-        count: 30,
-        linked: 'no'
-      },  
-      {
-        id: 2,
-        selected: {value: true, text: 'text2'},
-        name: 'stat2',
-        description: 'stat2 description',
-        count: 30,
-        linked: 'yes'
+        Header: "Statistics",
+        columns: [
+          {
+            id: "checkbox",
+            accessor: "",
+            Cell: ({ original }) => {
+              return (
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={this.state.selected[original.name] === true}
+                  onChange={() => this.toggleRow(original.name)}
+                />
+              );
+            },
+            Header: x => {
+              return (
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={this.state.selectAll === 1}
+                  ref={input => {
+                    if (input) {
+                      input.indeterminate = this.state.selectAll === 2;
+                    }
+                  }}
+                  onChange={() => this.toggleSelectAll()}
+                />
+              );
+            },
+            sortable: false,
+            width: 45,
+            style: { 'textAlign': 'center' }
+          },
+          {
+            Header: "Name",
+            accessor: "name",
+            maxWidth: 160,
+          },
+          {
+            Header: "Description",
+            id: "description",
+            accessor: d => d.description,
+            minWidth: 180,
+          }
+        ]
       }
-    ];
-  
-    var columns = [
-      {
-        Header: 'Key',
-        accessor: 'key',
-        show: false
-      },      
-      {
-        Header: 'Selected',
-        accessor: 'selected',
-        show: true,
-        Cell: props => {
-          return (
-            <Checkbox value={true} label={'test checkbox'} help={'select'} text={'#stat'}/>
-          );
-        }
-      }, {
-        Header: 'Name',
-        accessor: 'name',
-        show: true
-      },{
-        Header: 'Description',
-        accessor: 'description',
-        show: true
-      }, {
-        Header: 'Linked',
-        accessor: 'linked',
-        show: true
-      }];
-  
+    ];  
     return (
       <div>
         <div>
           <Table
-            data={data}
+            data={this.state.data}
             columns={columns}
             minRows={5}
+            defaultPageSize={5}
             showPagination={true}
           />
         </div>
@@ -91,7 +123,7 @@ class Statistics extends React.Component {
           <span style={{float: 'right'}}>
             <div className = "FusionBox">
               <button className = "FuseButton" type="button" onClick={e => this.runStatistics()}>Calculate Stats</button>
-          </div>
+            </div>
           </span>
           <div className='Chart'>
             <Chart 
@@ -123,3 +155,48 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Statistics);
+
+function makeData() {
+  return [
+    {
+      key: 'stat1',
+      name: "stat1",
+      description: "description1"
+    },
+    {
+      key: 'stat2',
+      name: "stat2",
+      description: "description2"
+    },
+    {
+      key: 'stat3',
+      name: "stat3",
+      description: "description3"
+    },
+    {
+      key: 'stat4',
+      name: "stat4",
+      description: "description4"
+    },
+    {
+      key: 'stat5',
+      name: "stat5",
+      description: "description5"
+    },
+    {
+      key: 'stat6',
+      name: "stat6",
+      description: "description6"
+    },
+    {
+      key: 'stat7',
+      name: "stat7",
+      description: "description7"
+    },
+    {
+      key: 'stat8',
+      name: "stat8",
+      description: "description8"
+    }
+  ];
+}

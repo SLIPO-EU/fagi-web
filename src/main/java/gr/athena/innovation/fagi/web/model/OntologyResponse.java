@@ -1,20 +1,18 @@
 package gr.athena.innovation.fagi.web.model;
 
-import java.util.List;
-
-
 /**
  *
  * @author nkarag
  */
 public class OntologyResponse extends RestResponse {
-    private List<OntologyProperty> properties; 
+    
+    private FagiOntology ontology; 
 
-    public List<OntologyProperty> getProperties() {
-        return properties;
+    public FagiOntology getOntology() {
+        return ontology;
     }
 
-    public void setProperties(List<OntologyProperty> properties) {
-        this.properties = properties;
+    public void setOntology(FagiOntology ontology) {
+        this.ontology = ontology;
     }
 }

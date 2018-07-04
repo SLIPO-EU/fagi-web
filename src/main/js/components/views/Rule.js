@@ -123,10 +123,10 @@ class Rule extends React.Component {
 
     return (
       <div className = "RuleWrapper" key={this.props.id} >
-        < div  > 
+        <div>
           <div>
             <span style={{float: 'right'}}>
-              <button className = "RuleButton" type="button" onClick={e => this.props.onDelete(this.props.id)}>Delete Rule</button> 
+              <button className = "RuleButton" type="button" onClick={e => this.props.onDelete(this.props.id)}>Delete Ruleset</button> 
             </span>
           </div>
           <div>
