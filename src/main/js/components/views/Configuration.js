@@ -3,7 +3,7 @@ var { bindActionCreators } = require('redux');
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import MDSpinner from "react-md-spinner";
-var { uploadFile } = require('../../actions/ConfigurationActions');
+var { uploadFile, submitConfigurationPath } = require('../../actions/ConfigurationActions');
 
 var style = {
   textAlign: 'center',
@@ -24,7 +24,7 @@ class Configuration extends React.Component {
 
   constructor() {
     super();
-    this.state = {files: []}
+    this.state = {files: [], configPath: '', validPath: false}
   }
   
   onDrop(files) {
@@ -39,7 +39,20 @@ class Configuration extends React.Component {
     });
   }
 
+  setConfigPath(path) {
+    //basic validity check for path
+    let valid = path.startsWith('/') ? true : false;  
+    this.setState({configPath: path, validPath: valid});
+  }
+  
+  handleSubmit(event) {
+    event.preventDefault();
+    let value = event.target[0].value;
+    this.props.actions.submitConfigurationPath(event.target[0].value);
+  }  
+  
   render() {
+
     let loading = null;
     if(this.props.loading){
       
@@ -73,7 +86,7 @@ class Configuration extends React.Component {
     return (
       <div>
         <div>
-          <div className="FusionBox">
+          <div className="ComponentBox">
           <section>
             <div>
               <Dropzone 
@@ -92,6 +105,15 @@ class Configuration extends React.Component {
             </aside>
           </section>
           </div>
+          <div className="ComponentBox">
+            <form onSubmit={e => this.handleSubmit(e)}>
+              <label>
+                Configuration filepath:&nbsp;
+                <input type="text" value={this.state.configPath} onChange={e => this.setConfigPath(e.target.value)} />
+              </label>
+              <input  disabled={!this.state.validPath} type="submit" value="Submit" />
+            </form>
+          </div>
         </div>
       </div>
     );
@@ -101,13 +123,14 @@ class Configuration extends React.Component {
 function mapStateToProps(state) {
   return {
     loading: state.configuration.loading,
+    configPath: state.configuration.configPath,
     ontology: state.configuration.ontology
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { uploadFile }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { uploadFile, submitConfigurationPath }) , dispatch)
   };
 }
 

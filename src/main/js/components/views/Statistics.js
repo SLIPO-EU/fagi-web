@@ -1,26 +1,25 @@
 const React = require('react');
-
+var _ = require('lodash');
 import { connect } from 'react-redux';
-import Chart from './Chart';
-
 var { bindActionCreators } = require('redux');
 var chartOption = require('../../constants/ChartOptions');
 var chartDefaultOption = require('../../constants/ChartDefaultOptions');
 var { runStatistics, runSelectedStatistics } = require('../../actions/StatisticsActions');
+import Chart from './Chart';
 import Table from './Table';
 import Checkbox from './Checkbox';
 
 function makeData() {
   return [
     {
-      key: 'stat1',
-      name: "stat1",
-      description: "description1"
+      key: 'totalPois',
+      name: "Total POIs",
+      description: "Number of POI entities in each input dataset."
     },
     {
-      key: 'stat2',
-      name: "stat2",
-      description: "description2"
+      key: 'totalTriples',
+      name: "Total Triples",
+      description: "Total number of triples in each input dataset."
     },
     {
       key: 'stat3',
@@ -79,21 +78,20 @@ class Statistics extends React.Component {
 
   runSelectedStatistics(){
 
-    //TODO: filter keys when unchecked
-    let stats = Object.keys(this.state.selected);
-    let request = {};
-    request.statistics = stats;
+    var filtered = _.pickBy(this.state.selected);
+    let stats = Object.keys(filtered);
+    let request = {statistics: stats};
 
     this.setState({showStatistics:true});
     this.props.actions.runSelectedStatistics(request);
   }
-  
+
   toggleSelectAll() {
     let newSelected = {};
 
     if (this.state.selectAll === 0) {
       this.state.data.forEach(x => {
-          newSelected[x.name] = true;
+          newSelected[x.key] = true;
       });
     }
 
@@ -103,9 +101,9 @@ class Statistics extends React.Component {
     });
   }
   
-  toggleRow(name) {
+  toggleRow(key) {
     const newSelected = Object.assign({}, this.state.selected);
-    newSelected[name] = !this.state.selected[name];
+    newSelected[key] = !this.state.selected[key];
     this.setState({
       selected: newSelected,
       selectAll: 2
@@ -126,8 +124,8 @@ class Statistics extends React.Component {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={this.state.selected[original.name] === true}
-                  onChange={() => this.toggleRow(original.name)}
+                  checked={this.state.selected[original.key] === true}
+                  onChange={() => this.toggleRow(original.key)}
                 />
               );
             },
@@ -178,10 +176,10 @@ class Statistics extends React.Component {
         </div>
         <div>
           <span style={{float: 'right'}}>
-            <div className = "FusionBox">
+            <div className = "ComponentBox">
               <button className = "FuseButton" type="button" onClick={e => this.runStatistics()}>Calculate Stats</button>
             </div>
-            <div className = "FusionBox">
+            <div className = "ComponentBox">
               <button className = "FuseButton" type="button" onClick={e => this.runSelectedStatistics()}>Calculate Selected</button>
             </div>
           </span>

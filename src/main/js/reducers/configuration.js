@@ -16,6 +16,10 @@ var configuration = function(state, action) {
         loading : false,
         ontology : action.ontology
       });
+    case types.SUBMIT_CONFIGURATION_PATH:
+      return Object.assign({}, state, {
+        configPath : action.configPath
+      });      
     default:
       return state || initialState;
   }

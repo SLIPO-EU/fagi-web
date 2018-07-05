@@ -17,7 +17,7 @@ var uploadResponse = function (success, errors, ontology) {
 };
 
 var AppActions = {
-  uploadFile : function(file) {
+  uploadFile: function(file) {
     return function(dispatch, getState) {
       dispatch(requestUpload());
       return api.upload(file).then(function (response) {
@@ -25,6 +25,12 @@ var AppActions = {
       }, function (error) {
         dispatch(uploadResponse(false, error));
       });
+    };
+  },
+  submitConfigurationPath: function(configPath) {
+    return {
+      type : types.SUBMIT_CONFIGURATION_PATH,
+      configPath : configPath
     };
   }
 };

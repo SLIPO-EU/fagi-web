@@ -66,7 +66,7 @@ class App extends React.Component {
             < RuleSet />
           </div>
           <span style={{float: 'right'}}>
-            <div className = "FusionBox">
+            <div className = "ComponentBox">
               <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button>
               <div className="SelectBox_content"> 
                 <label>Default Dataset Action:&nbsp;&nbsp;</label>
