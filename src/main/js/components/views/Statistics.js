@@ -40,16 +40,6 @@ function makeData() {
       key: 'stat6',
       name: "stat6",
       description: "description6"
-    },
-    {
-      key: 'stat7',
-      name: "stat7",
-      description: "description7"
-    },
-    {
-      key: 'stat8',
-      name: "stat8",
-      description: "description8"
     }
   ];
 }
@@ -80,7 +70,7 @@ class Statistics extends React.Component {
 
     var filtered = _.pickBy(this.state.selected);
     let stats = Object.keys(filtered);
-    let request = {statistics: stats};
+    let request = {statistics: stats, configPath: this.props.configPath};
 
     this.setState({showStatistics:true});
     this.props.actions.runSelectedStatistics(request);
@@ -109,7 +99,7 @@ class Statistics extends React.Component {
       selectAll: 2
     });
   }
-  
+
   render() {
 
     const columns = [
@@ -180,7 +170,7 @@ class Statistics extends React.Component {
               <button className = "FuseButton" type="button" onClick={e => this.runStatistics()}>Calculate Stats</button>
             </div>
             <div className = "ComponentBox">
-              <button className = "FuseButton" type="button" onClick={e => this.runSelectedStatistics()}>Calculate Selected</button>
+              <button type="button" onClick={e => this.runSelectedStatistics()}>Calculate Selected</button>
             </div>
           </span>
           <div className='Chart'>
@@ -202,7 +192,8 @@ function mapStateToProps(state) {
     success: state.success,
     error: state.error,
     statistics: state.statistics,
-    loading: state.statistics.loading
+    loading: state.statistics.loading,
+    configPath: state.configuration.configPath
   };
 }
 

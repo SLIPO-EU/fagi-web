@@ -1,4 +1,4 @@
-package gr.athena.innovation.fagi.web.model;
+package gr.athena.innovation.fagi.web.exception;
 
 /**
  *
@@ -31,3 +31,4 @@ public class Error {
 		this.description = description;
 	}
 }
+

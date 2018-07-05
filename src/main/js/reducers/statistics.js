@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
     case types.RECEIVED_STATISTICS:
       return Object.assign({}, state, {
         success: action.success,
-        error: action.error,
+        error: action.errors,
         statistics : action.statistics,
         loading: false
       });

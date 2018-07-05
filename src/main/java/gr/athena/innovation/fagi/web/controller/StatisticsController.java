@@ -1,10 +1,15 @@
 package gr.athena.innovation.fagi.web.controller;
 
+import gr.athena.innovation.fagi.FagiInstance;
+import gr.athena.innovation.fagi.web.exception.ApplicationException;
+import gr.athena.innovation.fagi.web.exception.Error;
 import gr.athena.innovation.fagi.web.model.RestResponse;
 import gr.athena.innovation.fagi.web.model.StatisticsRequest;
 import gr.athena.innovation.fagi.web.model.StatisticsResponse;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,14 +70,30 @@ public class StatisticsController {
     public RestResponse getSelectedStatistics(@RequestBody StatisticsRequest request) {
 
         try{
+
+            String path = request.getConfigPath();
+            if(StringUtils.isBlank(path)){
+                return new RestResponse(new Error("Blank path", "Config path is blank."));
+            }
+
+            File f = new File(path);
+            if(!f.exists() || f.isDirectory()) { 
+                return new RestResponse(new Error("Wrong path", path + " is not valid."));
+            }            
+
+            FagiInstance fagi = new FagiInstance(path);
+            String jsonString = fagi.computeStatistics();
+
+            
             
             Map<String, String> statPairsA = new HashMap<>();
             Map<String, String> statPairsB = new HashMap<>();
 
+            //todo: use enumMap for stats
             StatisticsResponse response = new StatisticsResponse();
-            
-            response.setStatPairsA(statPairsA);
-            response.setStatPairsB(statPairsB);
+            response.setJsonString(jsonString);
+            //response.setStatPairsA(statPairsA);
+            //response.setStatPairsB(statPairsB);
 
             return response;
             

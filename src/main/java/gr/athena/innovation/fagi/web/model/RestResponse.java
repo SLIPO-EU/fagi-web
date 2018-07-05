@@ -1,6 +1,7 @@
 package gr.athena.innovation.fagi.web.model;
 
 import java.util.ArrayList;
+import gr.athena.innovation.fagi.web.exception.Error;
 
 /**
  *

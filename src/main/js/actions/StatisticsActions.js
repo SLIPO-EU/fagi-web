@@ -7,7 +7,7 @@ var requestStatistics = function () {
   };
 };
 
-var receivedStatistics = function (success, errors, pairsA, pairsB) {
+var receivedStatistics = function (success, errors, pairsA, pairsB) { 
   return {
     type: types.RECEIVED_STATISTICS,
     success: success,
@@ -32,6 +32,9 @@ var StatisticsActions = {
     return function(dispatch, getState) {
       dispatch(requestStatistics());
       return api.runSelectedStatistics(selectedStatistics).then(function (response) {
+        if(response.errors.length > 0){
+          alert(response.errors[0].code + ": "+ response.errors[0].description);
+        }
         dispatch(receivedStatistics(response.success, response.errors, response.statistics));
       }, function (error) {
         dispatch(receivedStatistics(false, error, null));
