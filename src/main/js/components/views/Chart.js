@@ -31,7 +31,7 @@ class Chart extends React.Component {
     }
     
     return (
-      <ReactEchartsCore   
+      <ReactEchartsCore
         echarts={echarts}
         option={content} 
         loadingOption={loadingOption}

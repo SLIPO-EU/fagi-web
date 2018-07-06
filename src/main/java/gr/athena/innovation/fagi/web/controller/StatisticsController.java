@@ -81,20 +81,15 @@ public class StatisticsController {
                 return new RestResponse(new Error("Wrong path", path + " is not valid."));
             }            
 
+            
             FagiInstance fagi = new FagiInstance(path);
-            String jsonString = fagi.computeStatistics();
-
-            
-            
-            Map<String, String> statPairsA = new HashMap<>();
-            Map<String, String> statPairsB = new HashMap<>();
+            String jsonString = fagi.computeStatistics(request.getStatistics());
 
             //todo: use enumMap for stats
             StatisticsResponse response = new StatisticsResponse();
             response.setJsonString(jsonString);
-            //response.setStatPairsA(statPairsA);
-            //response.setStatPairsB(statPairsB);
 
+            Thread.sleep(400);
             return response;
             
         } catch (Exception ex) {

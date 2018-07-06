@@ -18,19 +18,19 @@ const defaultOptions = {
           }
         },
         silent: true,
-        barWidth: 60,
-        barGap: '-100%', // Make series be overlap
+        barWidth: barWidth,
+        barGap: '-100%', // Make series overlap
         data: [0, 0, 0, 0]
     }, {
         name:'Non empty fields A(%)',
         type: 'bar',
-        barWidth: 60,
+        barWidth: barWidth,
         z: 10,
         data: [0, 0, 0, 0]
     }, {
         name:'Non empty fields B(%)',
         type: 'bar',
-        barWidth: 60,
+        barWidth: barWidth,
         z: 10,
         data: [0, 0, 0, 0]
     }],

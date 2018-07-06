@@ -2,8 +2,8 @@ const React = require('react');
 var _ = require('lodash');
 import { connect } from 'react-redux';
 var { bindActionCreators } = require('redux');
-var chartOption = require('../../constants/ChartOptions');
 var chartDefaultOption = require('../../constants/ChartDefaultOptions');
+var chartConfig = require('../../helpers/chart-config');
 var { runStatistics, runSelectedStatistics } = require('../../actions/StatisticsActions');
 import Chart from './Chart';
 import Table from './Table';
@@ -44,6 +44,37 @@ function makeData() {
   ];
 }
 
+function createChartComponents(charts) {
+  
+  if(charts.length === 0){
+    return(
+      <div className="Chart" key={i}>
+      <Chart 
+        option={chartDefaultOption}
+        defaultOption={chartDefaultOption}
+        loading={true}
+        show={true}
+      />
+      </div>
+    );
+  }
+  var chartComponents = [];
+  for(var i=0; i<charts.length; i++){
+    chartComponents.push((
+      <div className="Chart" key={i}>
+      <Chart 
+        option={charts[i]}
+        defaultOption={chartDefaultOption}
+        loading={true}
+        show={true}
+      />
+      </div>
+     )
+    );
+  }
+  return chartComponents;
+}
+  
 class Statistics extends React.Component {
 
   constructor(props) {
@@ -99,7 +130,7 @@ class Statistics extends React.Component {
       selectAll: 2
     });
   }
-
+  
   render() {
 
     const columns = [
@@ -153,6 +184,17 @@ class Statistics extends React.Component {
       }
     ];
 
+    let chartsData = null;
+    let chartComponents = [];
+
+    if(this.props.statistics.statistics){
+      let statsArray = Object.values(this.props.statistics.statistics);
+      let chartsData = chartConfig.getChartData(statsArray);
+      chartComponents = createChartComponents(chartsData);
+    } else {
+      chartComponents = createChartComponents([]);
+    }
+
     return (
       <div>
         <div>
@@ -167,20 +209,10 @@ class Statistics extends React.Component {
         <div>
           <span style={{float: 'right'}}>
             <div className = "ComponentBox">
-              <button className = "FuseButton" type="button" onClick={e => this.runStatistics()}>Calculate Stats</button>
-            </div>
-            <div className = "ComponentBox">
-              <button type="button" onClick={e => this.runSelectedStatistics()}>Calculate Selected</button>
+              <button className="FuseButton" onClick={e => this.runSelectedStatistics()}>Calculate Selected</button>
             </div>
           </span>
-          <div className='Chart'>
-            <Chart 
-              option={chartOption}
-              defaultOption={chartDefaultOption}
-              loading={this.state.loading}
-              show={this.state.showStatistics}
-            />
-          </div>
+          {chartComponents}
         </div>
       </div>
     )

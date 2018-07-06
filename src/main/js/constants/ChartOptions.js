@@ -1,10 +1,10 @@
 var barWidth = 50;
 
 const option = {
-//    title: {
-//        text: 'Statistics'
-//    },
-    tooltip: {},
+    title: {
+        text: 'Total POIs'  
+    },
+    tooltip: 'tooltip',
     legend: {
         data:['Total POIs', 'Non empty fields A(%)','Non empty fields B(%)']
     },
