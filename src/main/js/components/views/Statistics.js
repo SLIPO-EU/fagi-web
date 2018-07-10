@@ -22,25 +22,75 @@ function makeData() {
       description: "Total number of triples in each input dataset."
     },
     {
-      key: 'stat3',
-      name: "stat3",
-      description: "description3"
+      key: 'nonEmptyNames',
+      name: "Total number of name properties.",
+      description: "Total number of POIs that have the name property in each input dataset."
     },
     {
-      key: 'stat4',
-      name: "stat4",
-      description: "description4"
+      key: 'nonEmptyPhones',
+      name: "Total number of phone properties.",
+      description: "Total number of POIs that have the phone property in each input dataset."
     },
     {
-      key: 'stat5',
-      name: "stat5",
-      description: "description5"
+      key: 'nonEmptyStreets',
+      name: "Total number of address street properties.",
+      description: "Total number of POIs that have the address street property in each input dataset."
     },
     {
-      key: 'stat6',
-      name: "stat6",
-      description: "description6"
-    }
+      key: 'nonEmptyStreetNumbers',
+      name: "Total number of address street number properties.",
+      description: "Total number of POIs that have the address street number property in each input dataset."
+    },
+    {
+      key: 'nonEmptyWebsites',
+      name: "Total number of website properties.",
+      description: "Total number of POIs that have the website property in each input dataset."
+    },
+    {
+      key: 'nonEmptyEmails',
+      name: "Total number of email properties.",
+      description: "Total number of POIs that have the email property in each input dataset."
+    },
+    {
+      key: 'nonEmptyDates',
+      name: "Total number of date properties.",
+      description: "Total number of POIs that have the date property in each input dataset."
+    },
+    {
+      key: 'emptyNames',
+      name: "Total number of empty name properties.",
+      description: "Total number of POIs that don' t have the name property in each input dataset."
+    },
+    {
+      key: 'emptyPhones',
+      name: "Total number of empty phone properties.",
+      description: "Total number of POIs that don' t have the phone property in each input dataset."
+    },
+    {
+      key: 'emptyStreets',
+      name: "Total number of empty address street properties.",
+      description: "Total number of POIs that don' t have the address street property in each input dataset."
+    },
+    {
+      key: 'emptyStreetNumbers',
+      name: "Total number of empty address street number properties.",
+      description: "Total number of POIs that don' t have the address street number property in each input dataset."
+    },
+    {
+      key: 'emptyWebsites',
+      name: "Total number of empty website properties.",
+      description: "Total number of POIs that don' t have the website property in each input dataset."
+    },
+    {
+      key: 'emptyEmails',
+      name: "Total number of empty email properties.",
+      description: "Total number of POIs that don' t have the email property in each input dataset."
+    },
+    {
+      key: 'emptyDates',
+      name: "Total number of empty date properties.",
+      description: "Total number of POIs that don' t have the date property in each input dataset."
+    },    
   ];
 }
 
@@ -172,7 +222,7 @@ class Statistics extends React.Component {
           {
             Header: "Name",
             accessor: "name",
-            maxWidth: 160,
+            minWidth: 80
           },
           {
             Header: "Description",
@@ -202,7 +252,7 @@ class Statistics extends React.Component {
             data={this.state.data}
             columns={columns}
             minRows={5}
-            defaultPageSize={5}
+            defaultPageSize={10}
             showPagination={true}
           />
         </div>

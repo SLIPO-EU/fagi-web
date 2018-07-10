@@ -81,7 +81,6 @@ public class StatisticsController {
                 return new RestResponse(new Error("Wrong path", path + " is not valid."));
             }            
 
-            
             FagiInstance fagi = new FagiInstance(path);
             String jsonString = fagi.computeStatistics(request.getStatistics());
 
