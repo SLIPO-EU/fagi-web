@@ -90,7 +90,72 @@ function makeData() {
       key: 'emptyDates',
       name: "Total number of empty date properties.",
       description: "Total number of POIs that don' t have the date property in each input dataset."
-    },    
+    },
+    {
+      key: 'distinctProperties',
+      name: "Distinct Properties.",
+      description: "Number of distinct properties in each input dataset."
+    },
+    {
+      key: 'primaryDatesFormatPercent',
+      name: "Percentage of primary date formats.",
+      description: "Percentage of primary date formats in each input dataset."
+    },     
+    {
+      key: 'namesPercent',
+      name: "Percentage of names.",
+      description: "Percentage of name property in each input dataset."
+    },
+    {
+      key: 'websitesPercent',
+      name: "Percentage of websites.",
+      description: "Percentage of website property in each input dataset."
+    },
+    {
+      key: 'emailsPercent',
+      name: "Percentage of e-mails.",
+      description: "Percentage of e-mail property in each input dataset."
+    },
+    {
+      key: 'phonesPercent',
+      name: "Percentage of phones.",
+      description: "Percentage of phone property in each input dataset."
+    },
+    {
+      key: 'streetsPercent',
+      name: "Percentage of streets.",
+      description: "Percentage of street property in each input dataset."
+    },
+    {
+      key: 'streetNumbersPercent',
+      name: "Percentage of street numbers.",
+      description: "Percentage of street number property in each input dataset."
+    },
+    {
+      key: 'localityPercent',
+      name: "Percentage of locality property.",
+      description: "Percentage of locality property in each input dataset."
+    },
+    {
+      key: 'datesPercent',
+      name: "Percentage of dates.",
+      description: "Percentage of date property in each input dataset."
+    },
+    {
+      key: 'linkedPois',
+      name: "Linked POIs.",
+      description: "Number of linked POIs in each input dataset."
+    },
+    {
+      key: 'linkedVsTotal',
+      name: "Linked vs total POIs.",
+      description: "Number of linked vs total POIs in the datasets."
+    },
+    {
+      key: 'linkedTriples',
+      name: "Linked Triples.",
+      description: "Number of linked triples from each dataset (Triples associated with a linked POI)."
+    },     
   ];
 }
 
@@ -251,8 +316,8 @@ class Statistics extends React.Component {
           <Table
             data={this.state.data}
             columns={columns}
-            minRows={5}
-            defaultPageSize={10}
+            minRows={8}
+            defaultPageSize={8}
             showPagination={true}
           />
         </div>
