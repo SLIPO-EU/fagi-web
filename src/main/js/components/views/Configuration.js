@@ -44,13 +44,13 @@ class Configuration extends React.Component {
     let valid = path.startsWith('/') ? true : false;  
     this.setState({configPath: path, validPath: valid});
   }
-  
+
   handleSubmit(event) {
     event.preventDefault();
     let value = event.target[0].value;
     this.props.actions.submitConfigurationPath(event.target[0].value);
-  }  
-  
+  }
+
   render() {
 
     let loading = null;

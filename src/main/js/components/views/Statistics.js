@@ -155,7 +155,92 @@ function makeData() {
       key: 'linkedTriples',
       name: "Linked Triples.",
       description: "Number of linked triples from each dataset (Triples associated with a linked POI)."
-    },     
+    },
+    {
+      key: 'linkedNonEmptyNames',
+      name: "Linked non empty names.",
+      description: "Number of linked POIs that have the name property in each input dataset."
+    },
+    {
+      key: 'linkedNonEmptyPhones',
+      name: "Linked non empty phones.",
+      description: "Number of linked POIs that have the phone property in each input dataset."
+    },
+    {
+      key: 'linkedNonEmptyStreets',
+      name: "Linked non empty streets.",
+      description: "Number of linked POIs that have the street property in each input dataset."
+    },
+    {
+      key: 'linkedNonEmptyStreetNumbers',
+      name: "Linked non empty street numbers.",
+      description: "Number of linked POIs that have the street number property in each input dataset."
+    },
+    {
+      key: 'linkedNonEmptyWebsites',
+      name: "Linked non empty websites.",
+      description: "Number of linked POIs that have the website property in each input dataset."
+    },
+    {
+      key: 'linkedNonEmptyEmails',
+      name: "Linked non empty e-mails.",
+      description: "Number of linked POIs that have the e-mail property in each input dataset."
+    },
+    {
+      key: 'linkedNonEmptyDates',
+      name: "Linked non empty dates.",
+      description: "Number of linked POIs that have the date property in each input dataset."
+    },
+    {
+      key: 'linkedEmptyNames',
+      name: "Linked empty names.",
+      description: "Number of linked POIs that don' t have the name property in each input dataset."
+    },
+    {
+      key: 'linkedEmptyPhones',
+      name: "Linked empty phones.",
+      description: "Number of linked POIs that don' t have the phone property in each input dataset."
+    },
+    {
+      key: 'linkedEmptyStreets',
+      name: "Linked empty streets.",
+      description: "Number of linked POIs that don' t have the street property in each input dataset."
+    },
+    {
+      key: 'linkedEmptyStreetNumbers',
+      name: "Linked empty street numbers.",
+      description: "Number of linked POIs that don' t have the street number property in each input dataset."
+    },
+    {
+      key: 'linkedEmptyWebsites',
+      name: "Linked empty websites.",
+      description: "Number of linked POIs that don' t have the website property in each input dataset."
+    },
+    {
+      key: 'linkedEmptyEmails',
+      name: "Linked empty e-mails.",
+      description: "Number of linked POIs that don' t have the e-mail property in each input dataset."
+    },
+    {
+      key: 'linkedEmptyDates',
+      name: "Linked empty dates.",
+      description: "Number of linked POIs that don' t have the date property in each input dataset."
+    },
+    {
+      key: 'totalNonEmptyProperties',
+      name: "Total non empty properties.",
+      description: "Total number of non empty properties in each input dataset."
+    },
+    {
+      key: 'totalEmptyProperties',
+      name: "Total empty properties.",
+      description: "Total number of empty properties in each input dataset."
+    },
+    {
+      key: 'totalPropertiesPercentage',
+      name: "Total properties percentage.",
+      description: "Percentage of total properties in each input dataset."
+    },
   ];
 }
 
