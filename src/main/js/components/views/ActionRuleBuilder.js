@@ -10,12 +10,6 @@ var combinators = require('../../constants/combinators');
 var properties = require('../../constants/properties');
 var datasetIdentifiers = require('../../constants/DatasetIdentifiers');
 import Condition from './Condition';
-  
-var propertyOptions =  properties.map(function(property) {
-  return (
-    <option type1={property.type} key={property.key} value ={property.value}>{property.label}</option>
-  );
-});
 
 var datasetOptions =  datasetIdentifiers.map(function(d) {
   return (

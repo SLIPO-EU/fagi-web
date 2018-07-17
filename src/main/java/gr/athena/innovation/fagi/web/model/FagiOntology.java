@@ -8,7 +8,7 @@ import java.util.List;
  * @author nkarag
  */
 public class FagiOntology {
-    
+
     private List<OntologyProperty> properties; 
     private int numberOfClasses;
 

@@ -26,7 +26,7 @@ class Configuration extends React.Component {
     super();
     this.state = {files: [], configPath: '', validPath: false}
   }
-
+  
   onDrop(files) {
     var context = this;
     var reader = new FileReader();

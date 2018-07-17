@@ -149,3 +149,17 @@ label {
   // Override coreui/bootstrap/_reboot labels to use `margin` for spacing.
   margin-bottom: 0rem !important;
 }
+
+.form-control {
+    border: 0.8px solid #263238 !important;
+    border-radius: 5px !important;
+    text-align: center !important;
+}
+
+.form-control:focus {
+  color: #495057 !important;
+  background-color: #fff !important;
+  border-color: #80bdff !important;
+  outline: none !important;
+}
+

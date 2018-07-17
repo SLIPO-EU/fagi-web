@@ -27,3 +27,4 @@ maven-build.xml
 
 .sass-cache
 
+/nbactions.xml

@@ -6,6 +6,8 @@ var operators = require('../../constants/operators');
 var combinators = require('../../constants/combinators');
 var properties = require('../../constants/properties');
 var datasetIdentifiers = require('../../constants/DatasetIdentifiers');
+
+import Select from './Select';
   
 var propertyOptions =  properties.map(function(property) {
   return (
@@ -28,7 +30,6 @@ class Condition extends React.Component {
   componentDidMount(){
 
     this.setState({
-
       datasetId: datasetIdentifiers[0],
       propertyA: properties[0].value, 
       propertyB: properties[0].value,

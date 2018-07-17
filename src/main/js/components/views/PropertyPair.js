@@ -2,6 +2,8 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 var properties = require('../../constants/properties');
+import Select from './Select';
+var propertiesConfig = require('../../helpers/properties-config');
   
 var options =  properties.map(function(property) {
   return (
@@ -21,7 +23,7 @@ class Property extends React.Component {
     this.props.onSelectA(properties[0].value);
     this.props.onSelectB(properties[0].value);
   }
-  
+
   render() {
 
     return (
@@ -31,10 +33,12 @@ class Property extends React.Component {
             <label>Fusion property A:&nbsp;&nbsp;</label>
           </div>
           <div className="RuleSelectBox_content"> 
-            <select title = "Choose property" 
-              onChange={e => this.props.onSelectA(e.target.value)}>            
-              {options}
-            </select>
+            <Select 
+              id = "1"
+              title = "Choose property" 
+              options={this.props.properties.properties ? propertiesConfig.getShapedProperties(this.props.properties.properties) : properties}
+              onChange={e => this.props.onSelectA(e)}>
+            </Select>
           </div>
         </div>
         <div className="RuleSelectBox">
@@ -42,10 +46,12 @@ class Property extends React.Component {
             <label>Fusion property B:&nbsp;&nbsp;</label>
           </div>
           <div className="RuleSelectBox_content"> 
-            <select title = "Choose property" 
-              onChange={e => this.props.onSelectB(e.target.value)}>            
-              {options}
-            </select>
+            <Select 
+              id = "2"
+              title = "Choose property" 
+              options={this.props.properties.properties ? propertiesConfig.getShapedProperties(this.props.properties.properties) : properties}
+              onChange={e => this.props.onSelectB(e)}>
+            </Select>
           </div>
         </div>
       </div> 

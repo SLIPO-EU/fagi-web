@@ -132,6 +132,7 @@ class Rule extends React.Component {
           <div>
             <div>
               <FusionPropertyPair 
+                properties={this.props.fusionProperties}
                 onSelectA={this.selectPropertyA}
                 onSelectB={this.selectPropertyB}
               />
@@ -160,10 +161,7 @@ class Rule extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    rule: state.id,
-    rule: state.fusionPropertyA,
-    rule: state.fusionPropertyB,
-    rule: state.actionRules
+    fusionProperties: state.configuration.ontology
   };
 }
 
