@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>gr.athena.innovation</groupId>
     <artifactId>fagi-web</artifactId>
-    <version>1.2.4-SNAPSHOT</version>
+    <version>1.2.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>FAGI Web Application</name>
@@ -15,11 +15,11 @@
         <frontend.skip>false</frontend.skip>
         <node.version>v6.10.3</node.version>
         <npm.version>3.10.10</npm.version>
-        <node.env>development</node.env>     
-        <fagi.version>1.2.4-SNAPSHOT</fagi.version>
+        <node.env>development</node.env>
+        <fagi.version>1.2.5-SNAPSHOT</fagi.version>
         <collections4.version>4.1</collections4.version>
     </properties>
-    
+
     <profiles>
         <profile>
             <id>develop</id>
@@ -28,7 +28,7 @@
             </properties>
         </profile>
     </profiles>
-    
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>

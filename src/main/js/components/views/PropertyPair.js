@@ -36,7 +36,7 @@ class Property extends React.Component {
             <Select 
               id = "1"
               title = "Choose property" 
-              options={this.props.properties.properties ? propertiesConfig.getShapedProperties(this.props.properties.properties) : properties}
+              options={this.props.ontology.properties ? propertiesConfig.getShapedProperties(this.props.ontology.properties) : properties}
               onChange={e => this.props.onSelectA(e)}>
             </Select>
           </div>
@@ -49,7 +49,7 @@ class Property extends React.Component {
             <Select 
               id = "2"
               title = "Choose property" 
-              options={this.props.properties.properties ? propertiesConfig.getShapedProperties(this.props.properties.properties) : properties}
+              options={this.props.ontology.properties ? propertiesConfig.getShapedProperties(this.props.ontology.properties) : properties}
               onChange={e => this.props.onSelectB(e)}>
             </Select>
           </div>

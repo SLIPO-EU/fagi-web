@@ -60,6 +60,7 @@ class ConditionWrapper extends React.Component {
   
   constructor(props) {
     super(props);
+
     this.setDataset = this.setDataset.bind(this);
     this.setActionPropertyA = this.setActionPropertyA.bind(this);
     this.setActionPropertyB = this.setActionPropertyB.bind(this);
@@ -71,7 +72,7 @@ class ConditionWrapper extends React.Component {
   }
   
   setActionPropertyA(ruleId, actionRuleId, propA){
-    
+
     let p1 = properties.find(p => p.value === propA);
     let _query = Object.assign(this.props.value, {propA:p1});
     
@@ -100,6 +101,7 @@ class ConditionWrapper extends React.Component {
 
     return (
       <Condition
+        ontology = {this.props.options[1].ontology? this.props.options[1].ontology : null}
         ruleId={this.props.options[0].ruleId}
         actionRuleId={this.props.options[0].actionRuleId}
         field={this.props.field}
@@ -110,7 +112,7 @@ class ConditionWrapper extends React.Component {
       />
     )
   }
-}
+};
 
 class ActionRuleBuilder extends React.Component {
 
@@ -134,7 +136,7 @@ class ActionRuleBuilder extends React.Component {
 
   render() {
 
-    var ops = [{ruleId:this.props.ruleId, actionRuleId: this.props.actionRuleId}];
+    var ops = [{ruleId:this.props.ruleId, actionRuleId: this.props.actionRuleId}, {ontology:this.props.ontology}];
 
     return (
       <div> 

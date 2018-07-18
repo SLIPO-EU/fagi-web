@@ -8,6 +8,7 @@ var properties = require('../../constants/properties');
 var datasetIdentifiers = require('../../constants/DatasetIdentifiers');
 
 import Select from './Select';
+var propertiesConfig = require('../../helpers/properties-config');
   
 var propertyOptions =  properties.map(function(property) {
   return (
@@ -129,25 +130,30 @@ class Condition extends React.Component {
        );
     }
 
+    let opts = this.props.ontology.properties ? 
+        propertiesConfig.getShapedProperties(this.props.ontology.properties) : properties;
+
     var propertySelect1 = (
       <div className="SelectBox_content">
         <label>{propertySelectionLabel1}&nbsp;</label>
-        <select 
-          onChange={e => this.selectActionRulePropertyA(e.target.value)} 
+        <Select 
+          id={'3'}
+          options={opts ? opts : []}
+          onChange={e => this.selectActionRulePropertyA(e)} 
           title = "Choose property">
-          {propertyOptions}
-        </select>
+        </Select>
       </div>
     );
 
     var propertySelect2 = selectedFunction.parameterCount !== 1 ? (
       <div className="SelectBox_content">
         <label>{propertySelectionLabel2}&nbsp;</label>
-        <select 
-          onChange={e => this.selectActionRulePropertyB(e.target.value)} 
+        <Select 
+          id={'4'}
+          options={opts ? opts : []}
+          onChange={e => this.selectActionRulePropertyB(e)} 
           title = "Choose property">
-          {propertyOptions}
-        </select>
+        </Select>
       </div>
     ) : null;
 

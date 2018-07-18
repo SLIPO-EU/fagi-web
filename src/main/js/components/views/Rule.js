@@ -96,6 +96,7 @@ class Rule extends React.Component {
           </div>
             <div className="ActionRuleBuilderBox">
               < ActionRuleBuilder 
+                ontology={this.props.ontology}
                 key={this.props.id}
                 ruleId={this.props.id}
                 actionRuleId={r.id}
@@ -126,13 +127,13 @@ class Rule extends React.Component {
         <div>
           <div>
             <span style={{float: 'right'}}>
-              <button className = "RuleButton" type="button" onClick={e => this.props.onDelete(this.props.id)}>Delete Ruleset</button> 
+              <button type="button" onClick={e => this.props.onDelete(this.props.id)}>x</button> 
             </span>
           </div>
           <div>
-            <div>
+            <div className="fusion-property-border">
               <FusionPropertyPair 
-                properties={this.props.fusionProperties}
+                ontology={this.props.ontology}
                 onSelectA={this.selectPropertyA}
                 onSelectB={this.selectPropertyB}
               />
@@ -161,7 +162,7 @@ class Rule extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    fusionProperties: state.configuration.ontology
+    ontology: state.configuration.ontology
   };
 }
 

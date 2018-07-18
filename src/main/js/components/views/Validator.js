@@ -79,6 +79,7 @@ class Validator extends React.Component {
           </div>
             <div className="ActionRuleBuilderBox">
               <ActionRuleBuilder 
+                ontology={this.props.ontology}
                 key={this.props.id}
                 ruleId={this.props.id}
                 actionRuleId={r.id}
@@ -131,7 +132,8 @@ class Validator extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    rules: state.validator.rules
+    rules: state.validator.rules,
+    ontology: state.configuration.ontology
   };
 }
 
