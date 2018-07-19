@@ -245,7 +245,6 @@ function makeData() {
 }
 
 function createChartComponents(charts) {
-  
   if(charts.length === 0){
     return(
       <div className="Chart" key={i}>
@@ -258,7 +257,9 @@ function createChartComponents(charts) {
       </div>
     );
   }
+  
   var chartComponents = [];
+  
   for(var i=0; i<charts.length; i++){
     chartComponents.push((
       <div className="Chart" key={i}>
@@ -390,7 +391,20 @@ class Statistics extends React.Component {
     if(this.props.statistics.statistics){
       let statsArray = Object.values(this.props.statistics.statistics);
       let chartsData = chartConfig.getChartData(statsArray);
+      
+      //todo: chart-config -> getGroupedChartData
+
+      if(statsArray){
+        var percents = statsArray.filter(stat => {
+          return stat.group === 'PERCENT'
+        });
+        
+        //shape data for each group chart:
+        //e.g percent group: yAxis-> 3 series, data:[numbers of values in each group]  
+      }
+
       chartComponents = createChartComponents(chartsData);
+
     } else {
       chartComponents = createChartComponents([]);
     }

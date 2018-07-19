@@ -118,8 +118,14 @@
 
 .Threshold {
   display: inline-block;
+  border: 1px solid #CCC;
+  border-radius: 4px;
   width: 35px;
-  padding: 0.1rem;
+  text-align: center;
+}
+
+.Threshold-border {
+  display: inline-block;
 }
 
 .Chart {

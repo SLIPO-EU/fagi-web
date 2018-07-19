@@ -29,6 +29,7 @@ var StatisticsActions = {
     };
   },
   runSelectedStatistics : function(selectedStatistics) {
+    //todo: alert user when cofnig is not set.
     return function(dispatch, getState) {
       dispatch(requestStatistics());
       return api.runSelectedStatistics(selectedStatistics).then(function (response) {

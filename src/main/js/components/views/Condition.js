@@ -122,7 +122,7 @@ class Condition extends React.Component {
       );
 
       thresholdField = (
-        <div className="Threshold">
+        <div className="Threshold-border" >
           <input className= "Threshold" type="text"
             value={this.state.value}
             onChange={e => this.onThresholdChange(e.target.value)}/>
