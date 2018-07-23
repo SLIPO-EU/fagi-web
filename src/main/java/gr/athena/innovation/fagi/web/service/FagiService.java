@@ -2,7 +2,6 @@ package gr.athena.innovation.fagi.web.service;
 
 import gr.athena.innovation.fagi.FagiInstance;
 import gr.athena.innovation.fagi.exception.WrongInputException;
-import gr.athena.innovation.fagi.specification.Namespace;
 import gr.athena.innovation.fagi.web.exception.ApplicationException;
 import gr.athena.innovation.fagi.web.model.FagiOntology;
 import gr.athena.innovation.fagi.web.model.OntologyProperty;
@@ -16,8 +15,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;

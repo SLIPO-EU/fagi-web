@@ -99,7 +99,6 @@ class Statistics extends React.Component {
   }
   
   render() {
-
     const columns = [
       {
         Header: "Statistics",
@@ -151,29 +150,15 @@ class Statistics extends React.Component {
       }
     ];
 
-    let chartsData = null;
     let chartComponents = [];
-
     if(this.props.statistics.statistics){
       let statsArray = Object.values(this.props.statistics.statistics);
 
       let barCharts = statsArray.filter(stat => {
         return stat.type === 'BAR';
       });
-      let chartsData = chartConfig.getChartData(barCharts);
 
-      //todo: chart-config -> getGroupedChartData
-
-      if(statsArray){
-        var percents = barCharts.filter(stat => {
-          return stat.group === 'PERCENT'
-        });
-
-        //shape data for each group chart:
-        //e.g percent group: yAxis-> 3 series, data:[numbers of values in each group]  
-      }
-
-      chartComponents = createChartComponents(chartsData);
+      chartComponents = createChartComponents(chartConfig.getGroupCharts(barCharts));
 
     } else {
       chartComponents = createChartComponents([]);
@@ -191,13 +176,15 @@ class Statistics extends React.Component {
           />
         </div>
         <div>
-          <span style={{float: 'right'}}>
+          <span>
             <div className = "ComponentBox">
               <button className="FuseButton" onClick={e => this.runSelectedStatistics()}>Calculate Selected</button>
             </div>
           </span>
-          {chartComponents}
         </div>
+       <div>
+        {chartComponents}
+       </div>
       </div>
     )
   }

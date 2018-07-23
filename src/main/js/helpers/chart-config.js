@@ -45,45 +45,97 @@ export const getChartData = (stats) => stats.map(stat => ({
     '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3']
 }));
 
-//percent example
-const getGroupChartDataExample = {
-    legend: {
-        data:['Total POIs', 'Non empty fields A(%)','Non empty fields B(%)']
-    },
-    
-    xAxis: {
-        data: ['Name', 'Phone', 'Address', 'Known Date formats'],
-        axisTick: {show: true},
-    },
-    yAxis: {
-        splitLine: {show: true}
-    },
-    animationDurationUpdate: 1000,
-    series: [{
-        name: 'Total POIs',
-        type: 'bar',
-        itemStyle: {
-            normal: {
-                color: '#ddd'
-            }
-        },
-        silent: true,
-        barWidth: barWidth,
-        barGap: '-100%', 
-        data: [100, 100, 100, 100]
-    }, {
-        name:'Non empty fields A(%)',
-        type: 'bar',
-        barWidth: barWidth,
-        z: 10,
-        data: [97, 54, 73, 4]
-    }, {
-        name:'Non empty fields B(%)',
-        type: 'bar',
-        barWidth: barWidth,
-        z: 10,
-        data: [71, 95, 43, 65]
-    }],
-    color:['rgba(255, 233, 172, 0.6)','rgba(210, 210, 255, 0.9)', '#61a0a8', '#d48265', '#91c7ae','#749f83',  
-      '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3']
-}; 
+export const getGroupCharts = function (stats){
+
+  var percents = stats.filter(stat => {
+    return stat.group.enumGroup === 'PERCENT'
+  });
+
+  var properties = stats.filter(stat => {
+    return stat.group.enumGroup === 'PROPERTY'
+  });
+  
+  var tripleBased = stats.filter(stat => {
+    return stat.group.enumGroup === 'TRIPLE_BASED'
+  });
+
+  var poiBased = stats.filter(stat => {
+    return stat.group.enumGroup === 'POI_BASED'
+  });
+
+  let groupCharts = [];
+  if(percents.length > 0){
+    groupCharts.push(getGroup(percents));
+  }
+  
+  if(properties.length > 0){
+    groupCharts.push(getGroup(properties));
+  }
+  
+  if(tripleBased.length > 0){
+    groupCharts.push(getGroup(tripleBased));
+  }
+  
+  if(poiBased.length > 0){
+    groupCharts.push(getGroup(poiBased));
+  }
+
+  return groupCharts;
+}
+
+var getGroup = function (statsArray){
+
+  let sampleStat = statsArray[0];
+  let gLegendTotal = sampleStat.group.legendTotal;
+  let title = sampleStat.group.title;
+  let gLegendA = sampleStat.group.legendA;
+  let gLegendB = sampleStat.group.legendB;
+  let chartType = sampleStat.type.toLowerCase();
+
+  let groupData = {
+      title: {
+        text: title
+      },
+      legend: {
+          data:[gLegendTotal, gLegendA, gLegendB]
+      },
+      xAxis: {
+          data: statsArray.map(stat => (stat.legendTotal)),
+          axisTick: {show: true, alignWithLabel: true},
+          scale: true
+      },
+      yAxis: {
+          splitLine: {show: true}
+      },
+      animationDurationUpdate: 1000,
+      series: [{
+          name: gLegendTotal,
+          type: chartType,
+          itemStyle: {
+              normal: {
+                  color: '#ddd'
+              }
+          },
+          silent: true,
+          barWidth: barWidth,
+          barGap: '-100%', 
+          data: statsArray.map(stat => (stat.valueTotal))
+      }, {
+          name: gLegendA,
+          type: chartType,
+          barWidth: barWidth,
+          z: 10,
+          data: statsArray.map(stat => (stat.valueA))
+      }, {
+          name: gLegendB,
+          type: chartType,
+          barWidth: barWidth,
+          z: 10,
+          data: statsArray.map(stat => (stat.valueB))
+      }],
+      color:['rgba(255, 233, 172, 0.6)','rgba(210, 210, 255, 0.9)', '#61a0a8', '#d48265', '#91c7ae','#749f83',  
+        '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3']
+  }
+
+  return groupData;
+};
