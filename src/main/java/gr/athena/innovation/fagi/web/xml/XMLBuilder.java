@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
@@ -28,9 +29,16 @@ public class XMLBuilder {
     
     private final List<Element> externalProperties = new ArrayList<>();
     private Integer numIndex = 0;
-    private Integer alphabetIndex = 0;
     
-    public void writeRulesToXML(RulesConfigRequest config) throws IOException {
+    public boolean validateConfig(RulesConfigRequest config){
+        if(StringUtils.isBlank(config.getDatasetAction())){
+            return false;
+        }
+        
+        return !config.getRuleset().getRules().isEmpty();
+    }
+
+    public String writeRulesToXML(String dirPath, RulesConfigRequest config) throws IOException {
 
         Element rulesElement = new Element("rules");
         Document doc = new Document();
@@ -101,25 +109,31 @@ public class XMLBuilder {
                 Element actionRuleElement = buildActionRule(actionRule);
                 actionRulesetElement2.addContent(actionRuleElement);
             }
-                
+
             ruleElement.addContent(actionRulesetElement2);
-        
+
             for(Element p : externalProperties){
                 ruleElement.addContent(p);
             }
-            
+
             rulesElement.addContent(ruleElement);
         }
 
         rulesElement.addContent(defaultDatasetAction);
 
-
         doc.setRootElement(rulesElement);
 
-        XMLOutputter outter = new XMLOutputter();
-        outter.setFormat(Format.getPrettyFormat());
-        System.out.println("writing xml to file..");
-        outter.output(doc, new FileWriter(new File("/home/nkarag/Documents/SLIPO/testXml.xml")));
+        XMLOutputter outputter = new XMLOutputter();
+        outputter.setFormat(Format.getPrettyFormat());
+        
+        File file = new File(dirPath + "/config.xml");
+        file.createNewFile();
+        
+        System.out.println("writing xml to file.. (" + file.getAbsolutePath() + ").");
+
+        outputter.output(doc, new FileWriter(file));
+        
+        return file.getAbsolutePath();
 
     }
 

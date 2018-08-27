@@ -10,7 +10,7 @@ export const getChartData = (stats) => stats.map(stat => ({
   },
   xAxis: {
     data: [stat.legendTotal],
-    axisTick: {show: true},
+    axisTick: {show: true, alignWithLabel: true, interval: 0.1},
   },
   yAxis: {
     splitLine: {show: true}
@@ -101,8 +101,7 @@ var getGroup = function (statsArray){
       },
       xAxis: {
           data: statsArray.map(stat => (stat.legendTotal)),
-          axisTick: {show: true, alignWithLabel: true},
-          scale: true
+          axisTick: {show: true, alignWithLabel: true}
       },
       yAxis: {
           splitLine: {show: true}

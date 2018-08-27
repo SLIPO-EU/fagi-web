@@ -1,7 +1,7 @@
 package gr.athena.innovation.fagi.web;
 
-import gr.athena.innovation.fagi.Fagi;
-import java.util.Arrays;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,14 +16,23 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class Application {
 
+    @Bean
+    DirectoryManager manager() {
+        return new DirectoryManager();
+    }
+    
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        
+        System.out.println("starting application");
+        ApplicationContext context = SpringApplication.run(Application.class, args);
+        
+        DirectoryManager manager = context.getBean(DirectoryManager.class);
+        manager.clean();
     }
 
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
-
 
             String[] beanNames = ctx.getBeanDefinitionNames();
 
@@ -33,4 +42,24 @@ public class Application {
         };
     }
 
+    private static class DirectoryManager {
+
+        @PostConstruct
+        public void init() {
+            System.out.println("init");
+            //create directory that fagi outputs will reside.
+        }
+
+        public void clean() {
+            System.out.println("cleaning");
+            //todo: clean directory
+        }
+
+        @PreDestroy
+        public void destroy() {
+            //close service
+            //todo: clean all
+            System.out.println("destroy");
+        }
+    }
 }

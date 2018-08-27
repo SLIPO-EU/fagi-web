@@ -1,20 +1,29 @@
 package gr.athena.innovation.fagi.web.service;
 
+import gr.athena.innovation.fagi.Fagi;
 import gr.athena.innovation.fagi.FagiInstance;
 import gr.athena.innovation.fagi.exception.WrongInputException;
+import gr.athena.innovation.fagi.web.controller.FusionController;
 import gr.athena.innovation.fagi.web.exception.ApplicationException;
 import gr.athena.innovation.fagi.web.model.FagiOntology;
 import gr.athena.innovation.fagi.web.model.OntologyProperty;
+import gr.athena.innovation.fagi.web.model.config.RulesConfigRequest;
+import gr.athena.innovation.fagi.web.xml.XMLBuilder;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
@@ -34,6 +43,60 @@ import org.xml.sax.SAXException;
  */
 @Service
 public class FagiService implements IService{
+
+    @Override
+    public boolean validateConfig(RulesConfigRequest configuration) {
+        XMLBuilder xmlBuilder = new XMLBuilder();
+        boolean isValid = xmlBuilder.validateConfig(configuration);
+        return isValid;
+    }
+
+    @Override
+    public String constructConfig(String dirPath, RulesConfigRequest configuration) {
+
+        try {
+            XMLBuilder xmlBuilder = new XMLBuilder();
+            
+            //todo: get uploaded config and add rules path to it.
+            String configPath = xmlBuilder.writeRulesToXML(dirPath, configuration);
+
+            return configPath;
+        } catch (IOException ex) {
+            Logger.getLogger(FusionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
+    }
+
+    @Override
+    public void fuse(String configPath) throws ApplicationException{
+        
+        String[] fagiArgs = {"-spec", configPath};
+        try {
+            Fagi.main(fagiArgs);
+        } catch(Exception ex){
+            throw new ApplicationException(ex.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    public String getNewDirectoryPath() throws ApplicationException{
+        
+        Path currentRelativePath = Paths.get("");
+        String path = currentRelativePath.toAbsolutePath().toString();
+        UUID uuid = UUID.randomUUID();
+        
+        String directoryPath = path + "/temp/" + uuid;
+        
+        boolean success = new File(directoryPath).mkdirs();
+        
+        if(!success){
+            System.out.println("Could not create directory: " + directoryPath);
+            throw new ApplicationException("Could not create directory: " + directoryPath);
+        }
+
+        return directoryPath;
+    }
 
     @Override
     public String getStatistics(String path, List<String> statistics) throws ApplicationException, 
