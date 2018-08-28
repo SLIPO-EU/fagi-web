@@ -24,16 +24,33 @@ public interface IService {
      * @return true if the validation succeeded, false otherwise. 
 	 */    
     abstract boolean validateConfig(RulesConfigRequest configuration);
-    
+
 	/**
-	 * Constructs the XML configuration file.
+	 * Validates the produced rules specification XML file.
+	 *
+     * @param configPath the configuration XML file path.
+     * @param rulesPath the rules specification file path.
+     * @return true if the validation succeeded, false otherwise. 
+	 */    
+    abstract boolean validateRulesXML(String configPath, String rulesPath);
+
+	/**
+	 * Constructs the rules specification XML file.
 	 *
      * @param dirPath the directory to save the configuration file.
      * @param configuration the configuration request.
-     * @return the filename (absolute path).
+     * @return the filename (absolute path) of the rules XML file.
+	 */
+    abstract String constructRulesXML(String dirPath, RulesConfigRequest configuration);
+
+	/**
+	 * Overwrite the default rules path with an updated one in configuration XML file.
+	 *
+     * @param configFilePath the configuration XML absolute file path.
+     * @param targetPath the target path of the rules file. 
 	 */    
-    abstract String constructConfig(String dirPath, RulesConfigRequest configuration);
-    
+    abstract void overwriteConfigurationRulesPath(String configFilePath, String targetPath);
+
 	/**
 	 * Executes the fusion process.
 	 *

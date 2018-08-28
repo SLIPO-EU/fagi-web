@@ -3,7 +3,7 @@ var { bindActionCreators } = require('redux');
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone';
 import MDSpinner from "react-md-spinner";
-var { uploadFile, submitConfigurationPath } = require('../../actions/ConfigurationActions');
+var { uploadFile, submitConfiguration } = require('../../actions/ConfigurationActions');
 
 var style = {
   textAlign: 'center',
@@ -24,10 +24,10 @@ class Configuration extends React.Component {
 
   constructor() {
     super();
-    this.state = {files: [], configPath: '', validPath: false}
+    this.state = {ontologyFile: null, configXML: null}
   }
 
-  onDrop(files) {
+  onOntologyDrop(files) {
     var context = this;
     var reader = new FileReader();
     reader.addEventListener("loadend", function(event) {
@@ -35,20 +35,35 @@ class Configuration extends React.Component {
     });
     reader.readAsText(files[0]);
     this.setState({
-      files
+      ontologyFile : files[0]
     });
   }
 
-  setConfigPath(path) {
-    //basic validity check for path
-    let valid = path.startsWith('/') ? true : false;  
-    this.setState({configPath: path, validPath: valid});
-  }
+  onConfigDrop(files) {
 
-  handleSubmit(event) {
-    event.preventDefault();
-    let value = event.target[0].value;
-    this.props.actions.submitConfigurationPath(event.target[0].value);
+    var context = this;
+    let configurationXML = null;
+    var reader = new FileReader();
+    reader.readAsText(files[0]);
+    reader.addEventListener("loadend", function(event) {
+      let configurationXML = files[0];
+      let parser = new DOMParser();
+      let xmlDoc = parser.parseFromString(event.target.result, "text/xml");
+
+      if(!xmlDoc.getElementsByTagName("left").length > 0){
+        alert("Something is wrong with configuration");
+      } else {
+        configurationXML.left = xmlDoc.getElementsByTagName("left")[0].childNodes[5].firstChild.nodeValue;
+        configurationXML.right = xmlDoc.getElementsByTagName("right")[0].childNodes[5].firstChild.nodeValue;
+        configurationXML.links = xmlDoc.getElementsByTagName("links")[0].childNodes[5].firstChild.nodeValue;
+        configurationXML.mode = xmlDoc.getElementsByTagName("target")[0].childNodes[3].firstChild.nodeValue;
+        configurationXML.output = xmlDoc.getElementsByTagName("target")[0].childNodes[5].firstChild.nodeValue;
+
+        context.props.actions.submitConfiguration(event.target.result, files[0]);
+      }
+    });
+
+    this.setState({configXML: configurationXML});
   }
 
   render() {
@@ -71,18 +86,34 @@ class Configuration extends React.Component {
     }
 
     let ontInfo = null;
-    
-    if(this.state.files) {
-      if(this.state.files.length >0 && this.props.ontology.properties){
+    if(this.props.ontology) {
+      if(this.props.ontology.properties){
         ontInfo = (
           <ul>
-            <li key={'1'}>{this.props.ontology.numberOfClasses} classes</li>
-           <li key={'2'}>{this.props.ontology.properties.length} properties</li>
+            <li key={'1'}><b>{this.props.ontology.numberOfClasses}</b> classes</li>
+           <li key={'2'}><b>{this.props.ontology.properties.length}</b> properties</li>
           </ul>
         );        
       }
     }
-    
+
+    let configInfo = null;
+    if(this.props.configXML) {
+        configInfo = (
+          <ul>
+            <li key={'1'}><b>Left dataset: </b>{this.props.configXML.left}</li>
+            <li key={'2'}><b>Right dataset: </b>{this.props.configXML.right}</li>
+            <li key={'3'}><b>Links: </b>{this.props.configXML.links}</li>
+            <li key={'4'}><b>Fusion mode: </b>{this.props.configXML.mode}</li>
+            <li key={'5'}><b>Ouptut directory: </b>{this.props.configXML.output}</li>
+            <li key={'6'}><b>Last modified: </b>{this.props.configXML.lastModifiedDate.toString()}</li>
+          </ul>
+        );        
+    }
+
+    let ontologyLabel = this.state.ontologyFile && this.props.ontology ? "Accepted Ontology: " + this.state.ontologyFile.name : "Accepted Ontology: None";
+    let configLabel = this.props.configXML ? "Accepted configuration: " + this.props.configXML.name : "Accepted configuration: None";
+
     return (
       <div>
         <div>
@@ -93,26 +124,35 @@ class Configuration extends React.Component {
                 disabled={this.props.loading}
                 style={this.props.loading ? styleBlur : style}
                 multiple={false}
-                onDrop={this.onDrop.bind(this)}>
+                onDrop={this.onOntologyDrop.bind(this)}>
                 <p>Drag and drop ontology file , or click and select a file. </p>
                 <p>Only *.owl files will be accepted</p>
               </Dropzone>
             </div>
            {loading}
             <aside className ={(this.props.loading ? 'blur' : null)}>
-              <label>Accepted Ontology:</label>
+              <label>{ontologyLabel}</label>
               {ontInfo}
             </aside>
           </section>
           </div>
           <div className="ComponentBox">
-            <form onSubmit={e => this.handleSubmit(e)}>
-              <label>
-                Configuration filepath:&nbsp;
-                <input type="text" value={this.state.configPath} onChange={e => this.setConfigPath(e.target.value)} />
-              </label>
-              <input  disabled={!this.state.validPath} type="submit" value="Submit" />
-            </form>
+            <section>
+              <div>
+                <Dropzone 
+                  disabled={this.props.loading}
+                  style={this.props.loading ? styleBlur : style}
+                  multiple={false}
+                  onDrop={this.onConfigDrop.bind(this)}>
+                  <p>Drag and drop configuration XML file , or click and select a file. </p>
+                  <p>Only *.xml files will be accepted</p>
+                </Dropzone>
+              </div>
+              <aside className ={(this.props.loading ? 'blur' : null)}>
+                <label>{configLabel}</label>
+                {configInfo}
+              </aside>
+            </section>
           </div>
         </div>
       </div>
@@ -123,14 +163,14 @@ class Configuration extends React.Component {
 function mapStateToProps(state) {
   return {
     loading: state.configuration.loading,
-    configPath: state.configuration.configPath,
-    ontology: state.configuration.ontology
+    ontology: state.configuration.ontology,
+    configXML: state.configuration.configXML
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { uploadFile, submitConfigurationPath }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { uploadFile, submitConfiguration }) , dispatch)
   };
 }
 

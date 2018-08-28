@@ -16,6 +16,15 @@ var uploadResponse = function (success, errors, ontology) {
   };
 };
 
+var submitResponse = function (success, errors, info) {
+  return {
+    type: types.SUBMIT_RESPONSE,
+    configXML: info,
+    success: success,
+    errors: errors
+  };
+};
+
 var AppActions = {
   uploadFile: function(file) {
     return function(dispatch, getState) {
@@ -27,10 +36,14 @@ var AppActions = {
       });
     };
   },
-  submitConfigurationPath: function(configPath) {
-    return {
-      type : types.SUBMIT_CONFIGURATION_PATH,
-      configPath : configPath
+  submitConfiguration: function(file, info) {
+    return function(dispatch, getState) {
+      dispatch(requestUpload());
+      return api.submit({name: info.name, configuration:file}).then(function (response) {
+        dispatch(submitResponse(response.success, response.errors, info));
+      }, function (error) {
+        dispatch(submitResponse(false, error, info));
+      });
     };
   }
 };

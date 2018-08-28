@@ -4,6 +4,7 @@ import gr.athena.innovation.fagi.web.exception.Error;
 import gr.athena.innovation.fagi.web.model.RestResponse;
 import gr.athena.innovation.fagi.web.model.StatisticsRequest;
 import gr.athena.innovation.fagi.web.model.StatisticsResponse;
+import gr.athena.innovation.fagi.web.model.Workflow;
 import java.io.File;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class StatisticsController {
 
         try{
 
-            String path = request.getConfigPath();
+            String path = Workflow.getInstance().getConfigFilePath();
 
             File f = new File(path);
             if(StringUtils.isBlank(path) || !f.exists() || f.isDirectory()) {
@@ -45,8 +46,7 @@ public class StatisticsController {
             
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-
-            return new RestResponse(ex.getMessage(), ex.toString());
+            return new RestResponse(new Error(ex.getMessage(), ex.toString()));
         }
     }    
 }

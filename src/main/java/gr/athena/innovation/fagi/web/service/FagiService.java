@@ -2,7 +2,9 @@ package gr.athena.innovation.fagi.web.service;
 
 import gr.athena.innovation.fagi.Fagi;
 import gr.athena.innovation.fagi.FagiInstance;
+import gr.athena.innovation.fagi.core.function.FunctionRegistry;
 import gr.athena.innovation.fagi.exception.WrongInputException;
+import gr.athena.innovation.fagi.utils.InputValidator;
 import gr.athena.innovation.fagi.web.controller.FusionController;
 import gr.athena.innovation.fagi.web.exception.ApplicationException;
 import gr.athena.innovation.fagi.web.model.FagiOntology;
@@ -21,10 +23,18 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import org.apache.commons.collections4.MultiValuedMap;
 import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.apache.jena.ontology.DatatypeProperty;
@@ -35,6 +45,8 @@ import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 /**
@@ -52,20 +64,78 @@ public class FagiService implements IService{
     }
 
     @Override
-    public String constructConfig(String dirPath, RulesConfigRequest configuration) {
+    public boolean validateRulesXML(String configPath, String rulesPath) {
+        FunctionRegistry functionRegistry = new FunctionRegistry();
+        functionRegistry.init();
+        Set<String> functionSet = functionRegistry.getFunctionMap().keySet();
+
+        //passing null as config path in validator. Only rules will be checked from this method.
+        InputValidator validator = new InputValidator(configPath, functionSet);
+
+        if (!validator.isValidRulesWithXSD(rulesPath)) {
+            return false;
+        }
 
         try {
-            XMLBuilder xmlBuilder = new XMLBuilder();
-            
-            //todo: get uploaded config and add rules path to it.
-            String configPath = xmlBuilder.writeRulesToXML(dirPath, configuration);
+            if (!validator.isValidFunctions(rulesPath)) {
+                return false;
+            }
+        } catch (ParserConfigurationException | SAXException | IOException ex) {
+            System.out.println(ex);
+            return false;
+        }
 
-            return configPath;
+        if(!validator.isValidConfigurationXSD()){
+            return false;
+        }
+        
+        if(validator.isValidOutputDirPath(configPath)){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String constructRulesXML(String dirPath, RulesConfigRequest configuration) {
+
+        try {
+
+            XMLBuilder xmlBuilder = new XMLBuilder();
+
+            //todo: get uploaded config and add rules path to it.
+            String rulesAbsolutePath = xmlBuilder.writeRulesToXML(dirPath, configuration);
+
+            return rulesAbsolutePath;
         } catch (IOException ex) {
             Logger.getLogger(FusionController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
+    }
+
+    @Override
+    public void overwriteConfigurationRulesPath(String configFilePath, String targetPath) {
+        try {
+
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            Document doc = docBuilder.parse(configFilePath);
+            
+            Node rules = doc.getElementsByTagName("rules").item(0);
+            rules.setTextContent(targetPath);
+
+            // write the content into xml file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(configFilePath));
+            transformer.transform(source, result);
+            
+        } catch (ParserConfigurationException | SAXException | IOException | TransformerException ex) {
+            Logger.getLogger(FagiService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println("Rules path overwrite success.");
     }
 
     @Override

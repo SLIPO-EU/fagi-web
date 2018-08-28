@@ -20,9 +20,9 @@ public class Application {
     DirectoryManager manager() {
         return new DirectoryManager();
     }
-    
+
     public static void main(String[] args) {
-        
+
         System.out.println("starting application");
         ApplicationContext context = SpringApplication.run(Application.class, args);
         
@@ -34,9 +34,8 @@ public class Application {
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
 
-            String[] beanNames = ctx.getBeanDefinitionNames();
-
-            String[] fagiArgs = {""};
+            //String[] beanNames = ctx.getBeanDefinitionNames();
+            //String[] fagiArgs = {""};
             //Fagi.main(fagiArgs);
 
         };

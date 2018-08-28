@@ -34,7 +34,7 @@ public class XMLBuilder {
         if(StringUtils.isBlank(config.getDatasetAction())){
             return false;
         }
-        
+
         return !config.getRuleset().getRules().isEmpty();
     }
 
@@ -99,12 +99,12 @@ public class XMLBuilder {
             ruleElement.addContent(defaultRuleActionElement);
             
             /* action rules (conditions) */
-            rule.getActionRules();
-            
+            List<ActionRule> actionRules = rule.getActionRules();
+            System.out.println("action rules size: " + actionRules);
             
             Element actionRulesetElement2 = new Element(Vocabulary.ACTION_RULE_SET);
                 
-            for(ActionRule actionRule : rule.getActionRules()){
+            for(ActionRule actionRule : actionRules){
                 //<actionRule>
                 Element actionRuleElement = buildActionRule(actionRule);
                 actionRulesetElement2.addContent(actionRuleElement);
@@ -126,7 +126,7 @@ public class XMLBuilder {
         XMLOutputter outputter = new XMLOutputter();
         outputter.setFormat(Format.getPrettyFormat());
         
-        File file = new File(dirPath + "/config.xml");
+        File file = new File(dirPath + "/rules.xml");
         file.createNewFile();
         
         System.out.println("writing xml to file.. (" + file.getAbsolutePath() + ").");
@@ -224,7 +224,7 @@ public class XMLBuilder {
                 Element expressionElement = new Element(Vocabulary.EXPRESSION);
 
                 Query query = rule.getQuery();
-                
+
                 String combinator = query.getCombinator();
                 //Operator operator = query.getOperator();
         

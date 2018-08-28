@@ -2,6 +2,8 @@ package gr.athena.innovation.fagi.web.controller;
 
 import gr.athena.innovation.fagi.web.exception.ApplicationException;
 import gr.athena.innovation.fagi.web.model.RestResponse;
+import gr.athena.innovation.fagi.web.exception.Error;
+import gr.athena.innovation.fagi.web.model.Workflow;
 import gr.athena.innovation.fagi.web.model.config.RulesConfigRequest;
 import gr.athena.innovation.fagi.web.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class FusionController {
+public class FusionController extends BaseController {
 
     @Autowired
     private IService service;
@@ -29,22 +31,38 @@ public class FusionController {
         try {
 
             if(!service.validateConfig(request)){
-                return new RestResponse("Wrong input", "Rules provided invalid or empty.");
+                return new RestResponse(new Error("Invalid input", "Rules provided empty."));
             }
 
-            String dirPath = service.getNewDirectoryPath();
-            System.out.println("Directory created: " + dirPath);
+            Workflow workflow = Workflow.getInstance();
 
-            String configPath = service.constructConfig(dirPath, request);
-            service.fuse(configPath);
-            
+            System.out.println("Using directory: " + workflow.getCurrentDir());
+
+            String rulesPath = service.constructRulesXML(workflow.getCurrentDir(), request);
+
+            service.overwriteConfigurationRulesPath(workflow.getConfigFilePath(), rulesPath);
+
+            try {
+                
+                if(!service.validateRulesXML(workflow.getConfigFilePath(), rulesPath)){
+                    return new RestResponse(new Error("Invalid input", "Rules provided are invalid."));
+                }
+
+            } catch (Exception ex){
+                return new RestResponse(new Error(ex.getMessage(), ex.toString()));
+            }
+
+            System.out.println("Basic validation complete. Initiating fusion process.");
+
+            service.fuse(workflow.getConfigFilePath());
+
             RestResponse response = new RestResponse();
-            response.add("Fusion complete. ", "Results at " + dirPath);
-            
+            response.add("Fusion complete. ", "Results at " + workflow.getCurrentDir());
+
             return response;
         } catch(ApplicationException ex){
             System.out.println(ex.getMessage());
-            return new RestResponse(ex.getMessage(), ex.toString());
+            return new RestResponse(new Error(ex.getMessage(), ex.toString()));
         }
     }
     
@@ -63,7 +81,7 @@ public class FusionController {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
 
-            return new RestResponse(ex.getMessage(), ex.toString());
+            return new RestResponse(new Error(ex.getMessage(), ex.toString()));
         }
     }
 }

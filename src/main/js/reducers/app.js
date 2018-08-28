@@ -20,6 +20,9 @@ export default (state = initialState, action) => {
         calculating: true
       });
     case types.RESPONSE_FUSE:
+      if(!action.success){
+        alert(action.error[0].code + ": " + action.error[0].description);
+      }
       return Object.assign({}, state, {
         calculating: false,
         success: action.success,

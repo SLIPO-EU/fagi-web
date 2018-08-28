@@ -1,5 +1,6 @@
 package gr.athena.innovation.fagi.web.model.config;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +20,9 @@ public class Rule {
     }
 
     public List<ActionRule> getActionRules() {
+        if(actionRules == null){
+            return new ArrayList<>();
+        }
         return actionRules;
     }
 
