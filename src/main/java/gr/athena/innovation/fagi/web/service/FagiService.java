@@ -12,8 +12,11 @@ import gr.athena.innovation.fagi.web.model.OntologyProperty;
 import gr.athena.innovation.fagi.web.model.config.RulesConfigRequest;
 import gr.athena.innovation.fagi.web.xml.XMLBuilder;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,6 +30,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -146,6 +151,63 @@ public class FagiService implements IService{
             Fagi.main(fagiArgs);
         } catch(Exception ex){
             throw new ApplicationException(ex.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    public String compressDirectory(String dirPath) throws ApplicationException{
+
+        FileOutputStream fos = null;
+        try {
+
+            String outputFilepath = new File(dirPath).getParent() + "/output.zip";
+            
+            fos = new FileOutputStream(outputFilepath);
+            try (ZipOutputStream zipOut = new ZipOutputStream(fos)) {
+                File fileToZip = new File(dirPath);
+                zipFile(fileToZip, fileToZip.getName(), zipOut);
+            }
+
+            fos.close();
+            System.out.println("outputFilepath: " + outputFilepath);
+
+            return outputFilepath;
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FagiService.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FagiService.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if(fos != null){
+                    fos.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(FagiService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+
+    private static void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
+        if (fileToZip.isHidden()) {
+            return;
+        }
+        if (fileToZip.isDirectory()) {
+            File[] children = fileToZip.listFiles();
+            for (File childFile : children) {
+                zipFile(childFile, fileName + "/" + childFile.getName(), zipOut);
+            }
+            return;
+        }
+        try (FileInputStream fis = new FileInputStream(fileToZip)) {
+            ZipEntry zipEntry = new ZipEntry(fileName);
+            zipOut.putNextEntry(zipEntry);
+            byte[] bytes = new byte[1024];
+            int length;
+            while ((length = fis.read(bytes)) >= 0) {
+                zipOut.write(bytes, 0, length);
+            }
         }
     }
 

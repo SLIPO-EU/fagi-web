@@ -1,6 +1,11 @@
 var $ = require('jquery');
 require('es6-promise').polyfill();
 
+function updateCsrfToken(crsf) {
+  $('meta[name=_csrf]').attr('content', crsf);
+  $('input[name=_csrf]').val(crsf);
+}
+
 var sendRequest = function(url, data, contentType, method) {
   var request = {
     type : method || (data ? 'POST' : 'GET'),
@@ -52,11 +57,9 @@ var sendRequest = function(url, data, contentType, method) {
 var api = {
   json : function(url, data, method) {
     var serializedData = data;
-
     if ((data) && (typeof data === 'object')) {
       serializedData = JSON.stringify(data);
     }
-    
     return sendRequest(url, serializedData, 'application/json; charset=UTF-8', method);
   }
 };

@@ -6,7 +6,7 @@ import RuleSet from './RuleSet';
 
 var { bindActionCreators } = require('redux');
 var datasetActionConstants = require('../../constants/DatasetActionConstants');
-var { setDatasetAction, fuse } = require('../../actions/AppActions');
+var { setDatasetAction, fuse, download } = require('../../actions/AppActions');
 
 var options =  datasetActionConstants.map(function(action) {
   return (
@@ -32,6 +32,10 @@ class App extends React.Component {
 
   fuse(){
     this.props.actions.fuse(this.props.config);
+  }
+
+  download(){
+    this.props.actions.download();
   }
 
   selectDatasetAction(e){
@@ -68,6 +72,7 @@ class App extends React.Component {
           <span style={{float: 'right'}}>
             <div className = "ComponentBox">
               <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button>
+              <button className = "FuseButton" type="button" onClick={e => this.download()}>Download results</button>
               <div className="SelectBox_content"> 
                 <label>Default Dataset Action:&nbsp;&nbsp;</label>
               </div>
@@ -101,7 +106,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { setDatasetAction, fuse }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { setDatasetAction, fuse, download }) , dispatch)
   };
 }
 

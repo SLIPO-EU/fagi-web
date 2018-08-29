@@ -12,6 +12,7 @@ public class Workflow {
     private String currentDir;
     private String configurationContent;
     private String configFilePath;
+    private String outputZipPath;
     private String rules;
     private String ontology;
 
@@ -72,5 +73,13 @@ public class Workflow {
 
     public void setConfigFilePath(String configFilePath) {
         this.configFilePath = configFilePath;
+    }
+
+    public String getOutputZipPath() {
+        return outputZipPath;
+    }
+
+    public void setOutputZipPath(String outputZipPath) {
+        this.outputZipPath = outputZipPath;
     }
 }

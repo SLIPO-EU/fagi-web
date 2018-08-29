@@ -57,7 +57,15 @@ public interface IService {
      * @param configPath the XML configuration path.
 	 */    
     abstract void fuse(String configPath) throws ApplicationException;
-    
+
+	/**
+	 * Compresses the given directory.
+	 *
+     * @param directoryPath the directory path.
+     * @return the absolute path of the compressed file.
+	 */    
+    abstract String compressDirectory(String directoryPath) throws ApplicationException;
+
 	/**
 	 * Returns a new directory path to save the config file and the output results.
 	 *

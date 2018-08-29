@@ -1,5 +1,6 @@
 /logs/
 /target/
+/temp/
 bundle.js
 nb-configuration.xml
 
