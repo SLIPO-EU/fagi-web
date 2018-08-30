@@ -8,6 +8,7 @@ import Configuration from './views/Configuration.js';
 import App from './views/App.js';
 import Statistics from './views/Statistics.js';
 import Header from './views/Header.js';
+import Footer from './views/Footer.js';
 
 import {
   StaticRoutes,
@@ -76,7 +77,7 @@ class Home extends React.Component {
     ];
 
     return (
-      <div >
+      <div className="app">
         <Header />
         <BrowserRouter basename={'/'} >
         <div className="app-body">
@@ -94,6 +95,7 @@ class Home extends React.Component {
           </div>
         </div>
        </BrowserRouter>
+       <Footer />
       </div>
     );
   }

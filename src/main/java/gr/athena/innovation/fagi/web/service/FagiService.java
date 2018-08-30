@@ -5,7 +5,6 @@ import gr.athena.innovation.fagi.FagiInstance;
 import gr.athena.innovation.fagi.core.function.FunctionRegistry;
 import gr.athena.innovation.fagi.exception.WrongInputException;
 import gr.athena.innovation.fagi.utils.InputValidator;
-import gr.athena.innovation.fagi.web.controller.FusionController;
 import gr.athena.innovation.fagi.web.exception.ApplicationException;
 import gr.athena.innovation.fagi.web.model.FagiOntology;
 import gr.athena.innovation.fagi.web.model.OntologyProperty;
@@ -27,8 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import javax.xml.parsers.DocumentBuilder;
@@ -114,7 +111,7 @@ public class FagiService implements IService{
 
             return rulesAbsolutePath;
         } catch (IOException ex) {
-            Logger.getLogger(FusionController.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex);
         }
 
         return null;
@@ -139,7 +136,7 @@ public class FagiService implements IService{
             transformer.transform(source, result);
             
         } catch (ParserConfigurationException | SAXException | IOException | TransformerException ex) {
-            Logger.getLogger(FagiService.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex);
         }
 
         LOG.info("Rules path overwrite success.");
@@ -176,16 +173,16 @@ public class FagiService implements IService{
             return outputFilepath;
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FagiService.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex);
         } catch (IOException ex) {
-            Logger.getLogger(FagiService.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex);
         } finally {
             try {
                 if(fos != null){
                     fos.close();
                 }
             } catch (IOException ex) {
-                Logger.getLogger(FagiService.class.getName()).log(Level.SEVERE, null, ex);
+                LOG.error(ex);
             }
         }
         return null;

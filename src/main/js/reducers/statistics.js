@@ -22,6 +22,10 @@ export default (state = initialState, action) => {
         statistics : action.statistics,
         loading: false
       });
+    case types.CLEAR_STATISTICS:
+      return Object.assign({}, state, {
+        statistics : null
+      });
     default:
       return state;
   }

@@ -91,7 +91,7 @@ class Rule extends React.Component {
       <div key={r.id} className="ActionRule">
           <div>
             <span style={{float: 'right'}}>
-              <button type="button" onClick={e => this.deleteActionRule(r.id)}>x</button> 
+              <button className = "fagi-button-close" type="button" onClick={e => this.deleteActionRule(r.id)}>Clear</button> 
             </span>
           </div>
             <div className="ActionRuleBuilderBox">
@@ -127,7 +127,7 @@ class Rule extends React.Component {
         <div>
           <div>
             <span style={{float: 'right'}}>
-              <button type="button" onClick={e => this.props.onDelete(this.props.id)}>x</button> 
+              <button className = "fagi-button-close" type="button" onClick={e => this.props.onDelete(this.props.id)}>Clear</button> 
             </span>
           </div>
           <div>
@@ -151,8 +151,8 @@ class Rule extends React.Component {
             </div>
           </div>
           {actionRuleComponents}
-          <div>
-            <button className = "ConditionButton" type="button" onClick={e => this.addActionRule()}>Add Fusion Rule</button> 
+          <div className = "ButtonWrapper">
+            <button className = "fagi-button-green" type="button" onClick={e => this.addActionRule()}>Add Fusion Rule</button> 
           </div>
         < /div >
       </div>

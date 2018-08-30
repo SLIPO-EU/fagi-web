@@ -74,7 +74,7 @@ class Validator extends React.Component {
       <div key={r.id} className="ActionRule">
           <div>
             <span style={{float: 'right'}}>
-              <button type="button" onClick={e => this.deleteValidationRule(r.id)}>x</button> 
+              <button className = "fagi-button-close" type="button" onClick={e => this.deleteValidationRule(r.id)}>Clear</button> 
             </span>
           </div>
             <div className="ActionRuleBuilderBox">
@@ -108,7 +108,7 @@ class Validator extends React.Component {
       <div className = "RuleWrapper" key={this.props.id} >
         <div>
           <div>
-            <div className="RuleSelectBox">
+            <div className="validation-box">
               <div className="RuleSelectBox_content" > 
                 <label>Default Validation Action:&nbsp;&nbsp;</label>
               </div>
@@ -121,8 +121,8 @@ class Validator extends React.Component {
             </div>
           </div>
           {validationRuleComponents}
-          <div>
-            <button className = "ConditionButton" type="button" onClick={e => this.addValidationRule()}>Add Validation Rule</button> 
+          <div className = "ButtonWrapper">
+            <button className = "fagi-button-green" type="button" onClick={e => this.addValidationRule()}>Add Validation Rule</button> 
           </div>
         </div>
       </div>

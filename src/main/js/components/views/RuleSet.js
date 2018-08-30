@@ -69,10 +69,18 @@ class RuleSet extends React.Component {
     return (
       <div>
         <div>
+          <div className="breadcrumb-item">
+            <label>Validation rules</label>
+          </div>
+          <ColoredLine color="#263238"/>
           <Validator />
         </div>
-        <div>
-          <button className = "RuleButton" type="button" onClick={e => this.addRule()}>Add Ruleset</button> 
+          <div>
+            <div className="breadcrumb-item">
+              <label>Fusion rules</label>
+            </div>
+          <ColoredLine color="#263238"/>
+          <button className = "fagi-button-green" type="button" onClick={e => this.addRule()}>Add New Ruleset</button> 
         </div>
         <div>
           {ruleComponents}
@@ -93,5 +101,15 @@ function mapDispatchToProps(dispatch) {
     actions : bindActionCreators(Object.assign({}, { addRule, removeRule, updateActionRules }) , dispatch)
   };
 }
+
+const ColoredLine = ({ color }) => (
+    <hr
+        style={{
+            color: color,
+            backgroundColor: color,
+            height: 1
+        }}
+    />
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(RuleSet);

@@ -116,6 +116,13 @@ class Configuration extends React.Component {
 
     return (
       <div>
+        <div className="breadcrumb">
+            <span>
+            <li className="breadcrumb-item">
+                Configuration
+            </li>
+            </span>
+        </div>
         <div>
           <div className="ComponentBox">
           <section>

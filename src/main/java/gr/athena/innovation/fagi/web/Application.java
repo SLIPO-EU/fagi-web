@@ -49,7 +49,7 @@ public class Application {
 
         @PostConstruct
         public void init() {
-            LOG.warn("init");
+            LOG.info("init");
             //create directory that fagi outputs will reside.
         }
 

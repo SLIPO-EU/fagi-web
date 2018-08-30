@@ -64,6 +64,13 @@ class App extends React.Component {
 
     return (
       <div>
+        <div className="breadcrumb">
+            <span>
+            <li className="breadcrumb-item">
+                Specification
+            </li>
+            </span>
+        </div>
         {loading}
         <div className ={(this.props.calculating ? 'blur' : null)}>
           <div >
@@ -71,8 +78,8 @@ class App extends React.Component {
           </div>
           <span style={{float: 'right'}}>
             <div className = "ComponentBox">
-              <button className = "FuseButton" type="button" onClick={e => this.fuse()}>Fuse</button>
-              <button className = "FuseButton" type="button" onClick={e => this.download()}>Download results</button>
+              <button className = "fagi-button" type="button" onClick={e => this.fuse()}>Fuse</button>
+              <button className = "fagi-button" type="button" onClick={e => this.download()}>Download results</button>
               <div className="SelectBox_content"> 
                 <label>Default Dataset Action:&nbsp;&nbsp;</label>
               </div>

@@ -13,14 +13,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -119,9 +116,9 @@ public class FusionController extends BaseController {
             return new ResponseEntity(inputStreamResource, headers, HttpStatus.OK);
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(FusionController.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex);
         } catch (IOException ex) {
-            Logger.getLogger(FusionController.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex);
         }
         return null;
     }

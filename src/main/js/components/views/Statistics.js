@@ -5,7 +5,7 @@ var { bindActionCreators } = require('redux');
 var chartDefaultOption = require('../../constants/ChartDefaultOptions');
 var statistics = require('../../constants/Statistics');
 var chartConfig = require('../../helpers/chart-config');
-var { runStatistics, runSelectedStatistics } = require('../../actions/StatisticsActions');
+var { runSelectedStatistics, clear } = require('../../actions/StatisticsActions');
 import Chart from './Chart';
 import Table from './Table';
 import Checkbox from './Checkbox';
@@ -59,11 +59,6 @@ class Statistics extends React.Component {
     this.toggleRow = this.toggleRow.bind(this);
   }
 
-  runStatistics(){
-    this.setState({showStatistics:true});
-    this.props.actions.runStatistics();
-  }
-
   runSelectedStatistics(){
 
     var filtered = _.pickBy(this.state.selected);
@@ -72,6 +67,14 @@ class Statistics extends React.Component {
 
     this.setState({showStatistics:true});
     this.props.actions.runSelectedStatistics(request);
+  }
+
+  clear() {
+    this.setState({
+      selected: {},
+      selectAll: 0
+    });
+    this.props.actions.clear();
   }
 
   toggleSelectAll() {
@@ -166,7 +169,18 @@ class Statistics extends React.Component {
 
     return (
       <div>
-        <div>
+        <div className="breadcrumb">
+            <span>
+            <li className="breadcrumb-item">
+                Statistics
+            </li>
+            </span>
+        </div>
+        <div className="card">
+          <div className = "CalculateWrapper">
+            <button className="fagi-button-green" onClick={e => this.runSelectedStatistics()}>Calculate</button>
+            <button className="fagi-button-red" onClick={e => this.clear()}>Clear</button>
+          </div>
           <Table
             data={this.state.data}
             columns={columns}
@@ -175,14 +189,7 @@ class Statistics extends React.Component {
             showPagination={true}
           />
         </div>
-        <div>
-          <span>
-            <div className = "ComponentBox">
-              <button className="FuseButton" onClick={e => this.runSelectedStatistics()}>Calculate Selected</button>
-            </div>
-          </span>
-        </div>
-       <div>
+       <div className="card">
         {chartComponents}
        </div>
       </div>
@@ -202,7 +209,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions : bindActionCreators(Object.assign({}, { runStatistics, runSelectedStatistics }) , dispatch)
+    actions : bindActionCreators(Object.assign({}, { runSelectedStatistics, clear }) , dispatch)
   };
 }
 
