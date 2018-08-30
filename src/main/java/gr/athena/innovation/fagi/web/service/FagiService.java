@@ -16,7 +16,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -49,6 +48,7 @@ import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.util.iterator.ExtendedIterator;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -61,6 +61,8 @@ import org.xml.sax.SAXException;
 @Service
 public class FagiService implements IService{
 
+    private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(FagiService.class);
+    
     @Override
     public boolean validateConfig(RulesConfigRequest configuration) {
         XMLBuilder xmlBuilder = new XMLBuilder();
@@ -86,7 +88,7 @@ public class FagiService implements IService{
                 return false;
             }
         } catch (ParserConfigurationException | SAXException | IOException ex) {
-            System.out.println(ex);
+            LOG.info(ex);
             return false;
         }
 
@@ -140,7 +142,7 @@ public class FagiService implements IService{
             Logger.getLogger(FagiService.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        System.out.println("Rules path overwrite success.");
+        LOG.info("Rules path overwrite success.");
     }
 
     @Override
@@ -161,7 +163,7 @@ public class FagiService implements IService{
         try {
 
             String outputFilepath = new File(dirPath).getParent() + "/output.zip";
-            
+
             fos = new FileOutputStream(outputFilepath);
             try (ZipOutputStream zipOut = new ZipOutputStream(fos)) {
                 File fileToZip = new File(dirPath);
@@ -169,7 +171,7 @@ public class FagiService implements IService{
             }
 
             fos.close();
-            System.out.println("outputFilepath: " + outputFilepath);
+            LOG.info("outputFilepath: " + outputFilepath);
 
             return outputFilepath;
 
@@ -223,7 +225,7 @@ public class FagiService implements IService{
         boolean success = new File(directoryPath).mkdirs();
         
         if(!success){
-            System.out.println("Could not create directory: " + directoryPath);
+            LOG.info("Could not create directory: " + directoryPath);
             throw new ApplicationException("Could not create directory: " + directoryPath);
         }
 

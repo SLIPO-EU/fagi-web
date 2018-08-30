@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,13 +29,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ConfigurationController {
     
+    private static final Logger LOG = LogManager.getLogger(ConfigurationController.class);
+    
     @Autowired
     private IService service;    
 
     @RequestMapping(value = "/action/submit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
     public RestResponse submit(@RequestBody ConfigurationUploadRequest request){
-        System.out.println("Submitting configuration. Starting new workflow.");
+        LOG.info("Submitting configuration. Starting new workflow.");
         Workflow workflow = Workflow.getInstance();
         workflow.clean();
 
@@ -51,7 +55,7 @@ public class ConfigurationController {
             return response;
 
         } catch (ApplicationException | IOException ex){
-            System.out.println(ex.getMessage());
+            LOG.info(ex.getMessage());
             return new RestResponse(new Error(ex.getMessage(), ex.toString()));
         }
     } 
@@ -69,7 +73,7 @@ public class ConfigurationController {
             return response;
 
         } catch (Exception ex){
-            System.out.println(ex.getMessage());
+            LOG.info(ex.getMessage());
             return new RestResponse(new Error(ex.getMessage(), ex.toString()));
         }
     }

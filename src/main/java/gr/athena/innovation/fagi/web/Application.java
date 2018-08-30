@@ -2,6 +2,8 @@ package gr.athena.innovation.fagi.web;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +18,8 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class Application {
 
+    private static final Logger LOG = LogManager.getRootLogger();
+    
     @Bean
     DirectoryManager manager() {
         return new DirectoryManager();
@@ -23,7 +27,7 @@ public class Application {
 
     public static void main(String[] args) {
 
-        System.out.println("starting application");
+        LOG.info("starting application");
         ApplicationContext context = SpringApplication.run(Application.class, args);
         
         DirectoryManager manager = context.getBean(DirectoryManager.class);
@@ -45,12 +49,12 @@ public class Application {
 
         @PostConstruct
         public void init() {
-            System.out.println("init");
+            LOG.warn("init");
             //create directory that fagi outputs will reside.
         }
 
         public void clean() {
-            System.out.println("cleaning");
+            LOG.info("cleaning");
             //todo: clean directory
         }
 
@@ -58,7 +62,7 @@ public class Application {
         public void destroy() {
             //close service
             //todo: clean all
-            System.out.println("destroy");
+            LOG.debug("destroy");
         }
     }
 }

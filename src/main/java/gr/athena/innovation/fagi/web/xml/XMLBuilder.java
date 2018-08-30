@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
@@ -26,6 +28,8 @@ import org.jdom2.output.XMLOutputter;
  * @author nkarag
  */
 public class XMLBuilder {
+    
+    private static final Logger LOG = LogManager.getLogger(XMLBuilder.class);
     
     private final List<Element> externalProperties = new ArrayList<>();
     private Integer numIndex = 0;
@@ -100,7 +104,7 @@ public class XMLBuilder {
             
             /* action rules (conditions) */
             List<ActionRule> actionRules = rule.getActionRules();
-            System.out.println("action rules size: " + actionRules);
+            LOG.info("action rules size: " + actionRules);
             
             Element actionRulesetElement2 = new Element(Vocabulary.ACTION_RULE_SET);
                 
@@ -129,7 +133,7 @@ public class XMLBuilder {
         File file = new File(dirPath + "/rules.xml");
         file.createNewFile();
         
-        System.out.println("writing xml to file.. (" + file.getAbsolutePath() + ").");
+        LOG.info("writing xml to file.. (" + file.getAbsolutePath() + ").");
 
         outputter.output(doc, new FileWriter(file));
         
@@ -349,7 +353,7 @@ public class XMLBuilder {
                 } else if(op.getDataset().equals(Vocabulary.RIGHT)){
                     function = field + "(" + vars.getVarA() + ")"; //only A variable is defined from UI
                 } else {
-                    System.out.println("Operator contains malformed dataset: " + parentOperator.getDataset());
+                    LOG.info("Operator contains malformed dataset: " + parentOperator.getDataset());
                     throw new ApplicationException("Operator contains malformed dataset: "
                             + parentOperator.getDataset());
                 }

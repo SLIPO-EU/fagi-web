@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import gr.athena.innovation.fagi.web.service.IService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Controller
 public class StatisticsController {
 
+    private static final Logger LOG = LogManager.getLogger(StatisticsController.class);
+    
     @Autowired
     private IService service;
     
@@ -45,7 +49,7 @@ public class StatisticsController {
             }
             
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            LOG.info(ex.getMessage());
             return new RestResponse(new Error(ex.getMessage(), ex.toString()));
         }
     }    

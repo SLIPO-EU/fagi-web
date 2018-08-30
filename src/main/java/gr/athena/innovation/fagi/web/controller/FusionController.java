@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -30,11 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class FusionController extends BaseController {
 
-    /**
-     * Media type for ZIP archive file format.
-     */
-    private final static MediaType APPLICATION_ZIP = MediaType.parseMediaType("application/zip");
-    String la = MediaType.APPLICATION_OCTET_STREAM_VALUE;
+    private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(FusionController.class);
 
     @Autowired
     private IService service;
@@ -55,7 +52,7 @@ public class FusionController extends BaseController {
             }
 
             Workflow workflow = Workflow.getInstance();
-            System.out.println("Using directory: " + workflow.getCurrentDir());
+            LOG.info("Using directory: " + workflow.getCurrentDir());
             String rulesPath = service.constructRulesXML(workflow.getCurrentDir(), request);
             service.overwriteConfigurationRulesPath(workflow.getConfigFilePath(), rulesPath);
 
@@ -69,7 +66,7 @@ public class FusionController extends BaseController {
                 return new RestResponse(new Error(ex.getMessage(), ex.toString()));
             }
 
-            System.out.println("Basic validation complete. Initiating fusion process.");
+            LOG.info("Basic validation complete. Initiating fusion process.");
 
             service.fuse(workflow.getConfigFilePath());
 
@@ -78,7 +75,7 @@ public class FusionController extends BaseController {
 
             return response;
         } catch(ApplicationException ex){
-            System.out.println(ex.getMessage());
+            LOG.info(ex.getMessage());
             return new RestResponse(new Error(ex.getMessage(), ex.toString()));
         }
     }
