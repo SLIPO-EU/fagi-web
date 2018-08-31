@@ -9,19 +9,19 @@ const Labels = {
       title: "Value"
   },
   removeRule: {
-      label: "x",
+      label: "Clear",
       title: "Remove rule"
   },
   removeGroup: {
-      label: "x",
+      label: "Clear",
       title: "Remove group"
   },
   addRule: {
-      label: "+Function",
+      label: "+ Function",
       title: "Add function"
   },
   addGroup: {
-      label: "+Nested Operation",
+      label: "+ Nested Operation",
       title: "Add Nested Operation"
   },
   combinators: {

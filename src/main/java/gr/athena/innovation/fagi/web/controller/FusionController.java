@@ -54,7 +54,7 @@ public class FusionController extends BaseController {
             service.overwriteConfigurationRulesPath(workflow.getConfigFilePath(), rulesPath);
 
             try {
-                
+
                 if(!service.validateRulesXML(workflow.getConfigFilePath(), rulesPath)){
                     return new RestResponse(new Error("Invalid input", "Rules provided are invalid."));
                 }

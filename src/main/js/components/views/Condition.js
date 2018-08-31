@@ -9,7 +9,7 @@ var datasetIdentifiers = require('../../constants/DatasetIdentifiers');
 
 import Select from './Select';
 var propertiesConfig = require('../../helpers/properties-config');
-  
+
 var propertyOptions =  properties.map(function(property) {
   return (
     <option type1={property.type} key={property.key} value ={property.value}>{property.label}</option>
@@ -26,17 +26,12 @@ class Condition extends React.Component {
 
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount(){
-
-    this.setState({
+    this.state = {
       datasetId: datasetIdentifiers[0],
       propertyA: properties[0].value, 
       propertyB: properties[0].value,
       threshold: 0
-    });
-
+    }
   }
   
   componentWillReceiveProps(newProps) {
@@ -90,7 +85,7 @@ class Condition extends React.Component {
       datasetSelection = (
         <div className="SelectBox_content">
           <label >{datasetSelectionLabel}&nbsp;</label>
-          <select 
+          <select className="simple-select"
             onChange={e => this.selectDatasetIdentifier(e.target.value)} 
             title = "Choose property" >
             {datasetOptions}

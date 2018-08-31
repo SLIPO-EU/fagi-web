@@ -40,7 +40,6 @@
 
 .RuleSelectBox_content {
   display: inline-block;
-  float:left;
   padding: 0.1rem;
 }
 
@@ -53,7 +52,7 @@
   padding: 0.5rem;
   border: 1px solid #CCC;
   border-radius: 4px;
-  background: rgba(255, 233, 172, 0.5);
+  //background: rgba(255, 233, 172, 0.5);
 }
 
 .SelectBox_content {
@@ -187,3 +186,30 @@ label {
   border-color: #80bdff !important;
   outline: none !important;
 }
+
+select:focus > option:checked { 
+    background: #fff !important;
+}
+
+select:focus > option:not(:checked) { 
+    color: #656565;
+    background-color: white;
+}
+
+.simple-select {
+    margin:5px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+    color: #263238;
+    background-color: #fff;
+    border-color: #ccc;
+    padding: .5rem 1rem;
+    font-size: .875rem;
+    line-height: 1.25;
+    outline: none !important;
+}
+
+.simple-select:hover {
+  background-color: rgba(204,204,204,0.5);
+}
+

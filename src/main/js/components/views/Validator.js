@@ -92,7 +92,7 @@ class Validator extends React.Component {
                   <label>Validation Action:&nbsp;&nbsp;</label>
                 </div>
                 <div className="RuleSelectBox_content" > 
-                  <select title = "Choose Validation Action" 
+                  <select className="simple-select" title = "Choose Validation Action" 
                     onChange={e => this.selectValidationAction(r.id, e.target.value)}>            
                     {options}
                   </select>
@@ -113,7 +113,7 @@ class Validator extends React.Component {
                 <label>Default Validation Action:&nbsp;&nbsp;</label>
               </div>
               <div className="RuleSelectBox_content"> 
-                <select title = "Choose Default Action" 
+                <select className="simple-select" title = "Choose Default Action" 
                   onChange={e => this.setDefaultValidationAction(e.target.value)}>
                   {options}
                 </select>

@@ -1,14 +1,97 @@
-.rule,
-.ruleGroup .ruleGroup {
-    margin-top: 0.5rem;
-    margin-left: 0.5rem;
-}
 
-.ruleGroup {
+.rule, .ruleGroup {
+    position:relative !important;
+    margin-top: 10px;
     padding: 0.5rem;
     border: 1px solid #CCC;
     border-radius: 4px;
-    background: rgba(255, 233, 172, 0.5);
+    background: rgba(255, 233, 172, 0.2);
+}
+
+.ruleGroup-addRule, .ruleGroup-addGroup {
+    margin:5px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+    color: #263238;
+    background-color: #fff;
+    border-color: #ccc;
+    padding: .5rem 1rem;
+    font-size: .875rem;
+    line-height: 1.25;
+    outline: none !important;
+}
+
+.ruleGroup-addRule:hover, .ruleGroup-addGroup:hover {
+  background-color: rgba(204,204,204,0.5);
+}
+
+.rule-remove {
+  float:right;
+  //vertical-align: top;
+  transition: all 0.2s ease-in-out;
+  color: #fff;
+  background-color: #f86c6b;
+  border-color: #f86c6b;
+  border: 1px solid transparent;
+  padding: .5rem 1rem;
+  font-size: .875rem;
+  line-height: 1.25;
+  outline: none !important;
+}
+
+.rule-remove:hover {
+  background-color: #ce5958;
+}
+
+.ruleGroup-remove {
+  margin-right:10px;
+  transition: all 0.2s ease-in-out;
+  color: #fff;
+  background-color: #f86c6b;
+  border-color: #f86c6b;
+  border: 1px solid transparent;
+  padding: .5rem 1rem;
+  font-size: .875rem;
+  line-height: 1.25;
+  outline: none !important;
+}
+
+.ruleGroup-remove:hover {
+  background-color: #ce5958;
+}
+
+.ruleGroup-combinators {
+    margin:5px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+    color: #263238;
+    background-color: #fff;
+    border-color: #ccc;
+    padding: .5rem 1rem;
+    font-size: .875rem;
+    line-height: 1.25;
+    outline: none !important;
+}
+
+.ruleGroup-combinators:hover {
+  background-color: rgba(204,204,204,0.5);
+}
+
+.rule-fields {
+    margin:5px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+    color: #263238;
+    background-color: #fff;
+    border-color: #ccc;
+    padding: .5rem 1rem;
+    font-size: .875rem;
+    line-height: 1.25;
+    outline: none !important;
+}
+
+.rule-fields:hover {
+  background-color: rgba(204,204,204,0.5);
 }
 
 /*# sourceMappingURL=query-builder.css.map*/

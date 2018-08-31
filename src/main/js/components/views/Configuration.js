@@ -132,14 +132,17 @@ class Configuration extends React.Component {
                 style={this.props.loading ? styleBlur : style}
                 multiple={false}
                 onDrop={this.onOntologyDrop.bind(this)}>
-                <p>Drag and drop ontology file , or click and select a file. </p>
+                <p>Drag and drop <font size="4"><b>ontology</b></font> file , or click and select a file. </p>
                 <p>Only *.owl files will be accepted</p>
+                  <i className = "fa fa-cloud-upload fa-4x"></i>
               </Dropzone>
             </div>
            {loading}
             <aside className ={(this.props.loading ? 'blur' : null)}>
-              <label>{ontologyLabel}</label>
-              {ontInfo}
+              <div className="config-info">
+                <label>{ontologyLabel}</label>
+                {ontInfo}
+              </div>
             </aside>
           </section>
           </div>
@@ -151,13 +154,16 @@ class Configuration extends React.Component {
                   style={this.props.loading ? styleBlur : style}
                   multiple={false}
                   onDrop={this.onConfigDrop.bind(this)}>
-                  <p>Drag and drop configuration XML file , or click and select a file. </p>
+                  <p>Drag and drop <font size="4"><b>configuration XML</b></font> file , or click and select a file. </p>
                   <p>Only *.xml files will be accepted</p>
+                  <i className = "fa fa-cloud-upload fa-4x"></i>
                 </Dropzone>
               </div>
               <aside className ={(this.props.loading ? 'blur' : null)}>
-                <label>{configLabel}</label>
-                {configInfo}
+                <div className="config-info">
+                  <label>{configLabel}</label>
+                  {configInfo}
+                </div>
               </aside>
             </section>
           </div>

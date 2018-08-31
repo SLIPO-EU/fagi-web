@@ -3,6 +3,7 @@ require('../../../scss/style.scss');
 import MDSpinner from "react-md-spinner";
 import { connect } from 'react-redux';
 import RuleSet from './RuleSet';
+//import Select from './Select';
 
 var { bindActionCreators } = require('redux');
 var datasetActionConstants = require('../../constants/DatasetActionConstants');
@@ -84,7 +85,7 @@ class App extends React.Component {
                 <label>Default Dataset Action:&nbsp;&nbsp;</label>
               </div>
             <div className="SelectBox_content"> 
-              <select title = "Choose Default Dataset Fusion Action" 
+              <select className="simple-select" title = "Choose Default Dataset Fusion Action" 
                 onChange={e => this.selectDatasetAction(e.target.value)}>            
                 {options}
               </select>

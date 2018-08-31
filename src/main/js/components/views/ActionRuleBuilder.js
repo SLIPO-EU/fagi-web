@@ -13,7 +13,7 @@ import Condition from './Condition';
 
 var datasetOptions =  datasetIdentifiers.map(function(d) {
   return (
-    <option key={d.key} value={d.name}>{d.label}</option>
+    <option className="testt" key={d.key} value={d.name}>{d.label}</option>
   );
 });
 
@@ -66,7 +66,7 @@ class ConditionWrapper extends React.Component {
     this.setActionPropertyB = this.setActionPropertyB.bind(this);
     this.setThreshold = this.setThreshold.bind(this);
   }
-  
+
   componentDidMount() {
     this.props.handleOnChange({dataset:datasetIdentifiers[0].name, propA:properties[0], propB:properties[0], threshold:0});
   }
@@ -146,7 +146,7 @@ class ActionRuleBuilder extends React.Component {
           combinators = {combinators}
           operators={ops}
           controlElements = {this.state.controlElements}
-          onQueryChange = {this.logQuery} 
+          onQueryChange = {this.logQuery}
         />
       </div>
     );

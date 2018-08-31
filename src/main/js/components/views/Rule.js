@@ -109,7 +109,7 @@ class Rule extends React.Component {
                   <label>Fusion Action:&nbsp;&nbsp;</label>
                 </div>
                 <div className="RuleSelectBox_content" > 
-                  <select title = "Choose Fusion Action" 
+                  <select className="simple-select" title = "Choose Fusion Action" 
                     onChange={e => this.changeFusionAction(e.target.value, r.id)}
                   >            
                   {options}
@@ -143,7 +143,7 @@ class Rule extends React.Component {
                 <label>Default Rule Action:&nbsp;&nbsp;</label>
               < /div >
               < div className="RuleSelectBox_content" > 
-                < select title = "Choose Default Action" 
+                < select className="simple-select" title = "Choose Default Action" 
                   onChange={e => this.selectDefaultFusionAction(e.target.value)} >
                   {options}
                 < /select>

@@ -1,7 +1,7 @@
 const DatasetIdentifiers = 
 [
-  {type:'dataset', key: 'a', name: 'A', label: 'Left'},
-  {type:'dataset', key: 'b', name: 'B', label: 'Right'}
+  {key: 'a', type:'dataset', name: 'A', label: 'Left'},
+  {key: 'b', type:'dataset', name: 'B', label: 'Right'}
 ];
 
 module.exports = DatasetIdentifiers;

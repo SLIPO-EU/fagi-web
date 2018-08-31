@@ -26,6 +26,9 @@ class Property extends React.Component {
 
   render() {
 
+    let shapedProps = this.props.ontology.properties ? 
+        propertiesConfig.getShapedProperties(this.props.ontology.properties) : properties;
+
     return (
       <div>
         <div className="RuleSelectBox">
@@ -34,9 +37,9 @@ class Property extends React.Component {
           </div>
           <div className="RuleSelectBox_content"> 
             <Select 
-              id = "1"
+              id = "prop1"
               title = "Choose property" 
-              options={this.props.ontology.properties ? propertiesConfig.getShapedProperties(this.props.ontology.properties) : properties}
+              options={shapedProps}
               onChange={e => this.props.onSelectA(e)}>
             </Select>
           </div>
@@ -47,9 +50,9 @@ class Property extends React.Component {
           </div>
           <div className="RuleSelectBox_content"> 
             <Select 
-              id = "2"
+              id = "prop2"
               title = "Choose property" 
-              options={this.props.ontology.properties ? propertiesConfig.getShapedProperties(this.props.ontology.properties) : properties}
+              options={shapedProps}
               onChange={e => this.props.onSelectB(e)}>
             </Select>
           </div>
