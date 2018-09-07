@@ -21,4 +21,3 @@ function getValue(property){
   let value = property.objectProperty + ' ' + property.datatypeProperty;
   return value;
 }
-

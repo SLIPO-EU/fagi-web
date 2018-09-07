@@ -28,19 +28,22 @@ class Configuration extends React.Component {
   }
 
   onOntologyDrop(files) {
-    var context = this;
-    var reader = new FileReader();
-    reader.addEventListener("loadend", function(event) {
-      context.props.actions.uploadFile(event.target.result);
-    });
-    reader.readAsText(files[0]);
-    this.setState({
-      ontologyFile : files[0]
-    });
+    if(!files[0].name.endsWith(".owl")){
+        alert("ontology file is not .owl");
+    } else {
+        var context = this;
+        var reader = new FileReader();
+        reader.addEventListener("loadend", function(event) {
+          context.props.actions.uploadFile(event.target.result);
+        });
+        reader.readAsText(files[0]);
+        this.setState({
+          ontologyFile : files[0]
+        });
+    }
   }
 
   onConfigDrop(files) {
-
     var context = this;
     let configurationXML = null;
     var reader = new FileReader();
@@ -50,16 +53,20 @@ class Configuration extends React.Component {
       let parser = new DOMParser();
       let xmlDoc = parser.parseFromString(event.target.result, "text/xml");
 
-      if(!xmlDoc.getElementsByTagName("left").length > 0){
-        alert("Something is wrong with configuration");
+      if(!files[0].name.endsWith(".xml")){
+        alert("configuration file is not .xml");
       } else {
-        configurationXML.left = xmlDoc.getElementsByTagName("left")[0].childNodes[5].firstChild.nodeValue;
-        configurationXML.right = xmlDoc.getElementsByTagName("right")[0].childNodes[5].firstChild.nodeValue;
-        configurationXML.links = xmlDoc.getElementsByTagName("links")[0].childNodes[5].firstChild.nodeValue;
-        configurationXML.mode = xmlDoc.getElementsByTagName("target")[0].childNodes[3].firstChild.nodeValue;
-        configurationXML.output = xmlDoc.getElementsByTagName("target")[0].childNodes[5].firstChild.nodeValue;
+        if(!xmlDoc.getElementsByTagName("left").length > 0){
+          alert("Something is wrong with configuration");
+        } else {
+          configurationXML.left = xmlDoc.getElementsByTagName("left")[0].childNodes[5].firstChild.nodeValue;
+          configurationXML.right = xmlDoc.getElementsByTagName("right")[0].childNodes[5].firstChild.nodeValue;
+          configurationXML.links = xmlDoc.getElementsByTagName("links")[0].childNodes[5].firstChild.nodeValue;
+          configurationXML.mode = xmlDoc.getElementsByTagName("target")[0].childNodes[3].firstChild.nodeValue;
+          configurationXML.output = xmlDoc.getElementsByTagName("target")[0].childNodes[5].firstChild.nodeValue;
 
-        context.props.actions.submitConfiguration(event.target.result, files[0]);
+          context.props.actions.submitConfiguration(event.target.result, files[0]);
+        }
       }
     });
 
@@ -72,7 +79,7 @@ class Configuration extends React.Component {
     if(this.props.loading){
       
       loading = (
-        <div className="centered-up">
+        <div className="spinner">
           <MDSpinner 
             color1="#263238"
             color2="#676f73"

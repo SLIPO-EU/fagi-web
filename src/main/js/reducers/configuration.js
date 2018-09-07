@@ -1,4 +1,5 @@
 var types = require('../constants/ConfigurationActionTypes');
+var propertiesConfig = require('../helpers/properties-config');
 
 var initialState = {
   loading: null,
@@ -19,9 +20,13 @@ var configuration = function(state, action) {
           ontology : null
         });
       }
+
+      let properties = propertiesConfig.getShapedProperties(action.ontology.properties);
+      let shapedOntology = {properties: properties, numberOfClasses:action.ontology.numberOfClasses, numberOfProperties: properties.length};
+
       return Object.assign({}, state, {
         loading : false,
-        ontology : action.ontology
+        ontology : shapedOntology
       });
     case types.SUBMIT_RESPONSE:
       if(!action.success){

@@ -112,6 +112,9 @@ public class FusionController extends BaseController {
             InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
             HttpHeaders headers = new HttpHeaders();
             headers.setContentLength(Files.size(Paths.get(filePath)));
+            String configFilename = workflow.getConfigFilename();
+            String filename = configFilename.substring(0,configFilename.lastIndexOf(".")) + "-fused.zip";
+            headers.add("content-disposition", "attachment; filename=\"" + filename +"\"");
 
             return new ResponseEntity(inputStreamResource, headers, HttpStatus.OK);
 

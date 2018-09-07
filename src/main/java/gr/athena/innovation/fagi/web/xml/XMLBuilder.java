@@ -337,7 +337,7 @@ public class XMLBuilder {
         Query q = query.getRules().get(index);
         Operator op = q.getOperator();
         String field = q.getField();
-
+        
         String propA = op.getPropA().getValue();
         String propB = op.getPropB().getValue();
         

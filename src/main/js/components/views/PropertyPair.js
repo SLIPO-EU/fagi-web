@@ -26,8 +26,7 @@ class Property extends React.Component {
 
   render() {
 
-    let shapedProps = this.props.ontology.properties ? 
-        propertiesConfig.getShapedProperties(this.props.ontology.properties) : properties;
+    let propertyOptions = this.props.ontology.properties ? this.props.ontology.properties : properties;
 
     return (
       <div>
@@ -39,7 +38,7 @@ class Property extends React.Component {
             <Select 
               id = "prop1"
               title = "Choose property" 
-              options={shapedProps}
+              options={propertyOptions}
               onChange={e => this.props.onSelectA(e)}>
             </Select>
           </div>
@@ -52,7 +51,7 @@ class Property extends React.Component {
             <Select 
               id = "prop2"
               title = "Choose property" 
-              options={shapedProps}
+              options={propertyOptions}
               onChange={e => this.props.onSelectB(e)}>
             </Select>
           </div>

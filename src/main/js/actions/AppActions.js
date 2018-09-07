@@ -43,11 +43,14 @@ var AppActions = {
     delete config.ruleset.id;
     return function(dispatch, getState) {
       dispatch(requestFuse());
-      return api.fuse(config).then(function (response) {
-        dispatch(responseFuse(response.success, response.errors));
-      }, function (error) {
-        dispatch(responseFuse(false, error));
-      });
+      //todo: temporary solution
+      setTimeout(() => {
+        return api.fuse(config).then(function (response) {
+              dispatch(responseFuse(response.success, response.errors));
+        }, function (error) {
+          dispatch(responseFuse(false, error));
+        });
+      }, 2000)
     };
   }, 
 

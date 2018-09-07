@@ -48,7 +48,7 @@ class App extends React.Component {
     let loading;
     if(this.props.calculating){
       loading = (
-        <div className="centered-up">
+        <div className="spinner">
           <MDSpinner 
             color1="#263238"
             color2="#676f73"

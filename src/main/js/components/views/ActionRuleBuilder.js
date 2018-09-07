@@ -13,7 +13,7 @@ import Condition from './Condition';
 
 var datasetOptions =  datasetIdentifiers.map(function(d) {
   return (
-    <option className="testt" key={d.key} value={d.name}>{d.label}</option>
+    <option key={d.key} value={d.name}>{d.label}</option>
   );
 });
 
@@ -72,16 +72,14 @@ class ConditionWrapper extends React.Component {
   }
   
   setActionPropertyA(ruleId, actionRuleId, propA){
-
-    let p1 = properties.find(p => p.value === propA);
+    let p1 = this.props.options[1].ontology.properties.find(p => p.value === propA);
     let _query = Object.assign(this.props.value, {propA:p1});
     
     this.props.handleOnChange(_query);  
   }
 
   setActionPropertyB(ruleId, actionRuleId, propB){
-    
-    let p2 = properties.find(p => p.value === propB);
+    let p2 = this.props.options[1].ontology.properties.find(p => p.value === propB);
     let _query = Object.assign(this.props.value, {propB:p2});
     
     this.props.handleOnChange(_query);    

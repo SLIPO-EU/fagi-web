@@ -73,7 +73,7 @@ public class FagiService implements IService{
         functionRegistry.init();
         Set<String> functionSet = functionRegistry.getFunctionMap().keySet();
 
-        //passing null as config path in validator. Only rules will be checked from this method.
+        //passing null as config path in validator. Only rulesTag will be checked from this method.
         InputValidator validator = new InputValidator(configPath, functionSet);
 
         if (!validator.isValidRulesWithXSD(rulesPath)) {
@@ -106,7 +106,7 @@ public class FagiService implements IService{
 
             XMLBuilder xmlBuilder = new XMLBuilder();
 
-            //todo: get uploaded config and add rules path to it.
+            //todo: get uploaded config and add rulesTag path to it.
             String rulesAbsolutePath = xmlBuilder.writeRulesToXML(dirPath, configuration);
 
             return rulesAbsolutePath;
@@ -118,6 +118,35 @@ public class FagiService implements IService{
     }
 
     @Override
+    public void overwriteOutputPath(String configFilePath, String targetOutputPath) {
+
+        try {
+
+            if(!new File(targetOutputPath).isDirectory()){
+                throw new ApplicationException("Output path is not a directory!");
+            }
+            
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            Document doc = docBuilder.parse(configFilePath);
+            
+            Node outputTag = doc.getElementsByTagName("outputDir").item(0);
+            outputTag.setTextContent(targetOutputPath);
+
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File(configFilePath));
+            transformer.transform(source, result);
+            
+        } catch (ParserConfigurationException | SAXException | IOException | TransformerException ex) {
+            LOG.error(ex);
+        }
+
+        LOG.info("OutputDir path overwrite success.");
+    }
+
+    @Override
     public void overwriteConfigurationRulesPath(String configFilePath, String targetPath) {
         try {
 
@@ -125,8 +154,8 @@ public class FagiService implements IService{
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.parse(configFilePath);
             
-            Node rules = doc.getElementsByTagName("rules").item(0);
-            rules.setTextContent(targetPath);
+            Node rulesTag = doc.getElementsByTagName("rules").item(0);
+            rulesTag.setTextContent(targetPath);
 
             // write the content into xml file
             TransformerFactory transformerFactory = TransformerFactory.newInstance();

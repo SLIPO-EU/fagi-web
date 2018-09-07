@@ -42,15 +42,18 @@ public class ConfigurationController {
         workflow.clean();
 
         try {
-            
+
             RestResponse response = new RestResponse(); 
             String dirPath = service.getNewDirectoryPath();
             workflow.setCurrentDir(dirPath);
-            
+
             String configFilepath = dirPath + "/" + request.getName();
+            workflow.setConfigFilename(request.getName());
             workflow.setConfigFilePath(configFilepath);
 
             FileUtils.writeStringToFile(new File(configFilepath), request.getConfiguration(), Charset.forName("UTF-8"));
+
+            service.overwriteOutputPath(workflow.getConfigFilePath(), dirPath+"/");
 
             return response;
 

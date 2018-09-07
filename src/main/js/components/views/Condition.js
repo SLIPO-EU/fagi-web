@@ -7,14 +7,9 @@ var combinators = require('../../constants/combinators');
 var properties = require('../../constants/properties');
 var datasetIdentifiers = require('../../constants/DatasetIdentifiers');
 
+var ontProps;
 import Select from './Select';
 var propertiesConfig = require('../../helpers/properties-config');
-
-var propertyOptions =  properties.map(function(property) {
-  return (
-    <option type1={property.type} key={property.key} value ={property.value}>{property.label}</option>
-  );
-});
 
 var datasetOptions =  datasetIdentifiers.map(function(d) {
   return (
@@ -105,7 +100,7 @@ class Condition extends React.Component {
       thresholdLabel = null;
       thresholdField = null;
 
-    } else if(selectedFunction.parameterCount === 3){
+    } else if(selectedFunction.type === 4){
 
       propertySelectionLabel1 = 'Property for dataset A: ';
       propertySelectionLabel2 = 'Property for dataset B: ';
@@ -125,8 +120,7 @@ class Condition extends React.Component {
        );
     }
 
-    let opts = this.props.ontology.properties ? 
-        propertiesConfig.getShapedProperties(this.props.ontology.properties) : properties;
+    let opts = this.props.ontology.properties ? this.props.ontology.properties : properties;
 
     var propertySelect1 = (
       <div className="SelectBox_content">

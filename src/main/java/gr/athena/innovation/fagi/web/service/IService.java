@@ -52,6 +52,14 @@ public interface IService {
     abstract void overwriteConfigurationRulesPath(String configFilePath, String targetPath);
 
 	/**
+	 * Overwrite the output-results directory in configuration XML file with the one provided by the server.
+	 *
+     * @param configFilePath the configuration XML absolute file path.
+     * @param targetOutputPath the target path of the output directory. 
+	 */    
+    abstract void overwriteOutputPath(String configFilePath, String targetOutputPath);
+
+	/**
 	 * Executes the fusion process.
 	 *
      * @param configPath the XML configuration path.
