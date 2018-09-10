@@ -46,21 +46,38 @@ public class Vocabulary {
     public static final Map<String, Integer> functionParameters = createFunctionMap();
     
     private static Map<String, Integer> createFunctionMap(){
-        
+
         Map<String,Integer> map = new HashMap<>();
+
+        map.put("exists", 1);
+        map.put("notExists", 1);
+        
+        map.put("isSameCustomNormalize", 3);
+        map.put("isLiteralAbbreviation", 1);
+        map.put("isSameSimpleNormalize", 3);
+        map.put("isLiteralNumeric", 1);
+        map.put("literalContains", 3);
+        map.put("literalContainsTheOther", 1);
+        map.put("literalHasLanguageAnnotation", 1);
+        
+        map.put("isGeometryMoreComplex", 1);
+        map.put("isSameCentroid", 3);
+        map.put("isPointGeometry", 1);
+        map.put("geometriesIntersect", 2);
+        map.put("geometriesCloserThan", 3);
+        map.put("isGeometryCoveredBy", 2);
+        map.put("geometriesHaveSameArea", 3);
+        
+        map.put("isSamePhoneNumberCustomNormalize", 2);
+        map.put("isPhoneNumberParsable", 1);
+        map.put("isSamePhoneNumber", 2);
+        map.put("isSamePhoneNumberUsingExitCode", 3);
+        map.put("phoneHasMoreDigits", 2);
+
         map.put("isDateKnownFormat", 1);
         map.put("isDatePrimaryFormat", 1);
         map.put("isValidDate", 1);
-        map.put("isGeometryMoreComplex", 1);
-        map.put("isLiteralAbbreviation", 1);
-        map.put("isSameSimpleNormalize", 3);
-        map.put("isSameCustomNormalize", 3);
-        map.put("isPhoneNumberParsable", 1);
-        map.put("isSamePhoneNumber", 2);
-        map.put("isSamePhoneNumberCustomNormalize", 2);
-        map.put("isSamePhoneNumberUsingExitCode", 3);
-        map.put("exists", 1);
-        map.put("notExists", 1);
+        map.put("datesAreSame", 5);
 
         return map;
     }    

@@ -42,7 +42,7 @@ export default (state = initialState, action) => {
         calculating: false,
         success: action.success,
         error: action.error
-      });   
+      });
     default:
       return state;
   }

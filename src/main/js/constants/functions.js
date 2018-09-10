@@ -5,19 +5,18 @@ const Functions = [
 //type 2: selection[left,right],  selection property,     input field
 //type 3: selection property A,   selection property B
 //type 4: selection property A,   selection property B,   threshold
+//type 5: selection property A,   selection property B,   input field
 
 //property
   {
     name:"exists",
     label:"Property exists",
-    type:1,
-    parameterCount:1
+    type:1
   }, 
   {
     name:"notExists",
     label:"Property does not exist",
-    type:1,
-    parameterCount:1
+    type:1
   },
 //literal
   {
@@ -29,8 +28,7 @@ const Functions = [
   {
     name:"isLiteralAbbreviation",
     label:"Literal contains abbreviation",
-    type:1,
-    parameterCount:1
+    type:1
   },
   {
     name:"isSameSimpleNormalize",
@@ -41,45 +39,39 @@ const Functions = [
   {
     name:"isLiteralNumeric",
     label:"Is literal numeric",
-    type:1,
-    parameterCount:1
+    type:1
   },
   {
     name:"literalContains",
     label:"Literal contains",
-    type:2,
-    parameterCount:3
+    type:2
   },
   {
     name:"literalContainsTheOther",
     label:"Literal contains the other",
-    type:1,
-    parameterCount:1
+    type:1
   },
   {
     name:"literalHasLanguageAnnotation",
     label:"Literal has language annotation",
-    type:1,
-    parameterCount:1
+    type:1
   },
 //geometry
   {
     name:"isGeometryMoreComplex",
     label:"Geometry is more complex",
-    type:1,
-    parameterCount:1
+    type:1
   },
   {
-    name:"issamecentroid",
+    name:"isSameCentroid",
     label:"Geometries have same centroid",
     type:4,
     parameterCount:3
   },
   {
-    name:"ispointgeometry",
+    name:"isPointGeometry",
     label:"Is POINT geometry",
-    type:1,
-    parameterCount:1
+    type:1
   },
   {
     name:"geometriesIntersect",
@@ -89,7 +81,7 @@ const Functions = [
   {
     name:"geometriesCloserThan",
     label:"Geometries are closer than",
-    parameterCount:2
+    type:5
   },
   {
     name:"isGeometryCoveredBy",
@@ -112,8 +104,7 @@ const Functions = [
   {
     name:"isPhoneNumberParsable",
     label:"Phone number is parsable",
-    type:1,
-    parameterCount:1
+    type:1
   },
   {
     name:"isSamePhoneNumber",
@@ -135,20 +126,17 @@ const Functions = [
   {
     name:"isDateKnownFormat",
     label:"Date is known format",
-    type:1,
-    parameterCount:1
+    type:1
   },
   {
     name:"isDatePrimaryFormat",
     label:"Date is primary format",
-    type:1,
-    parameterCount:1
+    type:1
   },
   {
     name:"isValidDate",
     label:"Date is valid format",
-    type:1,
-    parameterCount:1
+    type:1
   },
   {
     name:"datesAreSame",

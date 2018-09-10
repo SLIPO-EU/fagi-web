@@ -33,7 +33,7 @@ class Condition extends React.Component {
 
     //set value with setState?
     let selectedFunction = functions.find(f => f.name === newProps.field);
-    if(selectedFunction.parameterCount !== 1){
+    if(selectedFunction.type !== 1){
       this.setState({datasetId: null});
     }
   }
@@ -72,9 +72,11 @@ class Condition extends React.Component {
     let propertySelectionLabel2;
     let thresholdLabel;
     let thresholdField;
+    let inputLabel;
+    let inputField;
     let datasetSelection;
 
-    if(selectedFunction.parameterCount === 1){
+    if(selectedFunction.type === 1){
       datasetSelectionLabel = 'From Dataset: ';
 
       datasetSelection = (
@@ -93,21 +95,36 @@ class Condition extends React.Component {
       thresholdLabel = null;
       thresholdField = null;
 
-    } else if (selectedFunction.parameterCount === 2){
-
+    } else if (selectedFunction.type === 2){
       propertySelectionLabel1 = 'Property for dataset A: ';
       propertySelectionLabel2 = 'Property for dataset B: ';
       thresholdLabel = null;
       thresholdField = null;
 
     } else if(selectedFunction.type === 4){
-
       propertySelectionLabel1 = 'Property for dataset A: ';
       propertySelectionLabel2 = 'Property for dataset B: ';
 
       thresholdLabel = (
         <div className="SelectBox_content">
           <label>Threshold:&nbsp;</label>
+        </div>
+      );
+
+      thresholdField = (
+        <div className="Threshold-border" >
+          <input className= "Threshold" type="text"
+            value={this.state.value}
+            onChange={e => this.onThresholdChange(e.target.value)}/>
+        </div>
+       );
+    }  else if(selectedFunction.type === 5){
+      propertySelectionLabel1 = 'Property for dataset A: ';
+      propertySelectionLabel2 = 'Property for dataset B: ';
+
+      thresholdLabel = (
+        <div className="SelectBox_content">
+          <label>Distance(m):&nbsp;</label>
         </div>
       );
 
@@ -134,7 +151,7 @@ class Condition extends React.Component {
       </div>
     );
 
-    var propertySelect2 = selectedFunction.parameterCount !== 1 ? (
+    var propertySelect2 = selectedFunction.type !== 1 ? (
       <div className="SelectBox_content">
         <label>{propertySelectionLabel2}&nbsp;</label>
         <Select 

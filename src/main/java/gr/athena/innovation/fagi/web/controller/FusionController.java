@@ -42,6 +42,7 @@ public class FusionController extends BaseController {
     @ResponseBody
     public RestResponse fuse(@RequestBody RulesConfigRequest request) {
 
+        LOG.info("\n - FUSION - \n");
         try {
 
             if(!service.validateConfig(request)){

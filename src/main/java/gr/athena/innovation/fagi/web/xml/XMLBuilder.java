@@ -361,7 +361,6 @@ public class XMLBuilder {
             case 2:
                 function = field + "(" + vars.getVarA() + Vocabulary.COMMA + vars.getVarB() + ")";
                 break;
-                
             case 3:
                 Double thres = op.getThreshold();
                 function = field + "(" + vars.getVarA() + Vocabulary.COMMA + vars.getVarB()
