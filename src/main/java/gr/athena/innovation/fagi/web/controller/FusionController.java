@@ -3,6 +3,7 @@ package gr.athena.innovation.fagi.web.controller;
 import gr.athena.innovation.fagi.web.exception.ApplicationException;
 import gr.athena.innovation.fagi.web.model.RestResponse;
 import gr.athena.innovation.fagi.web.exception.Error;
+import gr.athena.innovation.fagi.web.model.FusionResponse;
 import gr.athena.innovation.fagi.web.model.Workflow;
 import gr.athena.innovation.fagi.web.model.config.RulesConfigRequest;
 import gr.athena.innovation.fagi.web.service.IService;
@@ -68,8 +69,8 @@ public class FusionController extends BaseController {
 
             service.fuse(workflow.getConfigFilePath());
 
-            RestResponse response = new RestResponse();
-            response.add("Fusion complete. ", "Results at " + workflow.getCurrentDir());
+            FusionResponse response  = new FusionResponse();
+            response.setFusionResultsPath(workflow.getCurrentDir());
 
             return response;
         } catch(ApplicationException ex){

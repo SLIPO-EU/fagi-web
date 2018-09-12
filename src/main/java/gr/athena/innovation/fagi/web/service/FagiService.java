@@ -1,6 +1,5 @@
 package gr.athena.innovation.fagi.web.service;
 
-import gr.athena.innovation.fagi.Fagi;
 import gr.athena.innovation.fagi.FagiInstance;
 import gr.athena.innovation.fagi.core.function.FunctionRegistry;
 import gr.athena.innovation.fagi.exception.WrongInputException;
@@ -42,7 +41,6 @@ import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
-import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.util.iterator.ExtendedIterator;
@@ -60,7 +58,8 @@ import org.xml.sax.SAXException;
 public class FagiService implements IService{
 
     private static final org.apache.logging.log4j.Logger LOG = LogManager.getLogger(FagiService.class);
-    
+    private FagiInstance fagiInstance;
+
     @Override
     public boolean validateConfig(RulesConfigRequest configuration) {
         XMLBuilder xmlBuilder = new XMLBuilder();
@@ -94,10 +93,7 @@ public class FagiService implements IService{
             return false;
         }
         
-        if(validator.isValidOutputDirPath(configPath)){
-            return false;
-        }
-        return true;
+        return !validator.isValidOutputDirPath(configPath);
     }
 
     @Override
@@ -154,7 +150,7 @@ public class FagiService implements IService{
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.parse(configFilePath);
-            
+
             Node rulesTag = doc.getElementsByTagName("rules").item(0);
             rulesTag.setTextContent(targetPath);
 
@@ -174,10 +170,14 @@ public class FagiService implements IService{
 
     @Override
     public void fuse(String configPath) throws ApplicationException{
-        
-        String[] fagiArgs = {"-spec", configPath};
         try {
-            Fagi.main(fagiArgs);
+
+            if(fagiInstance == null){
+                fagiInstance = new FagiInstance(configPath);
+            }
+
+            fagiInstance.run();
+
         } catch(Exception ex){
             throw new ApplicationException(ex.getLocalizedMessage());
         }
@@ -262,10 +262,12 @@ public class FagiService implements IService{
     @Override
     public String getStatistics(String path, List<String> statistics) throws ApplicationException, 
             WrongInputException, ParserConfigurationException, SAXException, IOException, ParseException {
-        
-        FagiInstance fagi = new FagiInstance(path);
-        
-        return fagi.computeStatistics(statistics);
+
+        if(fagiInstance == null){
+            fagiInstance = new FagiInstance(path);
+        }
+
+        return fagiInstance.computeStatistics(statistics);
     }
 
     @Override

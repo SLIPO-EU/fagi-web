@@ -114,6 +114,7 @@ class Statistics extends React.Component {
                 <input
                   type="checkbox"
                   className="checkbox"
+                  disabled={this.props.fusionComplete ? false : original.key.startsWith("fused")}
                   checked={this.state.selected[original.key] === true}
                   onChange={() => this.toggleRow(original.key)}
                 />
@@ -203,7 +204,8 @@ function mapStateToProps(state) {
     error: state.error,
     statistics: state.statistics,
     loading: state.statistics.loading,
-    configPath: state.configuration.configPath
+    configPath: state.configuration.configPath,
+    fusionComplete: state.app.fusionComplete
   };
 }
 

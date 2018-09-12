@@ -1,11 +1,13 @@
 const Functions = [
 
-
 //type 1: selection[left,right],  selection property
 //type 2: selection[left,right],  selection property,     input field
 //type 3: selection property A,   selection property B
-//type 4: selection property A,   selection property B,   threshold
-//type 5: selection property A,   selection property B,   input field
+//type 4: selection property A,   selection property B,   threshold ([0,1])
+//type 5: selection property A,   selection property B,   tolerance(meters)
+//type 6: selection property A,   selection property B,   input text
+//type 7: selection[left,right],   format
+//type 8: selection property A,   selection property B,   input text A, imput text B
 
 //property
   {
@@ -22,8 +24,7 @@ const Functions = [
   {
     name:"isSameCustomNormalize",
     label:"Is same using custom normalization",
-    type:4,
-    parameterCount:3
+    type:4
   },
   {
     name:"isLiteralAbbreviation",
@@ -33,8 +34,7 @@ const Functions = [
   {
     name:"isSameSimpleNormalize",
     label:"Is same using simple normalization",
-    type:4,
-    parameterCount:3
+    type:4
   },
   {
     name:"isLiteralNumeric",
@@ -65,8 +65,7 @@ const Functions = [
   {
     name:"isSameCentroid",
     label:"Geometries have same centroid",
-    type:4,
-    parameterCount:3
+    type:5
   },
   {
     name:"isPointGeometry",
@@ -76,7 +75,7 @@ const Functions = [
   {
     name:"geometriesIntersect",
     label:"Geometries intersect",
-    parameterCount:2
+    type:3
   },
   {
     name:"geometriesCloserThan",
@@ -85,21 +84,19 @@ const Functions = [
   },
   {
     name:"isGeometryCoveredBy",
-    label:"Geometry is covered by",
-    parameterCount:2
+    label:"Geometry is covered by the other",
+    type:1
   },
   {
     name:"geometriesHaveSameArea",
     label:"Geometries have same area",
-    type:4,
-    parameterCount:3
+    type:5
   },
 //phone
   {
     name:"isSamePhoneNumberCustomNormalize",
     label:"Phone number is same using normalization",
-    type:4,
-    parameterCount:2
+    type:3
   },
   {
     name:"isPhoneNumberParsable",
@@ -109,18 +106,17 @@ const Functions = [
   {
     name:"isSamePhoneNumber",
     label:"Phone number is same",
-    type:3,
-    parameterCount:2
-  }, 
+    type:3
+  },
   {
     name:"isSamePhoneNumberUsingExitCode",
     label:"Phone number is same using exit code",
-    parameterCount:3
+    type:6
   },
   {
     name:"phoneHasMoreDigits",
-    label:"Phone has more digits",
-    parameterCount:2
+    label:"Phone has more digits than the other",
+    type:1
   },
 //date
   {
@@ -136,12 +132,12 @@ const Functions = [
   {
     name:"isValidDate",
     label:"Date is valid format",
-    type:1
+    type:7
   },
   {
     name:"datesAreSame",
     label:"Dates are the same",
-    parameterCount:5
+    type:8
   }
 ];
 

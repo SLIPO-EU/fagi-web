@@ -6,7 +6,8 @@ var initialState = {
   error: null,
   loading: null,
   calculating: null,
-  config: null
+  config: null,
+  fusionComplete: null
 };
 
 export default (state = initialState, action) => {
@@ -22,10 +23,11 @@ export default (state = initialState, action) => {
     case types.RESPONSE_FUSE:
       if(!action.success){
         console.log(action.error[0].code + ": " + action.error[0].description);
-        //alert(action.error[0].code + ": " + action.error[0].description);
+        alert(action.error[0].code + ": " + action.error[0].description);
       }
       return Object.assign({}, state, {
         calculating: false,
+        fusionComplete:true,
         success: action.success,
         error: action.error
       });

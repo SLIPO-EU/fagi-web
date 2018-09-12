@@ -75,6 +75,8 @@ class Condition extends React.Component {
     let inputLabel;
     let inputField;
     let datasetSelection;
+    let thresholdLabel2 = null;
+    let thresholdField2 = null;
 
     if(selectedFunction.type === 1){
       datasetSelectionLabel = 'From Dataset: ';
@@ -96,18 +98,51 @@ class Condition extends React.Component {
       thresholdField = null;
 
     } else if (selectedFunction.type === 2){
+
+      datasetSelectionLabel = 'From Dataset: ';
+
+      datasetSelection = (
+        <div className="SelectBox_content">
+          <label >{datasetSelectionLabel}&nbsp;</label>
+          <select className="simple-select"
+            onChange={e => this.selectDatasetIdentifier(e.target.value)} 
+            title = "Choose property" >
+            {datasetOptions}
+          </select>
+        </div>
+      );
+
+      propertySelectionLabel1 = 'Property: ';
+
+      thresholdLabel = (
+        <div className="SelectBox_content">
+          <label>Input:&nbsp;</label>
+        </div>
+      );
+
+      thresholdField = (
+        <div className="Threshold-border" >
+          <input className= "Input-text" type="text"
+            value={this.state.value}
+            onChange={e => this.onThresholdChange(e.target.value)}/>
+        </div>
+       );
+
+    } else if (selectedFunction.type === 3){
+
       propertySelectionLabel1 = 'Property for dataset A: ';
       propertySelectionLabel2 = 'Property for dataset B: ';
       thresholdLabel = null;
       thresholdField = null;
 
     } else if(selectedFunction.type === 4){
+
       propertySelectionLabel1 = 'Property for dataset A: ';
       propertySelectionLabel2 = 'Property for dataset B: ';
 
       thresholdLabel = (
         <div className="SelectBox_content">
-          <label>Threshold:&nbsp;</label>
+          <label>Threshold [0,1]:&nbsp;</label>
         </div>
       );
 
@@ -119,18 +154,100 @@ class Condition extends React.Component {
         </div>
        );
     }  else if(selectedFunction.type === 5){
+
       propertySelectionLabel1 = 'Property for dataset A: ';
       propertySelectionLabel2 = 'Property for dataset B: ';
 
       thresholdLabel = (
         <div className="SelectBox_content">
-          <label>Distance(m):&nbsp;</label>
+          <label>Tolerance(m):&nbsp;</label>
         </div>
       );
 
       thresholdField = (
         <div className="Threshold-border" >
-          <input className= "Threshold" type="text"
+          <input className= "Tolerance" type="text"
+            value={this.state.value}
+            onChange={e => this.onThresholdChange(e.target.value)}/>
+        </div>
+       );
+    } else if(selectedFunction.type === 6){
+
+      propertySelectionLabel1 = 'Property for dataset A: ';
+      propertySelectionLabel2 = 'Property for dataset B: ';
+
+      thresholdLabel = (
+        <div className="SelectBox_content">
+          <label>Input:&nbsp;</label>
+        </div>
+      );
+
+      thresholdField = (
+        <div className="Threshold-border" >
+          <input className= "Input-text" type="text"
+            value={this.state.value}
+            onChange={e => this.onThresholdChange(e.target.value)}/>
+        </div>
+       );
+    } else if (selectedFunction.type === 7){
+
+      datasetSelectionLabel = 'From Dataset: ';
+
+      datasetSelection = (
+        <div className="SelectBox_content">
+          <label >{datasetSelectionLabel}&nbsp;</label>
+          <select className="simple-select"
+            onChange={e => this.selectDatasetIdentifier(e.target.value)} 
+            title = "Choose property" >
+            {datasetOptions}
+          </select>
+        </div>
+      );
+
+      propertySelectionLabel1 = 'Property: ';
+
+      thresholdLabel = (
+        <div className="SelectBox_content">
+          <label>Date format:&nbsp;</label>
+        </div>
+      );
+
+      thresholdField = (
+        <div className="Threshold-border" >
+          <input className= "Input-text" type="text"
+            value={this.state.value}
+            onChange={e => this.onThresholdChange(e.target.value)}/>
+        </div>
+       );
+
+    } else if (selectedFunction.type === 8){
+
+      propertySelectionLabel1 = 'Property for dataset A: ';
+      propertySelectionLabel2 = 'Property for dataset B: ';
+
+      thresholdLabel = (
+        <div className="SelectBox_content">
+          <label>Format A:&nbsp;</label>
+        </div>
+      );
+
+      thresholdField = (
+        <div className="Threshold-border" >
+          <input className= "Input-text" type="text"
+            value={this.state.value}
+            onChange={e => this.onThresholdChange(e.target.value)}/>
+        </div>
+       );
+
+      thresholdLabel2 = (
+        <div className="SelectBox_content">
+          <label>Format B:&nbsp;</label>
+        </div>
+      );
+
+      thresholdField2 = (
+        <div className="Threshold-border" >
+          <input className= "Input-text" type="text"
             value={this.state.value}
             onChange={e => this.onThresholdChange(e.target.value)}/>
         </div>
@@ -151,21 +268,22 @@ class Condition extends React.Component {
       </div>
     );
 
-    var propertySelect2 = selectedFunction.type !== 1 ? (
-      <div className="SelectBox_content">
-        <label>{propertySelectionLabel2}&nbsp;</label>
-        <Select 
-          id={'4'}
-          options={opts ? opts : []}
-          onChange={e => this.selectActionRulePropertyB(e)} 
-          title = "Choose property">
-        </Select>
-      </div>
-    ) : null;
-
-    var propertyASelect;
-    var propertyBSelect;
-
+    let propertySelect2;
+    if(selectedFunction.type == 1 || selectedFunction.type === 2 || selectedFunction.type === 7) {
+        propertySelect2 = null;
+    } else {
+        propertySelect2 = (
+            <div className="SelectBox_content">
+              <label>{propertySelectionLabel2}&nbsp;</label>
+              <Select 
+                id={'4'}
+                options={opts ? opts : []}
+                onChange={e => this.selectActionRulePropertyB(e)} 
+                title = "Choose property">
+              </Select>
+            </div>
+        );
+    }
     return (
       <div className="SelectBox">
         {datasetSelection}
@@ -173,6 +291,8 @@ class Condition extends React.Component {
         {propertySelect2}
         {thresholdLabel}
         {thresholdField}
+        {thresholdLabel2}
+        {thresholdField2}
       </div>
     );
   }

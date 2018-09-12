@@ -2,6 +2,7 @@ const Statistics =
   [
     {
       key: 'totalPois',
+      disabled: true,
       name: "Total POIs",
       description: "Number of POI entities in each input dataset."
     },
@@ -269,6 +270,22 @@ const Statistics =
       key: 'fullMatchingStreetNumbers',
       name: "Full matching street numbers.",
       description: "Number of fully matching address street numbers between linked POIs in the two datasets."
+    },
+//all keys that refer to fused statistic should start with "fused", in order the disabled checkboxes to work.
+    {
+      key: 'fusedVsLinked',
+      name: "Fused POIs vs initial links.",
+      description: "The number of POI links that were not rejected by FAGI and were actually considered for fusion of their attributes."
+    },
+    {
+      key: 'fusedRejected',
+      name: "Number of rejected POI links vs. initial links.",
+      description: "The number of POI links that were eventually rejected by FAGI vs the initial links."
+    },
+    {
+      key: 'fusedInitial',
+      name: "Number of initial POIs vs number of POIs in fused.",
+      description: "The number of POIs of each input dataset and the total POIs in the fused dataset."
     }
   ];
 
