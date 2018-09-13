@@ -286,6 +286,21 @@ const Statistics =
       key: 'fusedInitial',
       name: "Number of initial POIs vs number of POIs in fused.",
       description: "The number of POIs of each input dataset and the total POIs in the fused dataset."
+    },
+    {
+      key: 'fusedPhones',
+      name: "Number of POIs with phone numbers in the fused dataset.",
+      description: "The number of POIs of each input dataset that have phones vs the phones in the fused dataset."
+    },
+    {
+      key: 'fusedEmails',
+      name: "Number of POIs with emails in the fused dataset.",
+      description: "The number of POIs of each input dataset that have emails vs the emails in the fused dataset."
+    },
+    {
+      key: 'fusedWebsites',
+      name: "Number of POIs with websites in the fused dataset.",
+      description: "The number of POIs of each input dataset that have websites vs the websites in the fused dataset."
     }
   ];
 
