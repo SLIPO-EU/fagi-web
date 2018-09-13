@@ -38,6 +38,7 @@ public class ConfigurationController {
     @ResponseBody
     public RestResponse submit(@RequestBody ConfigurationUploadRequest request){
         LOG.info("Submitting configuration. Starting new workflow.");
+        LOG.info(System.getProperty("file.encoding"));
         Workflow workflow = Workflow.getInstance();
         workflow.clean();
 

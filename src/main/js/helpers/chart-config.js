@@ -106,6 +106,10 @@ var getGroup = function (statsArray){
       yAxis: {
           splitLine: {show: true}
       },
+      tooltip: {
+        show:true,
+        trigger: "axis"
+      },
       animationDurationUpdate: 1000,
       series: [{
           name: gLegendTotal,
