@@ -301,6 +301,26 @@ const Statistics =
       key: 'fusedWebsites',
       name: "Number of POIs with websites in the fused dataset.",
       description: "The number of POIs of each input dataset that have websites vs the websites in the fused dataset."
+    },
+    {
+      key: 'fusedStreet',
+      name: "Number of POIs with address-street in the fused dataset.",
+      description: "The number of POIs of each input dataset that have address-street vs the address-streets in the fused dataset."
+    },
+    {
+      key: 'fusedStreetNumber',
+      name: "Number of POIs with street-number in the fused dataset.",
+      description: "The number of POIs of each input dataset that have street-number vs the street-numbers in the fused dataset."
+    },
+    {
+      key: 'fusedPostcode',
+      name: "Number of POIs with postcode in the fused dataset.",
+      description: "The number of POIs of each input dataset that have postcode vs the postcodes in the fused dataset."
+    },
+    {
+      key: 'fusedFax',
+      name: "Number of POIs with fax value in the fused dataset.",
+      description: "The number of POIs of each input dataset that have fax value vs the fax values in the fused dataset."
     }
   ];
 
