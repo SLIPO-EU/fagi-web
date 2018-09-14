@@ -27,7 +27,7 @@ class App extends React.Component {
       loading: null,
       datasetAction: datasetActionConstants[0]
     }
-    
+
     this.props.actions.setDatasetAction(datasetActionConstants[0].name);
   }
 

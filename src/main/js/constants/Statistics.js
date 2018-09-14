@@ -288,6 +288,11 @@ const Statistics =
       description: "The number of POIs of each input dataset and the total POIs in the fused dataset."
     },
     {
+      key: 'fusedNames',
+      name: "Number of POIs with name value in the fused dataset.",
+      description: "The number of POIs of each input dataset that have name value vs the name values in the fused dataset."
+    },
+    {
       key: 'fusedPhones',
       name: "Number of POIs with phone numbers in the fused dataset.",
       description: "The number of POIs of each input dataset that have phones vs the phones in the fused dataset."
