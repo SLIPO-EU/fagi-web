@@ -8,7 +8,9 @@ public class Operator {
     private String dataset;
     private Property propA;
     private Property propB;
-    private Double threshold;
+    private String threshold;
+    private String threshold2;
+    private String threshold3;
 
     public String getDataset() {
         return dataset;
@@ -22,7 +24,23 @@ public class Operator {
         return propB;
     }
 
-    public Double getThreshold() {
+    public String getThreshold() {
         return threshold;
+    }
+
+    public String getThreshold2() {
+        return threshold2;
+    }
+
+    public void setThreshold2(String threshold2) {
+        this.threshold2 = threshold2;
+    }
+
+    public String getThreshold3() {
+        return threshold3;
+    }
+
+    public void setThreshold3(String threshold3) {
+        this.threshold3 = threshold3;
     }
 }

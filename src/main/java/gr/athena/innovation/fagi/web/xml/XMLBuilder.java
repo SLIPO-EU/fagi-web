@@ -362,9 +362,16 @@ public class XMLBuilder {
                 function = field + "(" + vars.getVarA() + Vocabulary.COMMA + vars.getVarB() + ")";
                 break;
             case 3:
-                Double thres = op.getThreshold();
+                String thres = op.getThreshold();
                 function = field + "(" + vars.getVarA() + Vocabulary.COMMA + vars.getVarB()
                         + Vocabulary.COMMA + thres + ")";
+                break;
+            case 5:
+                String thres1 = op.getThreshold();
+                String thres2 = op.getThreshold2();
+                String thres3 = op.getThreshold3();
+                function = field + "(" + vars.getVarA() + Vocabulary.COMMA + thres1 + Vocabulary.COMMA + vars.getVarB()
+                        + Vocabulary.COMMA + thres2 + Vocabulary.COMMA + thres3 + ")";
                 break;
             default:
                 throw new ApplicationException("Invalid parameter count: " + paramCount);

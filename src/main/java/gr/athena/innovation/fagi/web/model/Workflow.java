@@ -72,10 +72,14 @@ public class Workflow {
     /**
      * Cleans all fields of the current workflow object.
      */
-    public void clean(){
+    public void destroy(){
+        configFilename = null;
         currentDir = null;
         configurationContent = null;
+        configFilePath = null;
+        outputZipPath = null;
         ontology = null;
+        workflow = null;
     }
 
     /**

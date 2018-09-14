@@ -65,6 +65,8 @@ class ConditionWrapper extends React.Component {
     this.setActionPropertyA = this.setActionPropertyA.bind(this);
     this.setActionPropertyB = this.setActionPropertyB.bind(this);
     this.setThreshold = this.setThreshold.bind(this);
+    this.setThreshold2 = this.setThreshold2.bind(this);
+    this.setThreshold3 = this.setThreshold3.bind(this);
   }
 
   componentDidMount() {
@@ -95,6 +97,16 @@ class ConditionWrapper extends React.Component {
     this.props.handleOnChange(_query);  
   }
 
+  setThreshold2(ruleId, actionRuleId, thres2){
+    let _query = Object.assign(this.props.value, {threshold2:thres2});
+    this.props.handleOnChange(_query);  
+  }
+
+  setThreshold3(ruleId, actionRuleId, thres3){
+    let _query = Object.assign(this.props.value, {threshold3:thres3});
+    this.props.handleOnChange(_query);  
+  }
+
   render() {
 
     return (
@@ -107,6 +119,8 @@ class ConditionWrapper extends React.Component {
         setActionPropertyB={this.setActionPropertyB}
         setDataset={this.setDataset}
         setThreshold={this.setThreshold}
+        setThreshold2={this.setThreshold2}
+        setThreshold3={this.setThreshold3}
       />
     )
   }

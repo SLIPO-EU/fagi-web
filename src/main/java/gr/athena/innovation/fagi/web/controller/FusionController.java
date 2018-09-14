@@ -71,6 +71,7 @@ public class FusionController extends BaseController {
 
             FusionResponse response  = new FusionResponse();
             response.setFusionResultsPath(workflow.getCurrentDir());
+            LOG.info("Fusion results at: " + workflow.getCurrentDir());
 
             return response;
         } catch(ApplicationException ex){
@@ -88,7 +89,7 @@ public class FusionController extends BaseController {
     @ResponseBody
     public RestResponse compress() {
         Workflow workflow = Workflow.getInstance();
-        
+        LOG.info("compressing directory: " + workflow.getCurrentDir());
         String outputZip = service.compressDirectory(workflow.getCurrentDir());
         
         workflow.setOutputZipPath(outputZip);

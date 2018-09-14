@@ -112,8 +112,7 @@ class Configuration extends React.Component {
             <li key={'2'}><b>Right dataset: </b>{this.props.configXML.right}</li>
             <li key={'3'}><b>Links: </b>{this.props.configXML.links}</li>
             <li key={'4'}><b>Fusion mode: </b>{this.props.configXML.mode}</li>
-            <li key={'5'}><b>Ouptut directory: </b>{this.props.configXML.output}</li>
-            <li key={'6'}><b>Last modified: </b>{this.props.configXML.lastModifiedDate.toString()}</li>
+            <li key={'5'}><b>Last modified: </b>{this.props.configXML.lastModifiedDate.toString()}</li>
           </ul>
         );        
     }

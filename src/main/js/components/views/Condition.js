@@ -25,7 +25,9 @@ class Condition extends React.Component {
       datasetId: datasetIdentifiers[0],
       propertyA: properties[0].value, 
       propertyB: properties[0].value,
-      threshold: 0
+      threshold: 0,
+      threshold2: "",
+      threshold3: ""
     }
   }
   
@@ -64,6 +66,14 @@ class Condition extends React.Component {
     this.props.setThreshold(this.props.ruleId, this.props.actionRuleId, e);
   }
 
+  onThresholdChange2(e){
+    this.props.setThreshold2(this.props.ruleId, this.props.actionRuleId, e);
+  }
+
+  onThresholdChange3(e){
+    this.props.setThreshold3(this.props.ruleId, this.props.actionRuleId, e);
+  }
+
   render() {
 
     let selectedFunction = functions.find(f => f.name === this.props.field);
@@ -77,6 +87,8 @@ class Condition extends React.Component {
     let datasetSelection;
     let thresholdLabel2 = null;
     let thresholdField2 = null;
+    let thresholdLabel3 = null;
+    let thresholdField3 = null;
 
     if(selectedFunction.type === 1){
       datasetSelectionLabel = 'From Dataset: ';
@@ -249,7 +261,20 @@ class Condition extends React.Component {
         <div className="Threshold-border" >
           <input className= "Input-text" type="text"
             value={this.state.value}
-            onChange={e => this.onThresholdChange(e.target.value)}/>
+            onChange={e => this.onThresholdChange2(e.target.value)}/>
+        </div>
+       );
+      thresholdLabel3 = (
+        <div className="SelectBox_content">
+          <label>Tolerance(days):&nbsp;</label>
+        </div>
+      );
+
+      thresholdField3 = (
+        <div className="Threshold-border" >
+          <input className= "Input-text" type="text"
+            value={this.state.value}
+            onChange={e => this.onThresholdChange3(e.target.value)}/>
         </div>
        );
     }
@@ -293,6 +318,8 @@ class Condition extends React.Component {
         {thresholdField}
         {thresholdLabel2}
         {thresholdField2}
+        {thresholdLabel3}
+        {thresholdField3}
       </div>
     );
   }
