@@ -106,13 +106,14 @@ class Configuration extends React.Component {
 
     let configInfo = null;
     if(this.props.configXML) {
+        let lmd = this.props.configXML.lastModifiedDate ? this.props.configXML.lastModifiedDate.toString() : 'unknown';
         configInfo = (
           <ul>
             <li key={'1'}><b>Left dataset: </b>{this.props.configXML.left}</li>
             <li key={'2'}><b>Right dataset: </b>{this.props.configXML.right}</li>
             <li key={'3'}><b>Links: </b>{this.props.configXML.links}</li>
             <li key={'4'}><b>Fusion mode: </b>{this.props.configXML.mode}</li>
-            <li key={'5'}><b>Last modified: </b>{this.props.configXML.lastModifiedDate.toString()}</li>
+            <li key={'5'}><b>Last modified: </b>{lmd}</li>
           </ul>
         );        
     }

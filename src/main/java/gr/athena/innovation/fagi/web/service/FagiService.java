@@ -172,9 +172,9 @@ public class FagiService implements IService{
     public void fuse(String configPath) throws ApplicationException{
         try {
 
-            if(fagiInstance == null){
+            //if(fagiInstance == null){
                 fagiInstance = new FagiInstance(configPath);
-            }
+            //}
 
             fagiInstance.run();
 

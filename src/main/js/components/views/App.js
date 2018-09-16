@@ -40,7 +40,7 @@ class App extends React.Component {
   }
 
   selectDatasetAction(e){
-    this.props.actions.setDatasetAction(e);
+        this.props.actions.setDatasetAction(e);
   }
 
   render() {

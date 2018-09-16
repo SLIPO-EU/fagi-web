@@ -56,6 +56,8 @@ public class ConfigurationController {
 
             service.overwriteOutputPath(workflow.getConfigFilePath(), dirPath+"/");
 
+            LOG.info("new workflow under: " + dirPath);
+            LOG.info("new configpath: " + configFilepath);
             return response;
 
         } catch (ApplicationException | IOException ex){
