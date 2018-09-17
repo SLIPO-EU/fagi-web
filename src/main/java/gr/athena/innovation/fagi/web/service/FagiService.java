@@ -263,9 +263,9 @@ public class FagiService implements IService{
     public String getStatistics(String path, List<String> statistics) throws ApplicationException, 
             WrongInputException, ParserConfigurationException, SAXException, IOException, ParseException {
 
-        if(fagiInstance == null){
+        //if(fagiInstance == null){
             fagiInstance = new FagiInstance(path);
-        }
+        //}
 
         return fagiInstance.computeStatistics(statistics);
     }
